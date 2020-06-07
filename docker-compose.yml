@@ -1,0 +1,47 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./ttd:/var/www/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx
+    links:
+      - php
+      - mysql
+    networks:
+      - app-network
+
+  php:
+    image: php74-fpm:1.0
+    container_name: php
+    ports:
+      - "9000:9000"
+    working_dir: /var/www/html
+    volumes:
+      - ./ttd:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/php.ini-development
+      - ./php/php.ini:/usr/local/etc/php/php.ini-production
+    links:
+      - mysql
+    networks:
+      - app-network
+
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'thanhdanpc'
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
