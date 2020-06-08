@@ -18,6 +18,7 @@ class CreateCommentsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('product_id')->constrained();
             $table->text('content');
+            $table->bigInteger('parent')->default(null);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

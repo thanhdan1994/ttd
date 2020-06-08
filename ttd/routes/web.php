@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::namespace('Auth')->group(function () {
     Route::get('logout', 'LoginController@logout');
 });
@@ -24,11 +20,10 @@ Route::namespace('Auth')->group(function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'administrator', 'as' => 'admin.'], function () {
         Route::namespace('Admin')->group(function () {
+            Route::get('/', 'DashboardController@index')->name('dashboard');
             Route::resource('products', 'ProductController');
         });
     });
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

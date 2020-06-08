@@ -17,7 +17,7 @@ services:
       - app-network
 
   php:
-    image: php74-fpm:1.0
+    image: php74-fpm:2.0
     container_name: php
     ports:
       - "9000:9000"

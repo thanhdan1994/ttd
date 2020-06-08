@@ -39,6 +39,14 @@ class User extends Authenticatable
 
     public function getThumbnailUrlAttribute()
     {
-        return 'https://kuruma-tabinavi.com/wp-content/themes/campingcardesktop/shared/img/default-camping-car.jpg';
+        return 'https://cuoifly.tuoitre.vn/155/0/ttc/r/2020/02/03/logo-ttc-1580721954.png';
+    }
+
+    public function isAdmin()
+    {
+        if($this->role == 'admin') {
+            return true;
+        }
+        return false;
     }
 }

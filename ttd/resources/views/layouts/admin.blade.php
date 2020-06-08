@@ -13,16 +13,6 @@
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                 <span class="mdi mdi-menu"></span>
             </button>
-            <div class="search-field d-none d-md-block">
-                <form class="d-flex align-items-center h-100" action="#">
-                    <div class="input-group">
-                        <div class="input-group-prepend bg-transparent">
-                            <i class="input-group-text border-0 mdi mdi-magnify"></i>
-                        </div>
-                        <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
-                    </div>
-                </form>
-            </div>
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -73,27 +63,22 @@
                 </li>
             </ul>
         </nav>
-        <!-- partial -->
         <div class="main-panel">
         @yield('content')
-        <!-- content-wrapper ends -->
-            <!-- partial:partials/_footer.html -->
-            <footer class="footer fixed-bottom">
-                <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2017 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.</span>
-                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
-                </div>
-            </footer>
-            <!-- partial -->
         </div>
-        <!-- main-panel ends -->
     </div>
-    <!-- page-body-wrapper ends -->
 </div>
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
     @csrf
 </form>
-<!-- container-scroller -->
+<!-- plugins:js -->
+<script src="{{asset('admin/assets/vendors/js/vendor.bundle.base.js')}}"></script>
+<!-- endinject -->
+<!-- inject:js -->
+<script src="{{asset('admin/assets/js/off-canvas.js')}}"></script>
+<script src="{{asset('admin/assets/js/hoverable-collapse.js')}}"></script>
+<script src="{{asset('admin/assets/js/misc.js')}}"></script>
+<!-- endinject -->
 @yield('js')
 </body>
 </html>

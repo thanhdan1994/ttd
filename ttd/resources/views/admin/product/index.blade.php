@@ -49,7 +49,7 @@
                             <th> Tiêu đề </th>
                             <th> Ảnh </th>
                             <th> Chuyên mục </th>
-                            <th> Hành động </th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -67,14 +67,13 @@
                                 <td>
                                     {{ $product->category->name }}
                                 </td>
-                                <td>
-                                    <a href="{{ route('admin.products.edit', $product->id) }}" type="button" class="btn btn-outline-info">Sửa</a>
-                                    <form method="post" action="{{route('admin.products.destroy', $product->id)}}"
-                                          onsubmit="return confirm('Bạn chắc chắn muốn xóa sản phẩm này?');">
-                                        {{method_field('delete')}}
-                                        {{csrf_field()}}
-                                        <button type="submit" class="btn btn-outline-danger">Xóa</button>
-                                    </form>
+                                <td class="d-flex flex-column">
+                                    <a href="{{ route('admin.products.show', $product->id) }}" type="button" class="btn btn-outline-info mb-2">
+                                        <i class="mdi mdi-eye"></i> Chi tiết
+                                    </a>
+                                    <a href="{{ route('admin.products.edit', $product->id) }}" type="button" class="btn btn-outline-success">
+                                        <i class="mdi mdi-database-edit"></i> Sửa
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -94,12 +93,5 @@
 @endsection
 
 @section('js')
-    <!-- plugins:js -->
-    <script src="{{asset('admin/assets/vendors/js/vendor.bundle.base.js')}}"></script>
-    <!-- endinject -->
-    <!-- inject:js -->
-    <script src="{{asset('admin/assets/js/off-canvas.js')}}"></script>
-    <script src="{{asset('admin/assets/js/hoverable-collapse.js')}}"></script>
-    <script src="{{asset('admin/assets/js/misc.js')}}"></script>
-    <!-- endinject -->
+
 @endsection
