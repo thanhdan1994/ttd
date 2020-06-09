@@ -22,7 +22,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::namespace('Admin')->group(function () {
             Route::get('/', 'DashboardController@index')->name('dashboard');
             Route::resource('products', 'ProductController');
-            Route::resource('reports', 'ReportController');
+            Route::resource('products.reports', 'ProductReportController');
+            Route::resource('products.comments', 'ProductCommentController');
         });
     });
 });

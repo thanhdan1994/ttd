@@ -2,21 +2,12 @@
 
 @section('head')
     <head>
-        <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Trang quản trị {{ env('APP_NAME') }}</title>
-        <!-- plugins:css -->
         <link rel="stylesheet" href="{{asset('admin/assets/vendors/mdi/css/materialdesignicons.min.css')}}">
         <link rel="stylesheet" href="{{asset('admin/assets/vendors/css/vendor.bundle.base.css')}}">
-        <!-- endinject -->
-        <!-- Plugin css for this page -->
-        <!-- End plugin css for this page -->
-        <!-- inject:css -->
-        <!-- endinject -->
-        <!-- Layout styles -->
         <link rel="stylesheet" href="{{asset('admin/assets/css/style.css')}}">
-        <!-- End layout styles -->
         <link rel="shortcut icon" href="{{asset('admin/assets/images/favicon.png')}}" />
     </head>
 @endsection
@@ -94,8 +85,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <h5>Hình ảnh chi tiết</h5>
-                            <input type="file" name="images[]" id="images" multiple>
+                            <label class="file col-12">
+                                <input type="file" name="images[]" id="images" multiple aria-label="File browser example">
+                                <span class="file-custom"></span>
+                            </label>
                         </div>
                         <div class="row form-group preview-images">
                         </div>
@@ -132,8 +125,6 @@
 @endsection
 
 @section('js')
-    <!-- Custom js for this page -->
-    <script src="{{asset('admin/assets/js/file-upload.js')}}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script>
     <script src="{{ asset('admin/ckfinder/ckfinder.js') }}"></script>
     <script>
@@ -179,5 +170,5 @@
             this.closest('tr').remove();
         }
     </script>
-    <!-- End custom js for this page -->
+    <script src="{{asset('admin/assets/js/file-upload.js')}}"></script>
 @endsection

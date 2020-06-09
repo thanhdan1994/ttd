@@ -92,8 +92,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <h5>Hình ảnh chi tiết</h5>
-                            <input type="file" name="images[]" id="images" multiple>
+                            <label class="file col-12">
+                                <input type="file" name="images[]" id="images" multiple aria-label="File browser example">
+                                <span class="file-custom"></span>
+                            </label>
                         </div>
                         <div class="row form-group preview-images">
                             @foreach ($product->images as $image)

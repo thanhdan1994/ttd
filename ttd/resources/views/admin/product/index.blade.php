@@ -2,21 +2,12 @@
 
 @section('head')
     <head>
-        <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Trang quản trị Du Lịch Cổ Thạch</title>
-        <!-- plugins:css -->
         <link rel="stylesheet" href="{{asset('admin/assets/vendors/mdi/css/materialdesignicons.min.css')}}">
         <link rel="stylesheet" href="{{asset('admin/assets/vendors/css/vendor.bundle.base.css')}}">
-        <!-- endinject -->
-        <!-- Plugin css for this page -->
-        <!-- End plugin css for this page -->
-        <!-- inject:css -->
-        <!-- endinject -->
-        <!-- Layout styles -->
         <link rel="stylesheet" href="{{asset('admin/assets/css/style.css')}}">
-        <!-- End layout styles -->
         <link rel="shortcut icon" href="{{asset('admin/assets/images/favicon.png')}}" />
     </head>
 @endsection
@@ -71,7 +62,13 @@
                                     <a href="{{ route('admin.products.show', $product->id) }}" type="button" class="btn btn-outline-info mb-2">
                                         <i class="mdi mdi-eye"></i> Chi tiết
                                     </a>
-                                    <a href="{{ route('admin.products.edit', $product->id) }}" type="button" class="btn btn-outline-success">
+                                    <a href="{{ route('admin.products.comments.create', $product->id) }}" type="button" class="btn btn-outline-primary mb-2">
+                                        <i class="mdi mdi-comment"></i> Viết comment
+                                    </a>
+                                    <a href="{{ route('admin.products.reports.create', $product->id) }}" type="button" class="btn btn-outline-success mb-2">
+                                        <i class="mdi mdi-pen"></i> Viết report
+                                    </a>
+                                    <a href="{{ route('admin.products.edit', $product->id) }}" type="button" class="btn btn-outline-warning">
                                         <i class="mdi mdi-database-edit"></i> Sửa
                                     </a>
                                 </td>

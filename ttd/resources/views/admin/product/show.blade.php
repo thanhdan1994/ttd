@@ -79,7 +79,7 @@
         </div>
     </div>
     <div class="tab-content">
-        <div class="tab-pane container active" id="info">
+        <div class="tab-pane active" id="info">
             <div class="row">
                 <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
                     <img class="mw-100" src="{!! $product->thumbnailUrl !!}">
@@ -106,10 +106,10 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane container fade" id="images">
+        <div class="tab-pane fade" id="images">
             <div class="row">
             @foreach ($product->images as $image)
-                <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 pb-3">
+                <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-2 pb-3">
                     <a data-fancybox="gallery"
                        href="{!! $image->getUrl() !!}">
                         <img style="width: 250px; height: 200px" src="{!! $image->getUrl('thumb') !!}">
@@ -118,8 +118,9 @@
             @endforeach
             </div>
         </div>
-        <div class="tab-pane container fade" id="content">{!! $product->content !!}</div>
-        <div class="tab-pane container fade" id="reports">
+        <div class="tab-pane fade" id="content">{!! $product->content !!}</div>
+        <div class="tab-pane fade" id="reports">
+            <a href="{{ route('admin.products.reports.create', $product->id) }}" class="btn btn-outline-success mb-5 col-12"><i class="mdi mdi-pen"></i> Viết report</a>
             @foreach($product->reports as $report)
             <div class="media mb-3">
                 <img class="mr-3" src="{!! $report->user->thumbnailUrl !!}" alt="Generic placeholder image">
@@ -158,7 +159,7 @@
                                 <div class="modal-body">
                                     <div class="row">
                                         @foreach ($report->images as $image)
-                                        <a class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3" data-fancybox="galleryReport{!! $report->id !!}"
+                                        <a class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-2 pb-3" data-fancybox="galleryReport{!! $report->id !!}"
                                            href="{!! $image->getUrl() !!}">
                                             <img style="width: 250px; height: 200px" src="{!! $image->getUrl('thumb') !!}">
                                         </a>
@@ -180,8 +181,8 @@
     </div>
     <div id="block-comments" class="row mt-5">
         <div class="col-12">
-            <h2>Bình luận</h2>
-            @foreach($product->comments as $comment)
+            <h2>Bình luận ({!! count($product->comments) !!})</h2>
+            @if (count($product->comments) > 0) @foreach($product->comments as $comment)
             <div class="media comment-box">
                 <div class="media-left">
                     <img class="img-responsive user-photo" src="{!! $comment->user->thumbnailUrl !!}">
@@ -202,7 +203,7 @@
                     @endforeach
                 </div>
             </div>
-            @endforeach
+            @endforeach @else <span>Hãy trở thành người viết bình luận đầu tiên</span> @endif
         </div>
     </div>
 @endsection

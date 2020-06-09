@@ -3,7 +3,7 @@ namespace App\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateReportRequest extends FormRequest
+class CreateCommentRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,7 +13,7 @@ class CreateReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'excerpt' => ['required'],
+            'content' => ['required'],
         ];
     }
 
@@ -25,7 +25,7 @@ class CreateReportRequest extends FormRequest
     public function messages()
     {
         return [
-            'excerpt.required' => 'Mô tả report là bắt buộc',
+            'content.required' => 'Mô tả report là bắt buộc',
         ];
     }
 }
