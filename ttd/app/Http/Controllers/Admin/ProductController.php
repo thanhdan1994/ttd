@@ -7,7 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\Requests\CreateProductRequest;
 use App\Requests\UpdateProductRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -59,19 +62,27 @@ class ProductController extends Controller
         $data['status'] =  $request->get('status') ? true : false;
         $data['slug'] = Str::slug($request->get('name'));
         $data['user_id'] = Auth::id();
-        $product = Product::create($data);
-        if ($request->file('featured_image')) {
-            $media = $product
-                ->addMedia($request->featured_image)
-                ->toMediaCollection('images');
-            $product->featured_image = $media->id;
-            $product->save();
-        }
-        if ($request->file('images')) {
-            $product->clearMediaCollection('detail-images');
-            foreach ($request->file('images') as $file) {
-                $product->addMedia($file)->toMediaCollection('detail-images');
+        DB::beginTransaction();
+        try {
+            $product = Product::create($data);
+            if ($request->file('featured_image')) {
+                $media = $product
+                    ->addMedia($request->featured_image)
+                    ->toMediaCollection('images');
+                $product->featured_image = $media->id;
+                $product->save();
             }
+            if ($request->get('images-base64')) {
+                $product->clearMediaCollection('detail-images');
+                foreach ($request->get('images-base64') as $file) {
+                    $product->addMediaFromBase64($file)->usingFileName(Str::random(20).'.jpg')->toMediaCollection('detail-images');
+                }
+            }
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error($exception->getMessage());
+            return redirect()->route('admin.products.index')->with('error', 'Có lỗi trong quá trình tạo mới!');
         }
         return redirect()->route('admin.products.index')->with('message', 'Tạo mới thành công!');
     }
@@ -102,28 +113,36 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Requests\UpdateProductRequest  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, $id)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $product = Product::find($id);
         $data = $request->except('_token', '_method', 'featured_image', 'images');
         $data['slug'] = Str::slug($request->input('name'));
         $data['status'] =  $request->get('status') ? true : false;
-        $product->update($data);
-        if ($request->file('featured_image')) {
-            $media = $product
-                ->addMedia($request->featured_image)
-                ->toMediaCollection('images');
-            $product->featured_image = $media->id;
-            $product->save();
-        }
-        if ($request->file('images')) {
-            $product->clearMediaCollection('detail-images');
-            foreach ($request->file('images') as $file) {
-                $product->addMedia($file)->toMediaCollection('detail-images');
+        DB::beginTransaction();
+        try {
+            $product->update($data);
+            if ($request->file('featured_image')) {
+                $media = $product
+                    ->addMedia($request->featured_image)
+                    ->toMediaCollection('images');
+                $product->featured_image = $media->id;
+                $product->save();
             }
+            if ($request->get('images-base64')) {
+                $product->clearMediaCollection('detail-images');
+                foreach ($request->get('images-base64') as $file) {
+                    $product->addMediaFromBase64($file)->usingFileName(Str::random(20).'.jpg')->toMediaCollection('detail-images');
+                }
+            }
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error($exception->getMessage());
+            return redirect()->route('admin.products.index')->with('error', 'Có lỗi trong quá trình cập nhật! ' . $exception->getMessage());
         }
         return redirect()->route('admin.products.index')->with('message', 'Cập nhập thành công!');
     }

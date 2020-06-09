@@ -97,11 +97,13 @@
                             <h5>Hình ảnh chi tiết</h5>
                             <input type="file" name="images[]" id="images" multiple>
                         </div>
-                        <div class="row">
+                        <div class="row form-group preview-images">
+                        </div>
+                        <div class="row pt-3">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="title">
-                                        <button type="button" class="btn btn-outline-github" onclick="handleAddProperties()">Thêm tiện ích</button>
+                                        <button type="button" class="btn btn-outline-github" onclick="handleAddProperties()">Thêm thuộc tính</button>
                                     </label>
                                     <table class="table">
                                         <thead>

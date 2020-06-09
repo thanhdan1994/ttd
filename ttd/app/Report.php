@@ -3,22 +3,33 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Report extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use InteractsWithMedia;
+
+    /**
+     * The attributes that are mass assignable.
+     * @var array
+     */
+    protected $fillable = [
+        'product_id',
+        'excerpt',
+        'user_id',
+        'properties',
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function registerMediaCollections()
+    public function registerMediaCollections() : void
     {
-        $this->addMediaCollection('images')
+        $this->addMediaCollection(env('COLLECTION_NAME_THUMBNAIL'))
             ->registerMediaConversions(function (Media $media) {
                 $this->addMediaConversion('thumb')
                     ->width(200)
@@ -27,7 +38,7 @@ class Report extends Model implements HasMedia
                     ->width(350)
                     ->height(240);
             });
-        $this->addMediaCollection('detail-images')
+        $this->addMediaCollection(env('COLLECTION_NAME_DETAIL_IMAGES'))
             ->registerMediaConversions(function (Media $media) {
                 $this->addMediaConversion('thumb')
                     ->width(200)

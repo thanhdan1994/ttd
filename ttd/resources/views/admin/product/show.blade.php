@@ -107,12 +107,16 @@
             </div>
         </div>
         <div class="tab-pane container fade" id="images">
+            <div class="row">
             @foreach ($product->images as $image)
-                <a class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4" data-fancybox="gallery"
-                   href="{!! $image->getUrl() !!}">
-                    <img style="width: 200px; height: 150px" src="{!! $image->getUrl('thumb') !!}">
-                </a>
+                <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 pb-3">
+                    <a data-fancybox="gallery"
+                       href="{!! $image->getUrl() !!}">
+                        <img style="width: 250px; height: 200px" src="{!! $image->getUrl('thumb') !!}">
+                    </a>
+                </div>
             @endforeach
+            </div>
         </div>
         <div class="tab-pane container fade" id="content">{!! $product->content !!}</div>
         <div class="tab-pane container fade" id="reports">
