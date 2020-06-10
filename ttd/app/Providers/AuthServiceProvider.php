@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Category;
+use App\Policies\CategoryPolicy;
 use App\Policies\ProductPolicy;
 use App\Product;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -17,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
         Product::class => ProductPolicy::class,
+        Category::class => CategoryPolicy::class,
     ];
 
     /**
@@ -28,6 +31,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::before(function ($user, $ability) {
+            return $user->isSuperAdmin() ? true : null;
+        });
     }
 }

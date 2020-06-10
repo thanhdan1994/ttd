@@ -48,13 +48,28 @@
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
+                @if(\Illuminate\Support\Facades\Auth::user()->isSuperAdmin())
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-toggle="collapse" href="#li-categories" aria-expanded="false" aria-controls="ui-basic">
+                        <span class="menu-title">Quản lý danh mục</span>
+                        <i class="menu-arrow"></i>
+                        <i class="mdi mdi-react"></i>
+                    </a>
+                    <div class="collapse" id="li-categories">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{route('admin.categories.index')}}">Danh sách danh mục</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{route('admin.categories.create')}}">Thêm danh mục</a></li>
+                        </ul>
+                    </div>
+                </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-toggle="collapse" href="#li-products" aria-expanded="false" aria-controls="ui-basic">
                         <span class="menu-title">Quản lý sản phẩm</span>
                         <i class="menu-arrow"></i>
                         <i class="mdi mdi-food-fork-drink"></i>
                     </a>
-                    <div class="collapse" id="li-products" style="">
+                    <div class="collapse" id="li-products">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{route('admin.products.index')}}">Danh sách sản phẩm</a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{route('admin.products.create')}}">Thêm sản phẩm</a></li>

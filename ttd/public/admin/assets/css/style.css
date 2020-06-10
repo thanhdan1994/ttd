@@ -13474,3 +13474,17 @@ span.file-upload-browse {
     align-items: center;
     margin: 0;
 }
+
+#content {
+    padding: 0 50px;
+}
+
+#content img {
+    width: 100%;
+}
+
+figcaption {
+    text-align: center;
+    font-style: italic;
+    font-weight: 700;
+}

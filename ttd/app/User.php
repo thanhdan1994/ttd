@@ -49,4 +49,12 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function isSuperAdmin()
+    {
+        if($this->role == 'super-admin') {
+            return true;
+        }
+        return false;
+    }
 }

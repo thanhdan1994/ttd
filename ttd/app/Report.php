@@ -32,8 +32,8 @@ class Report extends Model implements HasMedia
         $this->addMediaCollection(env('COLLECTION_NAME_THUMBNAIL'))
             ->registerMediaConversions(function (Media $media) {
                 $this->addMediaConversion('thumb')
-                    ->width(200)
-                    ->height(150);
+                    ->width(250)
+                    ->height(200);
                 $this->addMediaConversion('thumb-350')
                     ->width(350)
                     ->height(240);
@@ -41,8 +41,8 @@ class Report extends Model implements HasMedia
         $this->addMediaCollection(env('COLLECTION_NAME_DETAIL_IMAGES'))
             ->registerMediaConversions(function (Media $media) {
                 $this->addMediaConversion('thumb')
-                    ->width(200)
-                    ->height(150);
+                    ->width(250)
+                    ->height(200);
                 $this->addMediaConversion('thumb-350')
                     ->width(350)
                     ->height(240);

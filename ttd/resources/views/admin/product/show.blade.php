@@ -109,10 +109,9 @@
         <div class="tab-pane fade" id="images">
             <div class="row">
             @foreach ($product->images as $image)
-                <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-2 pb-3">
-                    <a data-fancybox="gallery"
-                       href="{!! $image->getUrl() !!}">
-                        <img style="width: 250px; height: 200px" src="{!! $image->getUrl('thumb') !!}">
+                <div class="col-lg-3 col-md-4 col-6">
+                    <a href="{!! $image->getUrl() !!}" data-fancybox="gallery" class="d-block mb-4 h-100">
+                        <img class="img-fluid img-thumbnail" src="{!! $image->getUrl('thumb') !!}">
                     </a>
                 </div>
             @endforeach
@@ -159,10 +158,11 @@
                                 <div class="modal-body">
                                     <div class="row">
                                         @foreach ($report->images as $image)
-                                        <a class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-2 pb-3" data-fancybox="galleryReport{!! $report->id !!}"
-                                           href="{!! $image->getUrl() !!}">
-                                            <img style="width: 250px; height: 200px" src="{!! $image->getUrl('thumb') !!}">
-                                        </a>
+                                            <div class="col-lg-3 col-md-4 col-6">
+                                                <a href="{!! $image->getUrl() !!}" data-fancybox="galleryReport{!! $report->id !!}" class="d-block mb-4 h-100">
+                                                    <img class="img-fluid img-thumbnail" src="{!! $image->getUrl('thumb') !!}">
+                                                </a>
+                                            </div>
                                         @endforeach
                                     </div>
                                 </div>
