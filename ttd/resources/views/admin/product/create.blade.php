@@ -59,28 +59,34 @@
                             <textarea class="form-control" id="content" name="content" rows="4" placeholder="Nội dung sản phẩm">{{ old('content') }}</textarea>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-lg-3">
+                            <div class="col-md-3 col-lg-2">
                                 <div class="form-group">
                                     <label for="phone">Số điện thoại</label>
                                     <input type="text" class="form-control" name="phone" id="phone" value="{{ old('phone') }}" placeholder="số điện thoại">
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-3">
+                            <div class="col-md-3 col-lg-2">
                                 <div class="form-group">
                                     <label for="amount">Giá</label>
                                     <input type="text" class="form-control" name="amount" id="amount" value="{{ old('amount') }}" placeholder="giá sản phẩm">
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-3">
+                            <div class="col-md-3 col-lg-4">
                                 <div class="form-group">
                                     <label for="address">Địa chỉ</label>
                                     <input type="text" class="form-control" name="address" id="address" value="{{ old('address') }}" placeholder="Địa chỉ">
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-3">
+                            <div class="col-md-3 col-lg-2">
                                 <div class="form-group">
-                                    <label for="location">Location</label>
-                                    <input type="text" class="form-control" name="location" id="location" value="{{ old('location') }}" placeholder="Location">
+                                    <label for="lat">Latitude</label>
+                                    <input type="text" class="form-control" name="lat" id="lat" value="{{ old('lat') }}" placeholder="latitude">
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-2">
+                                <div class="form-group">
+                                    <label for="long">Longitude</label>
+                                    <input type="text" class="form-control" name="long" id="long" value="{{ old('long') }}" placeholder="longitude">
                                 </div>
                             </div>
                         </div>

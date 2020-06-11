@@ -4,6 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Trang quản trị {{ env('APP_NAME') }}</title>
         <link rel="stylesheet" href="{{asset('admin/assets/vendors/mdi/css/materialdesignicons.min.css')}}">
         <link rel="stylesheet" href="{{asset('admin/assets/vendors/css/vendor.bundle.base.css')}}">
@@ -89,6 +90,11 @@
                     <span class="text-danger font-weight-bold h5">Giá: {!! number_format($product->amount) !!}đ</span>
                     <span class="text-danger font-weight-bold h5">Số điện thoại: {!! $product->phone !!}</span>
                     <span class="text-danger font-weight-bold h5">Địa chỉ: {!! $product->address !!}</span>
+                    @if($bookmarkId)
+                        <span class="text-success font-weight-bold h5"><i id="js-bookmark" class="mdi mdi-bookmark-minus-outline" data-bookmark="{{ $bookmarkId }}" style="font-size: xx-large"></i></span>
+                    @else
+                        <span class="text-dark font-weight-bold h5"><i id="js-bookmark" class="mdi mdi-bookmark-plus-outline" style="font-size: xx-large"></i></span>
+                    @endif
                 </div>
             </div>
             <div class="row mt-3">
@@ -126,22 +132,6 @@
                 <div class="media-body">
                     <h5 class="mt-0">{!! $report->user->name !!}</h5>
                     {!! $report->excerpt !!}
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                @foreach(json_decode($report->properties) as $key => $property)
-                                <th scope="col">{{$property->key}}</th>
-                                @endforeach
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                @foreach(json_decode($report->properties) as $key => $property)
-                                <td>{{$property->value}}</td>
-                                @endforeach
-                            </tr>
-                        </tbody>
-                    </table>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reportModal{!! $report->id !!}">
                         Ảnh report
                     </button>
@@ -156,6 +146,18 @@
                                 </div>
                                 <!-- Modal body -->
                                 <div class="modal-body">
+                                    <div class="row">
+                                        <table class="table table-dark">
+                                            <tbody>
+                                            @foreach(json_decode($report->properties) as $key => $property)
+                                                <tr>
+                                                    <td>{{$property->key}}</td>
+                                                    <td>{{$property->value}}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                     <div class="row">
                                         @foreach ($report->images as $image)
                                             <div class="col-lg-3 col-md-4 col-6">
@@ -210,4 +212,43 @@
 
 @section('js')
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <script>
+        var isBusy = false;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#js-bookmark').on('click', function (e) {
+            e.preventDefault();
+            if (isBusy) {
+                return false;
+            }
+            isBusy = true;
+            if ($(this).hasClass('mdi-bookmark-plus-outline')) {
+                $(this).removeClass('mdi-bookmark-plus-outline').addClass('mdi-bookmark-minus-outline');
+                $(this).parent().removeClass('text-dark').addClass('text-success');
+                $.ajax({
+                    url: "{{ route('admin.products.bookmarks.store', $product->id) }}",
+                    type: 'POST',
+                    success: function (response) {
+                        $('#js-bookmark').data('bookmark', response.id);
+                        isBusy = false;
+                    }
+                });
+            } else {
+                $(this).removeClass('mdi-bookmark-minus-outline').addClass('mdi-bookmark-plus-outline');
+                $(this).parent().removeClass('text-success').addClass('text-dark');
+                let bookmark = $('#js-bookmark').data('bookmark');
+                $.ajax({
+                    url: "/administrator/bookmarks/"+bookmark,
+                    type: 'DELETE',
+                    success: function () {
+                        isBusy = false;
+                    }
+                });
+            }
+        });
+    </script>
 @endsection

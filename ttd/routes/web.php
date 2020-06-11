@@ -21,10 +21,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'administrator', 'as' => 'admin.'], function () {
         Route::namespace('Admin')->group(function () {
             Route::get('/', 'DashboardController@index')->name('dashboard');
+            Route::get('/products/nearby', 'ProductController@nearby')->name('products.nearby');
             Route::resource('products', 'ProductController');
             Route::resource('categories', 'CategoryController');
             Route::resource('products.reports', 'ProductReportController');
             Route::resource('products.comments', 'ProductCommentController');
+            Route::resource('products.bookmarks', 'BookmarkController')->shallow();
         });
     });
 });

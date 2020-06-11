@@ -19,7 +19,8 @@ class UpdateProductRequest extends FormRequest
             'phone' => ['required'],
             'amount' => ['required', 'numeric'],
             'address' => ['required'],
-            'location' => ['required']
+            'lat' => ['required'],
+            'long' => ['required']
         ];
     }
 
@@ -35,7 +36,8 @@ class UpdateProductRequest extends FormRequest
             'name.max' => 'Tên sản phẩm quá dài (phải nhỏ hơn 255 kí tự)',
             'content.required'  => 'Nội dung sản phẩm là bắt buộc',
             'excerpt.required'  => 'Mô tả sản phẩm là bắt buộc',
-            'location.required' => 'Location là bắt buộc',
+            'lat.required' => 'Latitude là bắt buộc',
+            'long.required' => 'Longitude là bắt buộc',
             'amount.required' => 'Giá sản phẩm là bắt buộc',
             'phone.required' => 'Số điện thoại là bắt buộc',
             'address.required' => 'Địa chỉ là bắt buộc'

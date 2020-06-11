@@ -23,7 +23,8 @@ class CreateProductsTable extends Migration
             $table->string('phone');
             $table->decimal('amount', 9, 2)->default(0);
             $table->string('address');
-            $table->string('location');
+            $table->string('lat')->nullable();
+            $table->string('long')->nullable();
             $table->longText('content')->nullable();
             $table->bigInteger('featured_image')->default(0);
             $table->json('properties')->nullable();

@@ -17,3 +17,22 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/get-products-nearby', function (Request $request) {
+    $lat = $request->get('lat');
+    $long = $request->get('long');
+    $string = "SELECT id, name, phone, address, amount, excerpt, featured_image,
+                      ST_Distance(
+                         POINT(?,?),
+                         POINT(products.lat,products.long)
+                      ) as distance
+                FROM products
+                ORDER BY distance ASC
+                LIMIT 0, 20";
+    $products = \Illuminate\Support\Facades\DB::select($string, [$lat, $long]);
+    foreach ($products as $key => $product) {
+        $thumbnailUrl = \App\Product::find($product->id)->thumbnailUrl;
+        $product->thumbnail = $thumbnailUrl;
+    }
+    return ($products) ? $products : null;
+});

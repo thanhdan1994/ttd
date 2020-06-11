@@ -95,7 +95,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('admin.product.show', compact('product'));
+        $bookmarkId = $product->getBookmarkId(Auth::id(), $product->id);
+        return view('admin.product.show', compact('product', 'bookmarkId'));
     }
 
     /**
@@ -157,5 +158,10 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('admin.products.index')->with('message', 'Đã xóa #'. $product->id);
+    }
+
+    public function nearby()
+    {
+        return view('admin.product.nearby');
     }
 }

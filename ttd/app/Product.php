@@ -26,7 +26,8 @@ class Product extends Model implements HasMedia
         'amount',
         'phone',
         'address',
-        'location',
+        'lat',
+        'long',
         'user_id',
         'status',
         'properties',
@@ -125,5 +126,19 @@ class Product extends Model implements HasMedia
             }
         }
         $this->attributes['properties'] = json_encode($properties);
+    }
+
+    /**
+     * @param $userId
+     * @param $productId
+     * @return bool
+     */
+    public function getBookmarkId($userId, $productId)
+    {
+        $bookmark = Bookmark::where(['user_id' => $userId, 'product_id' => $productId])->first();
+        if ($bookmark) {
+            return $bookmark->id;
+        }
+        return false;
     }
 }

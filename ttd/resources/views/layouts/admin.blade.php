@@ -7,7 +7,7 @@
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
             <a class="navbar-brand brand-logo" href="/"><img src="{{asset('admin/assets/images/logo.svg')}}" alt="logo" /></a>
-            <a class="navbar-brand brand-logo-mini" href="/"><img src="{{asset('admin/assets/images/logo-mini.svg')}}" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="{{ route('admin.dashboard') }}"><img src="{{asset('admin/assets/images/logo-mini.svg')}}" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -50,10 +50,16 @@
             <ul class="nav">
                 @if(\Illuminate\Support\Facades\Auth::user()->isSuperAdmin())
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.products.nearby') }}">
+                        <span class="menu-title">Tìm quanh đây</span>
+                        <i class="text-success mdi mdi-google-nearby menu-icon"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link collapsed" data-toggle="collapse" href="#li-categories" aria-expanded="false" aria-controls="ui-basic">
                         <span class="menu-title">Quản lý danh mục</span>
                         <i class="menu-arrow"></i>
-                        <i class="mdi mdi-react"></i>
+                        <i class="text-success mdi mdi-react"></i>
                     </a>
                     <div class="collapse" id="li-categories">
                         <ul class="nav flex-column sub-menu">
@@ -67,7 +73,7 @@
                     <a class="nav-link collapsed" data-toggle="collapse" href="#li-products" aria-expanded="false" aria-controls="ui-basic">
                         <span class="menu-title">Quản lý sản phẩm</span>
                         <i class="menu-arrow"></i>
-                        <i class="mdi mdi-food-fork-drink"></i>
+                        <i class="text-success mdi mdi-food-fork-drink"></i>
                     </a>
                     <div class="collapse" id="li-products">
                         <ul class="nav flex-column sub-menu">
