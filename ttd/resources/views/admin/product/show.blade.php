@@ -82,10 +82,10 @@
     <div class="tab-content">
         <div class="tab-pane active" id="info">
             <div class="row">
-                <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-2">
                     <img class="mw-100" src="{!! $product->thumbnailUrl !!}">
                 </div>
-                <div class="col-6 col-sm-6 col-md-6 col-lg-8 col-xl-8 d-flex flex-column">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-8 col-xl-10 d-flex flex-column">
                     <h4>{!! $product->name !!}</h4>
                     <span class="text-danger font-weight-bold h5">Giá: {!! number_format($product->amount) !!}đ</span>
                     <span class="text-danger font-weight-bold h5">Số điện thoại: {!! $product->phone !!}</span>
@@ -115,7 +115,7 @@
         <div class="tab-pane fade" id="images">
             <div class="row">
             @foreach ($product->images as $image)
-                <div class="col-lg-3 col-md-4 col-6">
+                <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                     <a href="{!! $image->getUrl() !!}" data-fancybox="gallery" class="d-block mb-4 h-100">
                         <img class="img-fluid img-thumbnail" src="{!! $image->getUrl('thumb') !!}">
                     </a>
@@ -160,7 +160,7 @@
                                     </div>
                                     <div class="row">
                                         @foreach ($report->images as $image)
-                                            <div class="col-lg-3 col-md-4 col-6">
+                                            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                                 <a href="{!! $image->getUrl() !!}" data-fancybox="galleryReport{!! $report->id !!}" class="d-block mb-4 h-100">
                                                     <img class="img-fluid img-thumbnail" src="{!! $image->getUrl('thumb') !!}">
                                                 </a>

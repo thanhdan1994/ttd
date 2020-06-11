@@ -33,6 +33,7 @@ Route::get('/get-products-nearby', function (Request $request) {
     foreach ($products as $key => $product) {
         $thumbnailUrl = \App\Product::find($product->id)->thumbnailUrl;
         $product->thumbnail = $thumbnailUrl;
+        $product->link = route('admin.products.show', $product->id);
     }
     return ($products) ? $products : null;
 });
