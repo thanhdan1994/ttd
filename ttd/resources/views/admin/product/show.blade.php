@@ -90,6 +90,9 @@
                     <span class="text-danger font-weight-bold h5">Giá: {!! number_format($product->amount) !!}đ</span>
                     <span class="text-danger font-weight-bold h5">Số điện thoại: {!! $product->phone !!}</span>
                     <span class="text-danger font-weight-bold h5">Địa chỉ: {!! $product->address !!}</span>
+                    <span class="text-danger font-weight-bold h5">
+                        Dịch vụ: @foreach($product->services as $service) @if($loop->last) {!! $service->name . '.' !!} @else {!! $service->name . ', ' !!} @endif @endforeach
+                    </span>
                     @if($bookmarkId)
                         <span class="text-success font-weight-bold h5"><i id="js-bookmark" class="mdi mdi-bookmark-minus-outline" data-bookmark="{{ $bookmarkId }}" style="font-size: xx-large"></i></span>
                     @else

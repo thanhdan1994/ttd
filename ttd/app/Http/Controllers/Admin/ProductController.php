@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\ProductService;
 use App\Requests\CreateProductRequest;
 use App\Requests\UpdateProductRequest;
+use App\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -47,7 +49,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.product.create', compact('categories'));
+        $services = Service::all();
+        return view('admin.product.create', compact('categories', 'services'));
     }
 
     /**
@@ -78,12 +81,20 @@ class ProductController extends Controller
                     $product->addMediaFromBase64($file)->usingFileName(Str::random(20).'.jpg')->toMediaCollection('detail-images');
                 }
             }
-            DB::commit();
+            if ($request->get('services')) {
+                ProductService::where('product_id', $product->id)->delete();
+                $productServices = [];
+                foreach ($request->get('services') as $serviceId) {
+                    $productServices[] = ['product_id' => $product->id, 'service_id' => $serviceId];
+                }
+                ProductService::insert($productServices);
+            }
         } catch (\Exception $exception) {
             DB::rollBack();
             Log::error($exception->getMessage());
             return redirect()->route('admin.products.index')->with('error', 'Có lỗi trong quá trình tạo mới!');
         }
+        DB::commit();
         return redirect()->route('admin.products.index')->with('message', 'Tạo mới thành công!');
     }
 
@@ -108,7 +119,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        return view('admin.product.edit', compact('product', 'categories'));
+        $services = Service::all();
+        return view('admin.product.edit', compact('product', 'categories', 'services'));
     }
 
     /**
@@ -120,7 +132,7 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $data = $request->except('_token', '_method', 'featured_image', 'images');
+        $data = $request->except('_token', '_method', 'featured_image', 'images', 'services');
         $data['slug'] = Str::slug($request->input('name'));
         $data['status'] =  $request->get('status') ? true : false;
         DB::beginTransaction();
@@ -139,12 +151,20 @@ class ProductController extends Controller
                     $product->addMediaFromBase64($file)->usingFileName(Str::random(20).'.jpg')->toMediaCollection('detail-images');
                 }
             }
-            DB::commit();
+            if ($request->get('services')) {
+                ProductService::where('product_id', $product->id)->delete();
+                $productServices = [];
+                foreach ($request->get('services') as $serviceId) {
+                    $productServices[] = ['product_id' => $product->id, 'service_id' => $serviceId];
+                }
+                ProductService::insert($productServices);
+            }
         } catch (\Exception $exception) {
             DB::rollBack();
             Log::error($exception->getMessage());
             return redirect()->route('admin.products.index')->with('error', 'Có lỗi trong quá trình cập nhật! ' . $exception->getMessage());
         }
+        DB::commit();
         return redirect()->route('admin.products.index')->with('message', 'Cập nhập thành công!');
     }
 

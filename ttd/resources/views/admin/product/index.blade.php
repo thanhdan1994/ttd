@@ -39,6 +39,7 @@
                             <th> STT </th>
                             <th> Tiêu đề </th>
                             <th> Ảnh </th>
+                            <th> Dịch vụ </th>
                             <th> Chuyên mục </th>
                             <th></th>
                         </tr>
@@ -55,6 +56,11 @@
                                 </td>
                                 <td>{!! \Illuminate\Support\Str::limit($product->name, 30, '...') !!}</td>
                                 <td><img src="{!! $product->thumbnailUrl !!}" style="width: 200px; height: 150px"/></td>
+                                <td>
+                                    @foreach($product->services as $service)
+                                        - {{ $service->name }} </br>
+                                    @endforeach
+                                </td>
                                 <td>
                                     {{ $product->category->name }}
                                 </td>

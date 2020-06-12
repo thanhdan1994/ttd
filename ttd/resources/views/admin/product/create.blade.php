@@ -46,18 +46,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Ảnh đại diện</label>
-                            <input type="file" name="featured_image" id="featured_image" class="file-upload-default">
-                            <div class="input-group col-xs-12">
-                                <span data-thumbnail="https://cuoifly.tuoitre.vn/155/0/ttc/r/2020/02/03/logo-ttc-1580721954.png" class="input-group-append file-upload-browse" style="background: url('https://cuoifly.tuoitre.vn/155/0/ttc/r/2020/02/03/logo-ttc-1580721954.png')">
-                                </span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="content">Nội dung sản phẩm</label>
-                            <textarea class="form-control" id="content" name="content" rows="4" placeholder="Nội dung sản phẩm">{{ old('content') }}</textarea>
-                        </div>
                         <div class="row">
                             <div class="col-md-3 col-lg-2">
                                 <div class="form-group">
@@ -89,6 +77,32 @@
                                     <input type="text" class="form-control" name="long" id="long" value="{{ old('long') }}" placeholder="longitude">
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="category_id">Dịch vụ</label>
+                            <div class="d-flex">
+                                @foreach($services as $service)
+                                    <div class="form-check mr-3">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="services[]"
+                                                   class="form-check-input" value="{{ $service->id }}">
+                                            {{ $service->name }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Ảnh đại diện</label>
+                            <input type="file" name="featured_image" id="featured_image" class="file-upload-default">
+                            <div class="input-group col-xs-12">
+                                <span data-thumbnail="https://cuoifly.tuoitre.vn/155/0/ttc/r/2020/02/03/logo-ttc-1580721954.png" class="input-group-append file-upload-browse" style="background: url('https://cuoifly.tuoitre.vn/155/0/ttc/r/2020/02/03/logo-ttc-1580721954.png')">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content">Nội dung sản phẩm</label>
+                            <textarea class="form-control" id="content" name="content" rows="4" placeholder="Nội dung sản phẩm">{{ old('content') }}</textarea>
                         </div>
                         <div class="row">
                             <label class="file col-12">

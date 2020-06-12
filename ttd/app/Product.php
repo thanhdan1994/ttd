@@ -70,6 +70,14 @@ class Product extends Model implements HasMedia
             ->orderBy('id', 'desc');
     }
 
+    /**
+     * The services that belong to the product.
+     */
+    public function services()
+    {
+        return $this->belongsToMany(Service::class);
+    }
+
     public function reports()
     {
         return $this->hasMany(Report::class)->orderBy('id', 'desc');
