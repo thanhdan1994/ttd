@@ -1,0 +1,67 @@
+img {
+  max-width: 100%;
+}
+
+.header {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(270.31deg, #7C0202 0.43%, #B90603 52.54%, #D10000 99.65%);
+}
+
+.header h1 {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.header h1 .logo {
+  display: block;
+  padding: 12.5px;
+  width: 110px;
+}
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.icon-trend {
+  width: 22px;
+  height: 15px;
+  background-image: url(../img/icon/icon-trend.png);
+}
+
+.tool-top {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 999;
+}
+
+.list-tool {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  text-align: center;
+  -webkit-box-shadow: 0px 3px 7px rgba(209, 209, 209, 0.25);
+          box-shadow: 0px 3px 7px rgba(209, 209, 209, 0.25);
+}
+
+.list-tool li a {
+  padding: 12px 16px;
+  color: #000000;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12px;
+  display: block;
+}
+
+.list-tool li a i {
+  margin-top: -5px;
+  margin-right: 1px;
+}
+/*# sourceMappingURL=style.css.map */
