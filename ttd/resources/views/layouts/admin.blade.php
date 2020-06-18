@@ -25,6 +25,12 @@
                         </div>
                     </a>
                     <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" href="{{ route('admin.products.me') }}">
+                            <i class="mdi mdi-food mr-2 text-primary"></i> Sản phẩm của bạn</a>
+                        <a class="dropdown-item" href="{{ route('admin.bookmarks.me') }}">
+                            <i class="mdi mdi-bookmark-multiple mr-2 text-primary"></i> Đánh dấu của bạn</a>
+                        <a class="dropdown-item" href="{{ route('admin.products.create') }}">
+                            <i class="mdi mdi-plus-circle mr-2 text-primary"></i> Thêm sản phẩm</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item"
                            onclick="event.preventDefault();
@@ -48,6 +54,12 @@
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                        <span class="menu-title">Trang chủ</span>
+                        <i class="text-success mdi mdi-home menu-icon"></i>
+                    </a>
+                </li>
                 @if(\Illuminate\Support\Facades\Auth::user()->isSuperAdmin())
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.products.nearby') }}">

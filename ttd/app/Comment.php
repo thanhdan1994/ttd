@@ -14,6 +14,7 @@ class Comment extends Model
         'product_id',
         'content',
         'user_id',
+        'parent'
     ];
 
     public function user()
@@ -23,6 +24,6 @@ class Comment extends Model
 
     public function child()
     {
-        return $this->hasMany(self::class, 'parent', 'id');
+        return $this->hasMany(self::class, 'parent', 'id')->orderBy('created_at', 'asc');
     }
 }

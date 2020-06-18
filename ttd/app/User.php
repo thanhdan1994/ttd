@@ -37,6 +37,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
     public function getThumbnailUrlAttribute()
     {
         return 'https://cuoifly.tuoitre.vn/155/0/ttc/r/2020/02/03/logo-ttc-1580721954.png';
@@ -44,7 +49,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        if($this->role == 'admin') {
+        if($this->role == 'admin' || $this->role == 'super-admin') {
             return true;
         }
         return false;

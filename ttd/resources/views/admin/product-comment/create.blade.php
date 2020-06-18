@@ -26,7 +26,7 @@
                         {{csrf_field()}}
                         <div class="form-group">
                             <textarea class="form-control" name="content" id="content"
-                                      placeholder="Comment đi ai cắm bạn vui cơ chứ" row="6">{{ old('content') }}</textarea>
+                                      placeholder="Comment đi ai cắm bạn vui cơ chứ" rows="4">{{ old('content') }}</textarea>
                         </div>
                         <button type="submit" class="btn btn-gradient-primary mr-2">Lưu lại</button>
                     </form>

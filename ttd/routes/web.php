@@ -22,6 +22,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::namespace('Admin')->group(function () {
             Route::get('/', 'DashboardController@index')->name('dashboard');
             Route::get('/products/nearby', 'ProductController@nearby')->name('products.nearby');
+            Route::get('/products/me', 'ProductController@me')->name('products.me');
+            Route::get('/bookmarks/me', 'BookmarkController@me')->name('bookmarks.me');
             Route::resource('products', 'ProductController');
             Route::resource('categories', 'CategoryController');
             Route::resource('products.reports', 'ProductReportController');
@@ -32,3 +34,5 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home.index');

@@ -90,4 +90,11 @@ class BookmarkController extends Controller
     {
         return Bookmark::destroy($bookmark->id);
     }
+
+    public function me()
+    {
+        $user = Auth::user();
+        $bookmarks = $user->bookmarks;
+        return view('admin.bookmark.me', compact('bookmarks'));
+    }
 }

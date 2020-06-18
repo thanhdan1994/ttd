@@ -29,12 +29,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::loggedUser()
-            ->orderBy('created_at', 'desc')
+        $products = Product::orderBy('created_at', 'desc')
             ->paginate(config('constants.admin.paginate'));
         if (request()->has('q') && request()->input('q') != '') {
             $products = Product::search(request()->input('q'))
-                ->loggedUser()
                 ->orderBy('created_at', 'desc')
                 ->paginate(config('constants.admin.paginate'));
         }
@@ -107,7 +105,22 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $bookmarkId = $product->getBookmarkId(Auth::id(), $product->id);
-        return view('admin.product.show', compact('product', 'bookmarkId'));
+        $string = "SELECT id, name, phone, address, amount, excerpt, featured_image,
+                      ST_Distance(
+                         POINT(?,?),
+                         POINT(products.lat,products.long)
+                      ) as distance
+                FROM products
+                WHERE id != ?
+                ORDER BY distance ASC
+                LIMIT 0, 20";
+        $productsNearby = \Illuminate\Support\Facades\DB::select($string, [$product->lat, $product->long, $product->id]);
+        foreach ($productsNearby as $key => $productNearby) {
+            $thumbnailUrl = \App\Product::find($productNearby->id)->thumbnailUrl;
+            $productNearby->thumbnail = $thumbnailUrl;
+            $productNearby->link = route('admin.products.show', $productNearby->id);
+        }
+        return view('admin.product.show', compact('product', 'bookmarkId', 'productsNearby'));
     }
 
     /**
@@ -183,5 +196,13 @@ class ProductController extends Controller
     public function nearby()
     {
         return view('admin.product.nearby');
+    }
+
+    public function me()
+    {
+        $products = Product::loggedUser()
+            ->orderBy('created_at', 'desc')
+            ->paginate(config('constants.admin.paginate'));
+        return view('admin.product.me', compact('products'));
     }
 }

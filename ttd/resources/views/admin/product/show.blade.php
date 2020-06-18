@@ -54,6 +54,12 @@
             top: 10px;
             left: -6px;
         }
+        .comment-box .box-reply {
+            margin: 0 10%;
+        }
+        .js-show-box-reply-comment:hover {
+            cursor: pointer;
+        }
     </style>
 @endsection
 
@@ -187,28 +193,76 @@
     <div id="block-comments" class="row mt-5">
         <div class="col-12">
             <h2>Bình luận ({!! count($product->comments) !!})</h2>
+            <div class="form-group" id="flag-insert-comment-after">
+                <textarea class="form-control mb-2" name="content" placeholder="Comment đi ai cắm bạn vui cơ chứ" rows="4"></textarea>
+                <button type="button" class="btn btn-gradient-primary mr-2 js-comment">Gửi bình luận</button>
+            </div>
             @if (count($product->comments) > 0) @foreach($product->comments as $comment)
-            <div class="media comment-box">
+            <div class="media comment-box" data-comment="{!! $comment->id !!}">
                 <div class="media-left">
                     <img class="img-responsive user-photo" src="{!! $comment->user->thumbnailUrl !!}">
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">{!! $comment->user->name !!}</h4>
+                    <div class="media-heading d-flex justify-content-between">
+                        <span class="font-weight-bold">{!! $comment->user->name !!}</span>
+                        <span class="font-italic">
+                            <span class="mr-2">{!! $comment->created_at !!}</span>
+                            <span class="js-show-box-reply-comment"><i class="mdi mdi-reply"></i> Trả lời</span>
+                        </span>
+                    </div>
                     <p>{!! $comment->content !!}</p>
+                    <div class="box-reply d-none">
+                        <textarea class="form-control mb-2" placeholder="Trả lời bình luận" rows="4">{{ "@" . $comment->user->name }} </textarea>
+                        <button type="button" class="btn btn-gradient-primary js-send-reply-comment">Gửi Trả lời</button>
+                    </div>
                     @foreach($comment->child as $commentChild)
                     <div class="media">
                         <div class="media-left">
                             <img class="img-responsive user-photo" src="{!! $commentChild->user->thumbnailUrl !!}">
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">{!! $commentChild->user->name !!}</h4>
+                            <div class="media-heading d-flex justify-content-between">
+                                <span class="font-weight-bold">{!! $commentChild->user->name !!}</span>
+                                <span class="font-italic">
+                                    <span class="mr-2">{!! $commentChild->created_at !!}</span>
+                                    <span class="js-show-box-reply-comment"><i class="mdi mdi-reply"></i> Trả lời</span>
+                                </span>
+                            </div>
                             <p>{!! $commentChild->content !!}</p>
+                            <div class="box-reply d-none">
+                                <textarea class="form-control mb-2" placeholder="Trả lời bình luận" rows="4">{{ "@" . $commentChild->user->name }} </textarea>
+                                <button type="button" class="btn btn-gradient-primary js-send-reply-comment">Gửi Trả lời</button>
+                            </div>
                         </div>
                     </div>
                     @endforeach
                 </div>
             </div>
             @endforeach @else <span>Hãy trở thành người viết bình luận đầu tiên</span> @endif
+        </div>
+    </div>
+    <div id="block-nearby-product" class="mt-5">
+        <h3>Sản phẩm gần đó</h3>
+        <div class="row">
+        @if(!empty($productsNearby))
+            @foreach($productsNearby as $productNearby)
+                <div class="col-12 col-md-4 col-lg-3 col-xl-3">
+                    <img class="img-fluid img-thumbnail" src="{!! $productNearby->thumbnail !!}" alt="image" style="max-width:100%">
+                    <div class="card-body">
+                        <h4 class="card-title">{!! $productNearby->name !!}</h4>
+                        <p class="card-text">{!! $productNearby->excerpt !!}</p>
+                        <a href="{{ route('admin.products.show', $productNearby->id) }}" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+            @endforeach
+        @else
+            <div class="col-12 alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>How are you felling today!</strong> You haven't any bookmarks products.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         </div>
     </div>
 @endsection
@@ -221,6 +275,97 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+
+        $('#block-comments .comment-box .js-show-box-reply-comment').on('click', function (e) {
+            e.preventDefault();
+            let boxReply = $(this).closest('.media-body').find('div.box-reply'),
+                txtReply = boxReply.find('textarea'),
+                content = txtReply.val(),
+                strLength= content.length;
+            boxReply.removeClass('d-none');
+            txtReply.focus();
+            txtReply[0].setSelectionRange(strLength, strLength);
+        });
+
+        $('#block-comments .js-send-reply-comment').on('click', function (e) {
+            e.preventDefault();
+            if (isBusy) {
+                return false;
+            }
+            isBusy = true;
+            let txtContentElement = $(this).siblings('textarea'),
+                content = txtContentElement.val(),
+                commentBox = $(this).parents('.comment-box');
+            txtContentElement.val('');
+            $.ajax({
+                url: "{{ route('api.comment.create') }}",
+                data: {
+                    product_id: <?= $product->id ?>,
+                    content: content,
+                    user_id: <?= \Illuminate\Support\Facades\Auth::id()?>,
+                    parent: commentBox.data('comment')
+                },
+                type: 'POST',
+                success: function (response) {
+                    isBusy = false;
+                    if (response.status === true) {
+                        let htmlComment = `<div class="media">
+                            <div class="media-left">
+                                <img class="img-responsive user-photo" src="${response.data.author_avatar}">
+                            </div>
+                            <div class="media-body">
+                                <div class="media-heading d-flex justify-content-between">
+                                    <span class="font-weight-bold">${response.data.author_name}</span>
+                                    <span class="font-italic">
+                                        <span class="mr-2">${response.data.created_at}</span>
+                                    </span>
+                                </div>
+                                <p>${response.data.content}</p>
+                            </div>
+                        </div>`;
+                        commentBox.find('.media-body').first().append(htmlComment);
+                    }
+                }
+            });
+        });
+
+        $('#block-comments .js-comment').on('click', function (e) {
+            e.preventDefault();
+            if (isBusy) {
+                return false;
+            }
+            isBusy = true;
+            let content = $('#block-comments textarea[name=content]').val();
+            $('#block-comments textarea[name=content]').val('');
+            $.ajax({
+                url: "{{ route('api.comment.create') }}",
+                data: {product_id: <?= $product->id ?>, content: content, user_id: <?= \Illuminate\Support\Facades\Auth::id()?>},
+                type: 'POST',
+                success: function (response) {
+                    isBusy = false;
+                    if (response.status === true) {
+                        let htmlComment = `<div class="media comment-box">
+                                <div class="media-left">
+                                    <img class="img-responsive user-photo" src="${response.data.author_avatar}">
+                                </div>
+                                <div class="media-body">
+                                    <div class="media-heading d-flex justify-content-between">
+                                        <span class="font-weight-bold">${response.data.author_name}</span>
+                                        <span class="font-italic">
+                                            <span class="mr-2">${response.data.created_at}</span>
+                                        </span>
+                                    </div>
+                                    <p>${response.data.content}</p>
+                                </div>
+                            </div>
+                        </div>`;
+                        $(htmlComment).insertAfter('#flag-insert-comment-after');
+                    } else {
+                        alert(response.message);
+                    }
+                }
+            });
         });
 
         $('#js-bookmark').on('click', function (e) {

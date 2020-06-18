@@ -1,7 +1,8 @@
 <?php
 
+use App\Comment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,28 @@ Route::get('/get-products-nearby', function (Request $request) {
     }
     return ($products) ? $products : null;
 });
+
+Route::post('/comment/create', function (Request $request) {
+    if (empty($request->get('content'))) {
+        return ['status' => false, 'message' => 'nội dung bình luận không được rỗng', 'data' => false];
+    }
+    if (empty($request->get('product_id')) || empty($request->get('user_id'))) {
+        return ['status' => false, 'message' => 'thiếu tham số product_id hoặc user_id', 'data' => false];
+    }
+    $data = $request->all();
+    DB::beginTransaction();
+    try {
+        $comment = Comment::create($data);
+    } catch (\Exception $exception) {
+        DB::rollBack();
+        return [
+            'status' => false,
+            'message' => 'Có lỗi hệ thông trong quá trình thêm mới bình luận' . $exception->getMessage(),
+            'data' => false
+        ];
+    }
+    DB::commit();
+    $comment->author_name = $comment->user->name;
+    $comment->author_avatar = $comment->user->thumbnailUrl;
+    return ['status' => true, 'message' => 'Thêm bình luận thành công', 'data' => $comment];
+})->name('api.comment.create');
