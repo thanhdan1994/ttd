@@ -7,6 +7,10 @@
     }
 }
 
+.btn-red {
+    background-color: #D10000;
+}
+
 img {
     max-width: 100%;
 }
@@ -113,6 +117,12 @@ section {
     width: 21px;
     height: 21px;
     background-image: url(../img/icon/icon-back.svg);
+}
+
+.icon-google {
+    width: 21px;
+    height: 21px;
+    background-image: url(../img/icon/icon-google.png);
 }
 
 .icon-close-popup {
@@ -466,6 +476,22 @@ textarea {
                     }
                 }
             }
+            .comment-tool {
+                margin-left: 12px;
+                span {
+                    display: inline-block;
+                    margin-right: 7px;
+                    font-weight: 400;
+                    font-size: 12px;
+                    color: #000F91;
+                    padding: 3px;
+                    text-decoration: underline;
+                }
+                span.time {
+                    text-decoration: none;
+                    color: #c0c0c0;
+                }
+            }
         }
     }
 }
@@ -492,6 +518,13 @@ textarea {
         border-radius: 0;
         min-height: 100vh;
         border: none;
+        .modal-header {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            border-bottom: 0;
+            z-index: 999;
+        }
         .modal__menu {
             list-style: none;
             padding-left: 7px;
@@ -517,7 +550,39 @@ textarea {
     }
 }
 
+.title-2 {
+    padding: 12px 0;
+    position: relative;
+    &:before {
+        content: "";
+        left: 40px;
+        right: 15px;
+        position: absolute;
+        height: 1px;
+        background: #000000;
+        top: 30px;
+    }
+    h3 {
+        position: relative;
+        background: #ffffff;
+        display: inline-block;
+        padding-right: 5px;
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 26px;
+    }
+}
+
 // detail page
 .tab-content.container {
     padding-top: 15px;
+}
+
+#reportModal {
+    .report-content {
+        margin-bottom: 10px;
+    }
+    img {
+        height: 140px;
+    }
 }
