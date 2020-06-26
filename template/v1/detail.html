@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/detail.css">
     <link rel="stylesheet" href="assets/css/jquery.fancybox.min.css" />
 </head>
 
@@ -49,7 +49,6 @@
             </li>
         </ul>
     </section>
-
     <section class="main-content">
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -126,6 +125,11 @@
                 </div>
             </div>
             <div class="tab-pane" id="reports">
+                <label>
+                    <button class="btn btn-yellow" data-toggle="modal" data-target="#writeReportModal">
+                        <i class="fas fa-pen"></i> Viết Report
+                    </button>
+                </label>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Someone was <a href="javascript: void(0)" data-toggle="modal"
                             data-target="#reportModal">report</a> for this Lady</li>
@@ -138,33 +142,33 @@
         </div>
         <span class="border-2"></span>
         <div class="container">
-            <div class="detail-comment mt-3">
+            <div class="detail-comment">
                 <div class="form-group">
                     <textarea placeholder="Nhập và nhấn enter để gửi" spellcheck="false"></textarea>
                 </div>
-            </div>
-            <a href="javascript:void(0)" class="more-comment" data-toggle="modal" data-target="#viewCommentModal">Xem
-                thêm 5 bình luận</a>
-            <ul class="wrapper-comment cm-wrap">
-                <div class="comment" data-id="76781" style="animation-delay: 0s">
-                    <span class="comment-avatar" style="background-color: #172b4d">V</span>
-                    <div class="comment-media" data-cmid="76781" data-author="Vikinh">
-                        <div class="comment-content">
-                            <span class="comment-name">
-                                Vikinh
-                            </span>
-                            <span class="comment-text">
-                                <pre>Nghề của các cô đúng ra không có mang vác nặng ! Nhưng lại nhọc nhằn , trong việc trông giữ , dạy trẻ chứ bộ chơi sao !? Còn phải yêu thương trẻ dù không phải con đẻ ! Gặp kiểu dì ghẻ là hổi ôi cho các bé lun !? Chứ sao !</pre>
-                            </span>
-                        </div>
-                        <div class="comment-tool">
-                            <span class="like-comment">Thích</span>
-                            <span class="rep-comment">Trả lời</span>
-                            <span class="time">1 ngày trước</span>
+                <a href="javascript:void(0)" class="more-comment" data-toggle="modal" data-target="#viewCommentModal">Xem
+                    thêm 5 bình luận</a>
+                <ul class="wrapper-comment cm-wrap">
+                    <div class="comment" data-id="76781" style="animation-delay: 0s">
+                        <span class="comment-avatar" style="background-color: #172b4d">V</span>
+                        <div class="comment-media" data-cmid="76781" data-author="Vikinh">
+                            <div class="comment-content">
+                                <span class="comment-name">
+                                    Vikinh
+                                </span>
+                                <span class="comment-text">
+                                    <pre>Nghề của các cô đúng ra không có mang vác nặng ! Nhưng lại nhọc nhằn , trong việc trông giữ , dạy trẻ chứ bộ chơi sao !? Còn phải yêu thương trẻ dù không phải con đẻ ! Gặp kiểu dì ghẻ là hổi ôi cho các bé lun !? Chứ sao !</pre>
+                                </span>
+                            </div>
+                            <div class="comment-tool">
+                                <span class="like-comment">Thích</span>
+                                <span class="rep-comment">Trả lời</span>
+                                <span class="time">1 ngày trước</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </ul>
+                </ul>
+            </div>
         </div>
     </section>
     <span class="border-1"></span>
@@ -267,6 +271,8 @@
             </div>
         </article>
     </section>
+    <button class="btn-like btn-outline-primary active">120 <i class="far fa-thumbs-up"></i></button>
+    <button class="btn-dislike btn-outline-danger">10 <i class="far fa-thumbs-down"></i></button>
     <footer class="footer">
         <div class="container">
             <div class="text-center mt-3">
@@ -332,410 +338,44 @@
             tin</a>
         <a class="btn-menu" data-toggle="modal" data-target="#menuModal" href="#" title="">Menu</a>
     </div>
-    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="searchModalLabel">Tìm kiếm</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="#">
-                        <div class="form-group">
-                            <label for="inputName">Lọc theo tên:</label>
-                            <input type="text" class="form-control" name="name" placeholder="Enter name" id="inputName">
-                        </div>
-                        <div class="list-services">
-                            <label>Chọn dịch vụ</label>
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="services1" name="service1">
-                                <label class="custom-control-label" for="services1">services1</label>
-                            </div>
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="services2" name="service2">
-                                <label class="custom-control-label" for="services2">services2</label>
-                            </div>
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="services3" name="service3">
-                                <label class="custom-control-label" for="services3">services3</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="category">Chọn quận/huyện:</label>
-                            <select class="form-control" id="category">
-                                <option value="all">--Tất cả--</option>
-                                <option>Gò Vấp</option>
-                                <option>Phú Nhuận</option>
-                                <option>Thủ Đức</option>
-                            </select>
-                        </div>
-                        <br>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade animate" id="contentModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content animate-bottom">
-                <div class="modal-header">
-                    <h4 class="modal-title"> Tin Mới Nhất</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
-                            class="icon icon-close-popup"></i></button>
-                </div>
-                <div class="modal-body mt-3">
-                    <article class="art-3 mb-4">
-                        <h3><a href="/tin-tuc/an-do-xay-benh-vien-da-chien-lon-nhat-the-gioi-chong-covid19-2020061820172715.html"
-                                title="">Ấn Độ xây bệnh viện dã chiến lớn nhất thế giới chống Covid-19</a></h3>
-                        <div class="outer-time">
-                            <a class="category" href="/tin-tuc">Tin ...Tức Cười</a>
-                        </div>
-                        <div class="outer-thumb">
-                            <a class="thumbs"
-                                href="/tin-tuc/an-do-xay-benh-vien-da-chien-lon-nhat-the-gioi-chong-covid19-2020061820172715.html">
-                                <img class="lazyload"
-                                    src="https://cuoifly.tuoitre.vn/475/297/ttc/r/2020/06/18/sung-dai-hay-ky-thuat-1592471751-16x9.jpg"
-                                    alt="Ấn Độ xây bệnh viện dã chiến lớn nhất thế giới chống Covid-19">
-                            </a>
-                        </div>
-                        <div class="p-3">
-                            <div class="d-flex justify-content-between">
-                                <span><i class="fas fa-money-bill"></i> Giá: 500,000vnđ</span>
-                                <span>Khu vực: Gò vấp <i class="fas fa-location"></i></span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <span><i class="fas fa-comment"></i> Bình luận: 5</span>
-                                <span><a href="tel:0982390731">0982390731</a> <i class="fas fa-phone"></i></span>
-                            </div>
-                        </div>
-                        <ul class="slide-tags">
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/06/06/ezlaimixyae8vbd-1591419542-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/an-do-2082.html"> #ấn độ</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/05/28/cau-be-khoc-vi-duoc-an-ga-ran-sau-hai-thang-cach-ly-1590652251-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/cach-ly-6957.html"> #cách ly</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/06/13/thieu-mau-1592059344-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/covid19-7492.html"> #covid-19</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/03/13/cach-li-1584068298-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/benh-vien-da-chien-9171.html"> #bệnh viện dã chiến</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/06/18/cach-ly-lon-nhat-the-gioi-1592473350-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/lon-nhat-the-gioi-14561.html"> #lớn nhất thế giới</a>
-                            </li>
-                        </ul>
-                        <a href="javascript:void(0)" class="more-comment">Xem thêm 2 bình luận</a>
-                        <ul class="wrapper-comment cm-wrap">
-                            <div class="comment" data-id="76781" style="animation-delay: 0s">
-                                <span class="comment-avatar" style="background-color: #172b4d">V</span>
-                                <div class="comment-media" data-cmid="76781" data-author="Vikinh">
-                                    <div class="comment-content">
-                                        <span class="comment-name">
-                                            Vikinh
-                                        </span>
-                                        <span class="comment-text">
-                                            <pre>Nghề của các cô đúng ra không có mang vác nặng ! Nhưng lại nhọc nhằn , trong việc trông giữ , dạy trẻ chứ bộ chơi sao !? Còn phải yêu thương trẻ dù không phải con đẻ ! Gặp kiểu dì ghẻ là hổi ôi cho các bé lun !? Chứ sao !</pre>
-                                        </span>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </ul>
-                        <div class="detail-comment mt-3">
-                            <div class="form-group">
-                                <textarea placeholder="Nhập và nhấn enter để gửi" spellcheck="false"></textarea>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="art-3 mb-4">
-                        <h3><a href="/tin-tuc/an-do-xay-benh-vien-da-chien-lon-nhat-the-gioi-chong-covid19-2020061820172715.html"
-                                title="">Giới trẻ rộ mốt 'chuyển giới' qua app, tái sinh trào lưu một thời</a></h3>
-                        <div class="outer-time">
-                            <a class="category" href="/tin-tuc">Tin ...Tức Cười</a>
-                        </div>
-                        <div class="outer-thumb">
-                            <a class="thumbs"
-                                href="/tin-tuc/an-do-xay-benh-vien-da-chien-lon-nhat-the-gioi-chong-covid19-2020061820172715.html">
-                                <img class="lazyload"
-                                    src="https://cuoifly.tuoitre.vn/475/297/ttc/r/2020/06/18/faceapp05-1592475659-16x9.jpg"
-                                    alt="Ấn Độ xây bệnh viện dã chiến lớn nhất thế giới chống Covid-19">
-                            </a>
-                        </div>
-                        <div class="p-3">
-                            <div class="d-flex justify-content-between">
-                                <span><i class="fas fa-money-bill"></i> Giá: 500,000vnđ</span>
-                                <span>Khu vực: Gò vấp <i class="fas fa-location"></i></span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <span><i class="fas fa-comment"></i> Bình luận: 5</span>
-                                <span><a href="tel:0982390731">0982390731</a> <i class="fas fa-phone"></i></span>
-                            </div>
-                        </div>
-                        <ul class="slide-tags">
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/06/06/ezlaimixyae8vbd-1591419542-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/an-do-2082.html"> #ấn độ</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/05/28/cau-be-khoc-vi-duoc-an-ga-ran-sau-hai-thang-cach-ly-1590652251-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/cach-ly-6957.html"> #cách ly</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/06/13/thieu-mau-1592059344-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/covid19-7492.html"> #covid-19</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/03/13/cach-li-1584068298-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/benh-vien-da-chien-9171.html"> #bệnh viện dã chiến</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/06/18/cach-ly-lon-nhat-the-gioi-1592473350-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/lon-nhat-the-gioi-14561.html"> #lớn nhất thế giới</a>
-                            </li>
-                        </ul>
-                        <a href="javascript:void(0)" class="more-comment">Xem thêm 2 bình luận</a>
-                        <ul class="wrapper-comment cm-wrap">
-                            <div class="comment" data-id="76781" style="animation-delay: 0s">
-                                <span class="comment-avatar" style="background-color: #172b4d">V</span>
-                                <div class="comment-media" data-cmid="76781" data-author="Vikinh">
-                                    <div class="comment-content">
-                                        <span class="comment-name">
-                                            Vikinh
-                                        </span>
-                                        <span class="comment-text">
-                                            <pre>Nghề của các cô đúng ra không có mang vác nặng ! Nhưng lại nhọc nhằn , trong việc trông giữ , dạy trẻ chứ bộ chơi sao !? Còn phải yêu thương trẻ dù không phải con đẻ ! Gặp kiểu dì ghẻ là hổi ôi cho các bé lun !? Chứ sao !</pre>
-                                        </span>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </ul>
-                        <div class="detail-comment mt-3">
-                            <div class="form-group">
-                                <textarea placeholder="Nhập và nhấn enter để gửi" spellcheck="false"></textarea>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="art-3 mb-4">
-                        <h3><a href="/tin-tuc/an-do-xay-benh-vien-da-chien-lon-nhat-the-gioi-chong-covid19-2020061820172715.html"
-                                title="">Ấn Độ xây bệnh viện dã chiến lớn nhất thế giới chống Covid-19</a></h3>
-                        <div class="outer-time">
-                            <a class="category" href="/tin-tuc">Tin ...Tức Cười</a>
-                        </div>
-                        <div class="outer-thumb">
-                            <a class="thumbs"
-                                href="/tin-tuc/an-do-xay-benh-vien-da-chien-lon-nhat-the-gioi-chong-covid19-2020061820172715.html">
-                                <img class="lazyload"
-                                    src="https://cuoifly.tuoitre.vn/475/297/ttc/r/2020/06/18/sung-dai-hay-ky-thuat-1592471751-16x9.jpg"
-                                    alt="Ấn Độ xây bệnh viện dã chiến lớn nhất thế giới chống Covid-19">
-                            </a>
-                        </div>
-                        <div class="p-3">
-                            <div class="d-flex justify-content-between">
-                                <span><i class="fas fa-money-bill"></i> Giá: 500,000vnđ</span>
-                                <span>Khu vực: Gò vấp <i class="fas fa-location"></i></span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <span><i class="fas fa-comment"></i> Bình luận: 5</span>
-                                <span><a href="tel:0982390731">0982390731</a> <i class="fas fa-phone"></i></span>
-                            </div>
-                        </div>
-                        <ul class="slide-tags">
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/06/06/ezlaimixyae8vbd-1591419542-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/an-do-2082.html"> #ấn độ</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/05/28/cau-be-khoc-vi-duoc-an-ga-ran-sau-hai-thang-cach-ly-1590652251-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/cach-ly-6957.html"> #cách ly</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/06/13/thieu-mau-1592059344-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/covid19-7492.html"> #covid-19</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/03/13/cach-li-1584068298-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/benh-vien-da-chien-9171.html"> #bệnh viện dã chiến</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/06/18/cach-ly-lon-nhat-the-gioi-1592473350-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/lon-nhat-the-gioi-14561.html"> #lớn nhất thế giới</a>
-                            </li>
-                        </ul>
-                        <a href="javascript:void(0)" class="more-comment">Xem thêm 2 bình luận</a>
-                        <ul class="wrapper-comment cm-wrap">
-                            <div class="comment" data-id="76781" style="animation-delay: 0s">
-                                <span class="comment-avatar" style="background-color: #172b4d">V</span>
-                                <div class="comment-media" data-cmid="76781" data-author="Vikinh">
-                                    <div class="comment-content">
-                                        <span class="comment-name">
-                                            Vikinh
-                                        </span>
-                                        <span class="comment-text">
-                                            <pre>Nghề của các cô đúng ra không có mang vác nặng ! Nhưng lại nhọc nhằn , trong việc trông giữ , dạy trẻ chứ bộ chơi sao !? Còn phải yêu thương trẻ dù không phải con đẻ ! Gặp kiểu dì ghẻ là hổi ôi cho các bé lun !? Chứ sao !</pre>
-                                        </span>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </ul>
-                        <div class="detail-comment mt-3">
-                            <div class="form-group">
-                                <textarea placeholder="Nhập và nhấn enter để gửi" spellcheck="false"></textarea>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="art-3 mb-4">
-                        <h3><a href="/tin-tuc/an-do-xay-benh-vien-da-chien-lon-nhat-the-gioi-chong-covid19-2020061820172715.html"
-                                title="">Giới trẻ rộ mốt 'chuyển giới' qua app, tái sinh trào lưu một thời</a></h3>
-                        <div class="outer-time">
-                            <a class="category" href="/tin-tuc">Tin ...Tức Cười</a>
-                        </div>
-                        <div class="outer-thumb">
-                            <a class="thumbs"
-                                href="/tin-tuc/an-do-xay-benh-vien-da-chien-lon-nhat-the-gioi-chong-covid19-2020061820172715.html">
-                                <img class="lazyload"
-                                    src="https://cuoifly.tuoitre.vn/475/297/ttc/r/2020/06/18/faceapp05-1592475659-16x9.jpg"
-                                    alt="Ấn Độ xây bệnh viện dã chiến lớn nhất thế giới chống Covid-19">
-                            </a>
-                        </div>
-                        <div class="p-3">
-                            <div class="d-flex justify-content-between">
-                                <span><i class="fas fa-money-bill"></i> Giá: 500,000vnđ</span>
-                                <span>Khu vực: Gò vấp <i class="fas fa-location"></i></span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <span><i class="fas fa-comment"></i> Bình luận: 5</span>
-                                <span><a href="tel:0982390731">0982390731</a> <i class="fas fa-phone"></i></span>
-                            </div>
-                        </div>
-                        <ul class="slide-tags">
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/06/06/ezlaimixyae8vbd-1591419542-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/an-do-2082.html"> #ấn độ</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/05/28/cau-be-khoc-vi-duoc-an-ga-ran-sau-hai-thang-cach-ly-1590652251-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/cach-ly-6957.html"> #cách ly</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/06/13/thieu-mau-1592059344-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/covid19-7492.html"> #covid-19</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/03/13/cach-li-1584068298-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/benh-vien-da-chien-9171.html"> #bệnh viện dã chiến</a>
-                            </li>
-                            <li class="slide-tags-item">
-                                <img src="https://cuoifly.tuoitre.vn/60/0/ttc/r/2020/06/18/cach-ly-lon-nhat-the-gioi-1592473350-16x9.jpg>"
-                                    alt="">
-                                <a href="/chu-de/lon-nhat-the-gioi-14561.html"> #lớn nhất thế giới</a>
-                            </li>
-                        </ul>
-                        <a href="javascript:void(0)" class="more-comment">Xem thêm 2 bình luận</a>
-                        <ul class="wrapper-comment cm-wrap">
-                            <div class="comment" data-id="76781" style="animation-delay: 0s">
-                                <span class="comment-avatar" style="background-color: #172b4d">V</span>
-                                <div class="comment-media" data-cmid="76781" data-author="Vikinh">
-                                    <div class="comment-content">
-                                        <span class="comment-name">
-                                            Vikinh
-                                        </span>
-                                        <span class="comment-text">
-                                            <pre>Nghề của các cô đúng ra không có mang vác nặng ! Nhưng lại nhọc nhằn , trong việc trông giữ , dạy trẻ chứ bộ chơi sao !? Còn phải yêu thương trẻ dù không phải con đẻ ! Gặp kiểu dì ghẻ là hổi ôi cho các bé lun !? Chứ sao !</pre>
-                                        </span>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </ul>
-                        <div class="detail-comment mt-3">
-                            <div class="form-group">
-                                <textarea placeholder="Nhập và nhấn enter để gửi" spellcheck="false"></textarea>
-                            </div>
-                        </div>
-                    </article>
-                    <button class="btn-more-down" style="background-size: 55px;"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="menuModal">
+    <div class="modal" id="viewCommentModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content animate-bottom">
                 <!-- class gọi animation nè -->
                 <div class="modal-header">
-                    <h4 class="modal-title"> Chuyên mục</h4>
+                    <h4 class="modal-title"> Bình luận</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
                             class="icon icon-close-popup"></i></button>
                 </div>
                 <div class="modal-body">
-                    <ul class="modal__menu title-list">
-                        <li>
-                            <a href="/tin-tuc"><img
-                                    src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/icon-title/title-tintuccuoi.svg"
-                                    alt=""><span>Tin... Tức Cười</span></a> </li>
-                        <li>
-                            <a href="/biem-hoa"><img
-                                    src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/icon-title/title-biemhoa.svg"
-                                    alt=""><span>Biếm Họa</span></a> </li>
-                        <li>
-                            <a href="/video"><img
-                                    src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/icon-title/title-video.svg"
-                                    alt=""><span>Video</span></a> </li>
-                        <li>
-                            <a href="/doi-cuoi"><img
-                                    src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/icon-title/title-doicuoi.svg"
-                                    alt=""><span>Đời Cười</span></a> </li>
-                        <li>
-                            <a href="/giai-tri"><img
-                                    src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/icon-title/title-giaitri.svg"
-                                    alt=""><span>Giải Trí</span></a> </li>
-                        <li>
-                            <a href="/truyen-tranh"><img
-                                    src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/icon-title/title-truyentranh.svg"
-                                    alt=""><span>Truyện Tranh</span></a> </li>
-                        <li>
-                            <a href="/zoi-tre"><img
-                                    src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/icon-title/title-gioitre.svg"
-                                    alt=""><span>Zới Trẻ</span></a> </li>
-                        <li>
-                            <a href="/suc-khoe"><img
-                                    src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/icon-title/icon-sk-mobile.png"
-                                    alt=""><span> Sức Khỏe</span></a> </li>
-                    </ul>
+                    <div class="container">
+                        <div class="detail-comment">
+                            <div class="form-group">
+                                <textarea placeholder="Nhập và nhấn enter để gửi" spellcheck="false"></textarea>
+                            </div>
+                            <a href="javascript:void(0)" class="more-comment">Xem thêm 5 bình luận</a>
+                            <ul class="wrapper-comment cm-wrap">
+                                <div class="comment" data-id="76781" style="animation-delay: 0s">
+                                    <span class="comment-avatar" style="background-color: #172b4d">V</span>
+                                    <div class="comment-media" data-cmid="76781" data-author="Vikinh">
+                                        <div class="comment-content">
+                                            <span class="comment-name">
+                                                Vikinh
+                                            </span>
+                                            <span class="comment-text">
+                                                <pre>Nghề của các cô đúng ra không có mang vác nặng ! Nhưng lại nhọc nhằn , trong việc trông giữ , dạy trẻ chứ bộ chơi sao !? Còn phải yêu thương trẻ dù không phải con đẻ ! Gặp kiểu dì ghẻ là hổi ôi cho các bé lun !? Chứ sao !</pre>
+                                            </span>
+                                        </div>
+                                        <div class="comment-tool">
+                                            <span class="like-comment">Thích</span>
+                                            <span class="rep-comment">Trả lời</span>
+                                            <span class="time">1 ngày trước</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -755,31 +395,67 @@
                         odio explicabo obcaecati eos maxime eum doloribus, ipsam, quisquam dolores corrupti rerum
                         aspernatur repellat molestias id.
                     </div>
-                    <div class="row">
-                        <table class="table table-dark">
-                            <tbody>
-                                <tr>
-                                    <td>Giá sản phẩm</td>
-                                    <td>9</td>
-                                </tr>
-                                <tr>
-                                    <td>Chất lượng sản phẩm</td>
-                                    <td>8</td>
-                                </tr>
-                                <tr>
-                                    <td>Tính cách sản phẩm</td>
-                                    <td>6</td>
-                                </tr>
-                                <tr>
-                                    <td>Giá sản phẩm</td>
-                                    <td>9</td>
-                                </tr>
-                                <tr>
-                                    <td>Giá sản phẩm 11</td>
-                                    <td>9</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="form-group">
+                        <div class="vote-detail">
+                            <span>Điểm số chung: </span>
+                            <ul class="rate-star">
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                            </ul>
+                        </div>
+                        <div class="vote-detail">
+                            <span>Thái độ:</span>
+                            <ul class="rate-star">
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                            </ul>
+                        </div>
+                        <div class="vote-detail">
+                            <span>Giao tiếp:</span>
+                            <ul class="rate-star">
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                            </ul>
+                        </div>
+                        <div class="vote-detail">
+                            <span>Dịch vụ:</span>
+                            <ul class="rate-star">
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
@@ -815,43 +491,94 @@
             </div>
         </div>
     </div>
-    <div class="modal" id="viewCommentModal">
+    <div class="modal" id="writeReportModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content animate-bottom">
-                <!-- class gọi animation nè -->
                 <div class="modal-header">
-                    <h4 class="modal-title"> Bình luận</h4>
+                    <h4 class="modal-title"><i class="fas fa-pen"></i> Viết report</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
                             class="icon icon-close-popup"></i></button>
                 </div>
                 <div class="modal-body">
-                    <div class="container">
-                        <div class="detail-comment mt-3">
-                            <div class="form-group">
-                                <textarea placeholder="Nhập và nhấn enter để gửi" spellcheck="false"></textarea>
-                            </div>
+                    <div class="form-group">
+                        <label for="description">MÔ TẢ</label>
+                        <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="votePost">ĐÁNH GIÁ CHI TIẾT: </label>
+                        <div class="vote-detail">
+                            <span>Điểm số chung: </span>
+                            <ul class="rate-star">
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                            </ul>
                         </div>
-                        <a href="javascript:void(0)" class="more-comment">Xem thêm 5 bình luận</a>
-                        <ul class="wrapper-comment cm-wrap">
-                            <div class="comment" data-id="76781" style="animation-delay: 0s">
-                                <span class="comment-avatar" style="background-color: #172b4d">V</span>
-                                <div class="comment-media" data-cmid="76781" data-author="Vikinh">
-                                    <div class="comment-content">
-                                        <span class="comment-name">
-                                            Vikinh
-                                        </span>
-                                        <span class="comment-text">
-                                            <pre>Nghề của các cô đúng ra không có mang vác nặng ! Nhưng lại nhọc nhằn , trong việc trông giữ , dạy trẻ chứ bộ chơi sao !? Còn phải yêu thương trẻ dù không phải con đẻ ! Gặp kiểu dì ghẻ là hổi ôi cho các bé lun !? Chứ sao !</pre>
-                                        </span>
-                                    </div>
-                                    <div class="comment-tool">
-                                        <span class="like-comment">Thích</span>
-                                        <span class="rep-comment">Trả lời</span>
-                                        <span class="time">1 ngày trước</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </ul>
+                        <div class="vote-detail">
+                            <span>Thái độ:</span>
+                            <ul class="rate-star">
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                            </ul>
+                        </div>
+                        <div class="vote-detail">
+                            <span>Giao tiếp:</span>
+                            <ul class="rate-star">
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                            </ul>
+                        </div>
+                        <div class="vote-detail">
+                            <span>Dịch vụ:</span>
+                            <ul class="rate-star">
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="fas fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                                <li><i class="far fa-star"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>ẢNH REPORTS:</label>
+                        <label class="file-container">
+                            <input type="file" multiple="" aria-label="" id="reportImages">
+                            <span><i class="fas fa-upload"></i> Tải lên ảnh chi tiết</span>
+                        </label>
+                        <div class="file-preview">
+                        </div>
+                        <span class="note">* Vui lòng chọn ảnh tải lên để đảm bảo report hợp lệ (chỉ có thể tải tối đa 9 ảnh)</span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-block btn-yellow">Gửi Report</button>
                     </div>
                 </div>
             </div>
@@ -879,7 +606,56 @@
             $(".modal-content .slide-tags,.slide-tags").not('.slick-initialized').slick({
                 variableWidth: true,
                 slidesToScroll: 3
+            });
+            $("#writeReportModal ul.rate-star li").on('click', function() {
+                let parentElement = $(this).parents('ul.rate-star');
+                let star = $(this).index() + 1;
+                parentElement.find('i').removeClass('fas').addClass('far');
+                for(let i = 1; i <= star; i++) {
+                    parentElement.find('li:nth-child('+ i +')').find('i').removeClass('far').addClass('fas');
+                }
             })
+
+            var totalFile = 0,
+            filesList = new Array(),
+            formDataDelete = function(index) {
+                "use strict";
+                var keep = filesList;
+                keep.splice(index, 1);
+                console.log(filesList);
+                return filesList = keep;
+            },
+            imagesPreview = function(input, placeToInsertImagePreview) {
+                if (input.files) {
+                    var filesAmount = input.files.length;
+                    for (let i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            let previewImageHtml = `
+                                    <div class="file-catcher">
+                                        <img src="${event.target.result}">
+                                        <span class="close-file-preview"><i class="fas fa-times-circle"></i></span>
+                                    </div>
+                                `;
+                            if (filesList.length < 9) {
+                                $(previewImageHtml).appendTo(placeToInsertImagePreview);
+                                filesList.push(event.target.result);
+                            }
+                        };
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            };
+            $('#reportImages').on('change', function() {
+                imagesPreview(this, 'div.file-preview');
+            });
+
+            $(document).on('click', '.close-file-preview', function (e) {
+                e.preventDefault();
+                totalFile--;
+                formDataDelete($(this).parents("div.file-preview").index());
+                $(this).parents('div.file-catcher').remove();
+            });
         });
     </script>
 </body>

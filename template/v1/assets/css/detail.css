@@ -669,28 +669,88 @@ span.note {
   font-style: italic;
 }
 
-.login-or {
-  position: relative;
-  color: #aaa;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-.login-or .hr-or {
-  height: 1px;
-  margin-top: 0px !important;
-  margin-bottom: 0px !important;
-}
-.login-or .span-or {
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: -2px;
-  margin-left: -25px;
-  background-color: #fff;
-  width: 50px;
-  text-align: center;
+.tab-content.container {
+  padding-top: 15px;
 }
 
-/*# sourceMappingURL=login.css.map */
+#reportModal .report-content {
+  margin-bottom: 10px;
+}
+#reportModal img {
+  height: 140px;
+}
+
+#writeReportModal label, #reportModal label {
+  font-size: 1rem;
+}
+#writeReportModal .vote-detail, #reportModal .vote-detail {
+  display: flex;
+  flex-direction: row;
+}
+#writeReportModal .vote-detail ul.rate-star, #reportModal .vote-detail ul.rate-star {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin-top: -2px;
+  width: 70%;
+}
+#writeReportModal .vote-detail ul.rate-star li, #reportModal .vote-detail ul.rate-star li {
+  color: #F54337;
+}
+#writeReportModal .vote-detail span, #reportModal .vote-detail span {
+  font-size: 13px;
+  font-weight: 500;
+  width: 30%;
+}
+#writeReportModal .file-preview, #reportModal .file-preview {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#writeReportModal .file-preview .file-catcher, #reportModal .file-preview .file-catcher {
+  margin: 5px;
+  border: 1px solid;
+  position: relative;
+}
+#writeReportModal .file-preview .file-catcher img, #reportModal .file-preview .file-catcher img {
+  background-size: cover !important;
+  background-position: center !important;
+  width: 100px;
+  height: 75px;
+  position: relative;
+}
+#writeReportModal .file-preview .file-catcher span.close-file-preview, #reportModal .file-preview .file-catcher span.close-file-preview {
+  position: absolute;
+  margin-left: -20px;
+  color: #F54337;
+}
+
+.btn-like {
+  position: fixed;
+  bottom: 40%;
+  right: 3vw;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  z-index: 999;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn-dislike {
+  position: fixed;
+  bottom: calc(40% - 65px);
+  right: 3vw;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  z-index: 999;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*# sourceMappingURL=detail.css.map */

@@ -1,0 +1,16 @@
+article.w-475 {
+    h2 {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 15px 0 15px 0;
+        margin-bottom: 0;
+        border-bottom: none;
+    }
+    .info {
+        padding: 1rem;
+        .info1, .info2{
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
