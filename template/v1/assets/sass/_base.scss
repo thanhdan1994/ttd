@@ -14,6 +14,15 @@
     }
 }
 
+@keyframes animateTop {
+    0% {
+        bottom: 100vh;
+    }
+    100% {
+        bottom: 0;
+    }
+}
+
 $main-color :  #D10000;
 $yellow-color :  #fdbe21;
 
@@ -344,7 +353,11 @@ section {
     }
     .animate-bottom {
         position: relative;
-        animation: animateBottom 0.3s;
+        animation: animateBottom 0.5s;
+    }
+    .animate-top {
+        position: relative;
+        animation: animateTop 0.5s;
     }
 }
 

@@ -117,6 +117,11 @@ article.art-thumb-left .info {
 }
 article.art-thumb-left .info h4 {
   font-size: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .detail-comment {
@@ -300,6 +305,14 @@ article.art-thumb-left .info h4 {
   }
   100% {
     top: 0;
+  }
+}
+@keyframes animateTop {
+  0% {
+    bottom: 100vh;
+  }
+  100% {
+    bottom: 0;
   }
 }
 .icon-trend {
@@ -628,7 +641,11 @@ section {
 }
 .modal .animate-bottom {
   position: relative;
-  animation: animateBottom 0.3s;
+  animation: animateBottom 0.5s;
+}
+.modal .animate-top {
+  position: relative;
+  animation: animateTop 0.5s;
 }
 
 .title-2 {
@@ -706,6 +723,7 @@ span.note {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 #writeReportModal .file-preview .file-catcher, #reportModal .file-preview .file-catcher {
   margin: 5px;
@@ -738,6 +756,9 @@ span.note {
   flex-direction: column;
   align-items: center;
 }
+.btn-like:focus {
+  outline: none;
+}
 
 .btn-dislike {
   position: fixed;
@@ -751,6 +772,9 @@ span.note {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.btn-dislike:focus {
+  outline: none;
 }
 
 /*# sourceMappingURL=detail.css.map */
