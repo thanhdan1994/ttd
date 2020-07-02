@@ -1,7 +1,8 @@
 import { LOGIN } from "../actionTypes";
+import CookieService from "../../services/CookieService";
 
 const initialState = {
-    login: false,
+    login: CookieService.get('access_token') ? true : false,
 };
 
 export default function (state = initialState, action) {

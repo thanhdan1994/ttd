@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { handleShowModalLogin } from '../../redux/actions';
 
@@ -11,9 +12,7 @@ function Bookmark({handleShowModalLogin, login}) {
         )
     } else {
         return (
-            <a onClick={handleShowModalLogin}>
-                <i className="fas fa-bookmark" /> Bookmark
-            </a>
+            <Link to="/bookmarks"><i className="fas fa-bookmark" /> Đánh dấu</Link>
         )
     }
 }
