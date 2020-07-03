@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\DB;
 Route::post('login', [\Laravel\Passport\Http\Controllers\AccessTokenController::class, 'issueToken'])
     ->middleware(['api-login', 'throttle']);
 
+Route::namespace('Api')->group(function () {
+    Route::post('product', 'ProductController@store')->middleware('auth:api');
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

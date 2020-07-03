@@ -399,3 +399,27 @@ a {
 span.note {
     font-style: italic;
 }
+
+.file-preview {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    .file-catcher {
+        margin: 5px;
+        border: 1px solid;
+        position: relative;
+        img {
+            background-size: cover !important;
+            background-position: center !important;
+            width: 100px;
+            height: 75px;
+            position: relative;
+        }
+        span.close-file-preview {
+            position: absolute;
+            margin-left: -20px;
+            color: #F54337;
+        }
+    }
+}
