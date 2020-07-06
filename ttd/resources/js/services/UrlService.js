@@ -7,6 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 
 class UrlService {
     static loginUrl() { return apiDomain + 'api/login'}
+    static createUserUrl() { return apiDomain + 'api/register'}
     static createProductUrl() { return apiDomain + 'api/product'}
 }
 

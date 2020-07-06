@@ -78,7 +78,6 @@ function Main() {
             <RegisterModal/>
             <LatestContentModal/>
             <SearchModal/>
-            <PostModal/>
         </Fragment>
     )
 }

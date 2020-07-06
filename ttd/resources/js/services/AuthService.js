@@ -14,6 +14,16 @@ class AuthService {
             return false;
         }
     }
+
+    async registerUser(formData) {
+        try {
+            const response = await axios.post(UrlService.createUserUrl(), formData);
+            return  response.data;
+        } catch (error) {
+            return error.response.data;
+        }
+    }
+
     handleLoginSuccess(response, remember) {
         if (!remember) {
             const options = { path: '/'};
@@ -24,6 +34,12 @@ class AuthService {
         date.setTime(date.getTime() + expiresAt * 60 * 1000)
         const options = { path: '/', expires: date};
         CookieService.set('access_token', response.access_token, options);
+        return true;
+    }
+
+    handleRegisterSuccess(response) {
+        const options = { path: '/'};
+        CookieService.set('access_token', response.token, options);
         return true;
     }
 }

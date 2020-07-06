@@ -20,6 +20,7 @@ Route::post('login', [\Laravel\Passport\Http\Controllers\AccessTokenController::
 
 Route::namespace('Api')->group(function () {
     Route::post('product', 'ProductController@store')->middleware('auth:api');
+    Route::post('register', 'UserController@store');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
