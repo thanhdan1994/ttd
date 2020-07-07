@@ -50,7 +50,7 @@ class Product extends Model implements HasMedia
     /**
      * Scope a query to only include Auth users.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeLoggedUser($query)
@@ -61,6 +61,11 @@ class Product extends Model implements HasMedia
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function comments()
@@ -83,10 +88,13 @@ class Product extends Model implements HasMedia
         return $this->hasMany(Report::class)->orderBy('id', 'desc');
     }
 
-    public function registerMediaCollections() : void
+    public function registerMediaCollections(): void
     {
         $this->addMediaCollection(env('COLLECTION_NAME_THUMBNAIL'))
             ->registerMediaConversions(function (Media $media) {
+                $this->addMediaConversion('thumb-150')
+                    ->width(150)
+                    ->height(100);
                 $this->addMediaConversion('thumb')
                     ->width(250)
                     ->height(200);
@@ -96,6 +104,9 @@ class Product extends Model implements HasMedia
             });
         $this->addMediaCollection(env('COLLECTION_NAME_DETAIL_IMAGES'))
             ->registerMediaConversions(function (Media $media) {
+                $this->addMediaConversion('thumb-150')
+                    ->width(150)
+                    ->height(100);
                 $this->addMediaConversion('thumb')
                     ->width(250)
                     ->height(200);
@@ -115,12 +126,31 @@ class Product extends Model implements HasMedia
         return $this->morphMany(Media::class, 'model')->where('collection_name', 'detail-images');
     }
 
+    public function like()
+    {
+        return $this->morphMany(Like::class, 'model')->where('type', 1);
+    }
+
+    public function unlike()
+    {
+        return $this->morphMany(Like::class, 'model')->where('type', 2);
+    }
+
 
     public function getThumbnailUrlAttribute()
     {
         $thumbnail = 'https://cuoifly.tuoitre.vn/155/0/ttc/r/2020/02/03/logo-ttc-1580721954.png';
         if ($this->thumbnail !== null) :
             $thumbnail = $this->thumbnail->getUrl('thumb-350');
+        endif;
+        return $thumbnail;
+    }
+
+    public function getThumbnailUrl($thumb = 'thumb-350')
+    {
+        $thumbnail = 'https://cuoifly.tuoitre.vn/155/0/ttc/r/2020/02/03/logo-ttc-1580721954.png';
+        if ($this->thumbnail !== null) :
+            $thumbnail = $this->thumbnail->getUrl($thumb);
         endif;
         return $thumbnail;
     }

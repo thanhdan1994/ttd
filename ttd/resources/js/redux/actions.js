@@ -29,7 +29,6 @@ export const handleCloseModalRegister = () => ({
     type: CLOSE_MODAL_REGISTER
 });
 
-
 export const handleShowLatestModal = () => ({
     type: SHOW_MODAL_LATEST
 });
@@ -57,5 +56,10 @@ export const handleClosePostModal = () => ({
 
 export const handleLogin = () => ({
     type: LOGIN
+});
+
+export const handleLikeUnlike = data => ({
+    type: 'LIKE_UNLIKE',
+    data: data
 });
 

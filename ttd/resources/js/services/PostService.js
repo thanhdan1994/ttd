@@ -17,6 +17,60 @@ class PostService {
             return false;
         }
     }
+
+    async getProducts(page = 1, size = 10) {
+        try {
+            const response = await axios.get(UrlService.getProductsUrl(page, size));
+            return  response.data;
+        } catch (error) {
+            console.error('Error', error.response);
+            return false;
+        }
+    }
+
+    async getProductDetail(slug, id) {
+        try {
+            const response = await axios.get(UrlService.getProductDetailUrl(slug, id), {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer '+ CookieService.get('access_token'),
+                }
+            });
+            return  response.data;
+        } catch (error) {
+            console.error('Error', error.response);
+            return false;
+        }
+    }
+    async doLikeProduct(productId) {
+        try {
+            const response = await axios.post(UrlService.likeProductUrl(), {id: productId}, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer '+ CookieService.get('access_token'),
+                }
+            });
+            return  response.data;
+        } catch (error) {
+            console.error('Error', error.response);
+            return false;
+        }
+    }
+
+    async doUnLikeProduct(productId) {
+        try {
+            const response = await axios.post(UrlService.dislikeProductUrl(), {id: productId}, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer '+ CookieService.get('access_token'),
+                }
+            });
+            return  response.data;
+        } catch (error) {
+            console.error('Error', error.response);
+            return false;
+        }
+    }
 }
 
 export default new PostService();

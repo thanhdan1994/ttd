@@ -2,15 +2,16 @@ import React, { Fragment } from "react";
 import Bookmark from "./Items/Bookmark";
 import { connect } from "react-redux";
 import { handleShowSearchModal } from '../redux/actions';
+import {Link} from "react-router-dom";
 
 function Header({handleShowSearchModal}) {
     return (
         <Fragment>
             <header className="header d-flex justify-content-between">
                 <h1>
-                    <a className="logo">
+                    <Link className="logo" to="/">
                         <img src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/logo.svg" alt="hihi" />
-                    </a>
+                    </Link>
                 </h1>
                 <button className="btn btn-search text-light" type="button" onClick={handleShowSearchModal}>
                     <i className="fas fa-search" />

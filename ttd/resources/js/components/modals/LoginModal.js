@@ -18,9 +18,9 @@ function LoginModal(props) {
         };
         const response = await AuthService.doUserLogin(postData);
         if (response) {
-            props.handleLogin();
-            props.handleCloseModalLogin();
             AuthService.handleLoginSuccess(response, isChecked);
+            alert('Đăng nhập thành công!');
+            window.location.reload(false)
         } else {
             setShowError(true);
         }

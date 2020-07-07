@@ -9,7 +9,8 @@ article.art-thumb-left {
         width: #{$thumbnail-width}px;
         margin-right: #{$margin-right}px;
         img {
-            width: 100%;
+            width: 150px;
+            height: 100px;
             border-radius: 5px;
         }
     }

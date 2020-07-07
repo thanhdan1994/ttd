@@ -17,11 +17,10 @@ function RegisterModal(props) {
         event.preventDefault();
         const response = await AuthService.registerUser(data);
         if (response.token) {
-            alert('Đăng ký tài khoản thành công!');
             setErrors([]);
-            props.handleLogin();
-            props.handleCloseModalRegister();
             AuthService.handleRegisterSuccess(response);
+            alert('Đăng ký tài khoản thành công!');
+            window.location.reload(false)
         } else {
             setErrors(response.errors)
         }

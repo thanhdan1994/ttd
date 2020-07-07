@@ -6,6 +6,12 @@ article.w-475 {
         margin-bottom: 0;
         border-bottom: none;
     }
+    .thumbnail {
+        img {
+            width: 475px;
+            height: 240px;
+        }
+    }
     .info {
         padding: 1rem;
         .info1, .info2{
