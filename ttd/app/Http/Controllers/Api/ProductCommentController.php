@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Like;
 use App\Product;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use function Psy\debug;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ProductCommentController extends Controller
 {
@@ -65,5 +65,39 @@ class ProductCommentController extends Controller
         });
         $data['data'] = $comments;
         return response($data, 200);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @param  \App\Product $product
+     * @return \Illuminate\View\View
+     */
+    public function store(Request $request, Product $product)
+    {
+        $messages = [
+            'content' => 'Địa chỉ email này đã tồn tại',
+        ];
+        $validator = Validator::make($request->all(), [
+            'content' => 'required',
+        ], $messages);
+        if ($validator->fails())
+        {
+            return response(['errors'=>$validator->errors()->all()], 422);
+        }
+        $data = $request->all();
+        $data['user_id'] = $request->user()->id;
+        $data['product_id'] = $product->id;
+        $data['parent'] = $request->parent ? $request->parent : 0;
+        DB::beginTransaction();
+        try {
+            $comment = Comment::create($data);
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return response(['message' => $exception->getMessage()], 400);
+        }
+        DB::commit();
+        return response($comment, 200);
     }
 }

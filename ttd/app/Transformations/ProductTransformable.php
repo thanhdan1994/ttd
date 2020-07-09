@@ -39,19 +39,21 @@ trait ProductTransformable
             'parent' => 0,
             'status' => 1
         ])->withCount(['like', 'unlike'])->orderBy('created_at', 'desc')->first();
-        $like = false;
-        if ($user) {
-            $like = Like::where([
-                'user_id' => $user->id,
-                'type' => 1,
-                'model_type' => get_class($comment),
-                'model_id' => $comment->id
-            ])->first() ? true : false;
+        if ($comment) {
+            $like = false;
+            if ($user) {
+                $like = Like::where([
+                    'user_id' => $user->id,
+                    'type' => 1,
+                    'model_type' => get_class($comment),
+                    'model_id' => $comment->id
+                ])->first() ? true : false;
+            }
+            $comment->like = $like;
+            $comment->timeAgo = time_elapsed_string_vi($comment->created_at);
+            $comment->author;
+            $pst->comment = $comment;
         }
-        $comment->like = $like;
-        $comment->timeAgo = time_elapsed_string_vi($comment->created_at);
-        $comment->author;
-        $pst->comment = $comment;
         $pst->comment_count = count($product->comments);
         $pst->like = count($product->like);
         $pst->unlike = count($product->unlike);

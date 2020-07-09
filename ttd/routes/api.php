@@ -22,6 +22,7 @@ Route::namespace('Api')->group(function () {
     Route::post('product', 'ProductController@store')->middleware('auth:api');
     Route::get('product', 'ProductController@index');
     Route::get('product/{product}/comments', 'ProductCommentController@index');
+    Route::post('product/{product}/comment', 'ProductCommentController@store')->middleware('auth:api');
     Route::post('product/like', 'LikeController@like')->middleware('auth:api');
     Route::post('comment/{comment}/like', 'LikeController@likeComment')->middleware('auth:api');
     Route::delete('comment/{comment}/like', 'LikeController@removeLikeComment')->middleware('auth:api');

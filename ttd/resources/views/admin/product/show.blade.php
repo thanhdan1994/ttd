@@ -200,11 +200,11 @@
             @if (count($product->comments) > 0) @foreach($product->comments as $comment)
             <div class="media comment-box" data-comment="{!! $comment->id !!}">
                 <div class="media-left">
-                    <img class="img-responsive user-photo" src="{!! $comment->user->thumbnailUrl !!}">
+                    <img class="img-responsive user-photo" src="{!! $comment->author->thumbnailUrl !!}">
                 </div>
                 <div class="media-body">
                     <div class="media-heading d-flex justify-content-between">
-                        <span class="font-weight-bold">{!! $comment->user->name !!}</span>
+                        <span class="font-weight-bold">{!! $comment->author->name !!}</span>
                         <span class="font-italic">
                             <span class="mr-2">{!! $comment->created_at !!}</span>
                             <span class="js-show-box-reply-comment"><i class="mdi mdi-reply"></i> Trả lời</span>
@@ -212,17 +212,17 @@
                     </div>
                     <p>{!! $comment->content !!}</p>
                     <div class="box-reply d-none">
-                        <textarea class="form-control mb-2" placeholder="Trả lời bình luận" rows="4">{{ "@" . $comment->user->name }} </textarea>
+                        <textarea class="form-control mb-2" placeholder="Trả lời bình luận" rows="4">{{ "@" . $comment->author->name }} </textarea>
                         <button type="button" class="btn btn-gradient-primary js-send-reply-comment">Gửi Trả lời</button>
                     </div>
                     @foreach($comment->child as $commentChild)
                     <div class="media">
                         <div class="media-left">
-                            <img class="img-responsive user-photo" src="{!! $commentChild->user->thumbnailUrl !!}">
+                            <img class="img-responsive user-photo" src="{!! $commentChild->author->thumbnailUrl !!}">
                         </div>
                         <div class="media-body">
                             <div class="media-heading d-flex justify-content-between">
-                                <span class="font-weight-bold">{!! $commentChild->user->name !!}</span>
+                                <span class="font-weight-bold">{!! $commentChild->author->name !!}</span>
                                 <span class="font-italic">
                                     <span class="mr-2">{!! $commentChild->created_at !!}</span>
                                     <span class="js-show-box-reply-comment"><i class="mdi mdi-reply"></i> Trả lời</span>
@@ -230,7 +230,7 @@
                             </div>
                             <p>{!! $commentChild->content !!}</p>
                             <div class="box-reply d-none">
-                                <textarea class="form-control mb-2" placeholder="Trả lời bình luận" rows="4">{{ "@" . $commentChild->user->name }} </textarea>
+                                <textarea class="form-control mb-2" placeholder="Trả lời bình luận" rows="4">{{ "@" . $commentChild->author->name }} </textarea>
                                 <button type="button" class="btn btn-gradient-primary js-send-reply-comment">Gửi Trả lời</button>
                             </div>
                         </div>

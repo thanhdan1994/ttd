@@ -9,6 +9,7 @@ import { handleLikeUnlike, handleShowCommentsModal } from "../redux/actions";
 import DetailContainerSkeleton from "../components/skeleton/DetailContainerSkeleton";
 import Comment from "../components/Items/Comment";
 import CommentsModal from "../components/modals/CommentsModal";
+import BlockSendComment from "../components/Items/BlockSendComment";
 
 function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal }) {
     const [data, setData] = useState({});
@@ -134,13 +135,11 @@ function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal }) {
                 <span className="border-2" />
                 <div className="container">
                     <div className="detail-comment">
-                        <div className="form-group">
-                            <textarea placeholder="Nhập và nhấn enter để gửi" spellCheck="false" />
-                        </div>
+                        <BlockSendComment productId={match.params.id} parent={0}/>
                         {data.comment_count > 1 && <span onClick={handleShowCommentsModal} className="more-comment">Xem tất cả bình luận</span>}
-                        <div className="wrapper-comment cm-wrap">
+                        {data.comment && <div className="wrapper-comment cm-wrap">
                            <Comment data={data.comment} />
-                        </div>
+                        </div>}
                     </div>
                     <CommentsModal productId={match.params.id}/>
                 </div>

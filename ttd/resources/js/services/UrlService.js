@@ -21,6 +21,7 @@ class UrlService {
     }
     static likeCommentUrl(id) { return apiDomain + 'api/comment/' + id + '/like' }
     static removeLikeCommentUrl(id) { return apiDomain + 'api/comment/' + id + '/like' }
+    static sendCommentUrl(id) { return apiDomain + 'api/product/' + id + '/comment' }
 }
 
 export default UrlService;
