@@ -21,7 +21,6 @@ class Comment extends Model
         'created_at',
         'updated_at',
         'status',
-        'product_id',
         'user_id'
     ];
 

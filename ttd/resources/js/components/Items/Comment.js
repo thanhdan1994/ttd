@@ -1,7 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import LikeCommentButton from "./LikeCommentButton";
+import ReplyCommentButton from "./ReplyCommentButton";
+import BlockSendComment from "./BlockSendComment";
 
 function Comment({ data }) {
+    const [showBlockSendComment, setShowBlockSendComment] = useState(false);
+    function handleShowBlockSendComment() {
+        setShowBlockSendComment(true);
+    }
     return (
         <div className="comment">
             <span className="comment-avatar">{data.author.name.charAt(0)}</span>
@@ -14,9 +20,10 @@ function Comment({ data }) {
                 </div>
                 <div className="comment-tool">
                     <LikeCommentButton id={data.id} likeNumberDefault={data.like_count} like={data.like}/>
-                    <span className="rep-comment"><i className="far fa-reply"></i></span>
+                    <ReplyCommentButton handleShowBlockSendComment={handleShowBlockSendComment}/>
                     <span className="time">{data.timeAgo}</span>
                 </div>
+                {showBlockSendComment && <BlockSendComment productId={data.product_id} parent={data.id}/>}
                 {data.child && data.child.map(comment => {
                     return (
                         <div className="comment" key={comment.id}>
@@ -30,7 +37,6 @@ function Comment({ data }) {
                                 </div>
                                 <div className="comment-tool">
                                     <LikeCommentButton id={comment.id} likeNumberDefault={comment.like_count} like={data.like}/>
-                                    <span className="rep-comment"><i className="far fa-reply"></i></span>
                                     <span className="time">{comment.timeAgo}</span>
                                 </div>
                             </div>
