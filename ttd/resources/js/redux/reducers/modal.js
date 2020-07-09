@@ -5,7 +5,9 @@ import {
     SHOW_SEARCH_MODAL,
     CLOSE_MODAL_LOGIN,
     CLOSE_MODAL_REGISTER,
-    CLOSE_MODAL_LATEST, CLOSE_SEARCH_MODAL, SHOW_POST_MODAL, CLOSE_POST_MODAL
+    CLOSE_MODAL_LATEST, CLOSE_SEARCH_MODAL, SHOW_POST_MODAL, CLOSE_POST_MODAL,
+    CLOSE_COMMENTS_MODAL,
+    SHOW_COMMENTS_MODAL
 } from "../actionTypes";
 
 const initialState = {
@@ -14,6 +16,7 @@ const initialState = {
     showRegisterModal: false,
     showSearchModal: false,
     showPostModal: false,
+    showCommentsModal: false,
 };
 
 export default function (state = initialState, action) {
@@ -61,6 +64,15 @@ export default function (state = initialState, action) {
             }
         }
         case CLOSE_POST_MODAL: {
+            return initialState;
+        }
+        case SHOW_COMMENTS_MODAL: {
+            return {
+                ...initialState,
+                showCommentsModal: true,
+            }
+        }
+        case CLOSE_COMMENTS_MODAL: {
             return initialState;
         }
         default:

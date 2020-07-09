@@ -9,7 +9,9 @@ import {
     CLOSE_SEARCH_MODAL,
     SHOW_POST_MODAL,
     CLOSE_POST_MODAL,
-    LOGIN
+    LOGIN,
+    CLOSE_COMMENTS_MODAL,
+    SHOW_COMMENTS_MODAL
 } from './actionTypes'
 
 export const handleShowModalLogin = () => ({
@@ -58,8 +60,26 @@ export const handleLogin = () => ({
     type: LOGIN
 });
 
+export const handleShowCommentsModal = () => ({
+    type: SHOW_COMMENTS_MODAL
+});
+
+export const handleCloseCommentsModal = () => ({
+    type: CLOSE_COMMENTS_MODAL
+});
+
 export const handleLikeUnlike = data => ({
     type: 'LIKE_UNLIKE',
     data: data
+});
+
+export const handleLikeComment = commentId => ({
+    type: 'SET_LIKE_COMMENT',
+    commentId: commentId
+});
+
+export const handleRemoveLikeComment = commentId => ({
+    type: 'REMOVE_LIKE_COMMENT',
+    commentId: commentId
 });
 

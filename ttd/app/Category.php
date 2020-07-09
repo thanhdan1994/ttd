@@ -22,6 +22,8 @@ class Category extends Model implements HasMedia
         'featured_image',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function registerMediaCollections() : void
     {
         $this->addMediaCollection(env('COLLECTION_NAME_THUMBNAIL'))

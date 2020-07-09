@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import PostService from "../services/PostService";
+import ProductService from "../services/ProductService";
 import LikeButton from "../components/Items/LikeButton";
 import UnlikeButton from "../components/Items/UnlikeButton";
-import { handleLikeUnlike } from "../redux/actions";
+import { handleLikeUnlike, handleShowCommentsModal } from "../redux/actions";
+import DetailContainerSkeleton from "../components/skeleton/DetailContainerSkeleton";
+import Comment from "../components/Items/Comment";
+import CommentsModal from "../components/modals/CommentsModal";
 
-function DetailContainer({ match, handleLikeUnlike }) {
+function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal }) {
     const [data, setData] = useState({});
     const [tab, setTab] = useState('info');
-    const [isValid, setIsValid] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [settingLightBox, setSettingLightBox] = useState({
         isOpen: false,
         photoIndex: 0
@@ -19,7 +22,7 @@ function DetailContainer({ match, handleLikeUnlike }) {
     useEffect( () => {
         let ignore = false;
         async function fetchProductDetail() {
-            const response = await PostService.getProductDetail(match.params.slug, match.params.id);
+            const response = await ProductService.getProductDetail(match.params.slug, match.params.id);
             if (response) {
                 handleLikeUnlike({
                     liked: response.product.liked,
@@ -28,7 +31,7 @@ function DetailContainer({ match, handleLikeUnlike }) {
                     unlike: response.product.unlike,
                 });
                 setData(response.product);
-                setIsValid(true);
+                setLoading(false);
             }
         }
         fetchProductDetail();
@@ -39,8 +42,7 @@ function DetailContainer({ match, handleLikeUnlike }) {
         event.preventDefault();
         setTab(tab)
     }
-
-    if (isValid) {
+    if (!loading) {
         return (
             <section>
                 <ul className="nav nav-tabs">
@@ -59,28 +61,28 @@ function DetailContainer({ match, handleLikeUnlike }) {
                 </ul>
                 <div className="tab-content container">
                     {tab === 'info' && <div className="tab-pane active">
-                            <div className="row pb-2">
-                                <div className="col-4">
-                                    <img src={data.thumbnail} />
-                                </div>
-                                <div className="col-8 d-flex flex-column">
-                                    <span><i className="fas fa-money-bill" /> Giá: {data.amount}vnđ</span>
-                                    <span><i className="fas fa-phone" /> Số điện thoại: <a href={"tel:"+ data.phone}>{data.phone}</a></span>
-                                    <span><i className="fas fa-location" /> {data.address}</span>
-                                </div>
+                        <div className="row pb-2">
+                            <div className="col-4">
+                                <img src={data.thumbnail} />
                             </div>
-                            <div className="row">
-                                <div className="col-12">
-                                    <table className="table table-dark">
-                                        <tbody>
-                                        {data.infomation.map((info, index) =>  <tr key={index}>
-                                            <th scope="row">{info.key}</th>
-                                            <td>{info.value}</td>
-                                        </tr>)}
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div className="col-8 d-flex flex-column">
+                                <span><i className="fas fa-money-bill" /> Giá: {data.amount} VND</span>
+                                <span><i className="fas fa-phone" /> Số điện thoại: <a href={"tel:"+ data.phone}>{data.phone}</a></span>
+                                <span><i className="fas fa-location" /> {data.address}</span>
                             </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12">
+                                <table className="table table-dark">
+                                    <tbody>
+                                    {data.infomation.map((info, index) =>  <tr key={index}>
+                                        <th scope="row">{info.key}</th>
+                                        <td>{info.value}</td>
+                                    </tr>)}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>}
                     {tab === 'images' && <div className="tab-pane active">
                         <div className="row">
@@ -129,30 +131,28 @@ function DetailContainer({ match, handleLikeUnlike }) {
                         </ul>
                     </div>}
                 </div>
+                <span className="border-2" />
+                <div className="container">
+                    <div className="detail-comment">
+                        <div className="form-group">
+                            <textarea placeholder="Nhập và nhấn enter để gửi" spellCheck="false" />
+                        </div>
+                        {data.comment_count > 1 && <span onClick={handleShowCommentsModal} className="more-comment">Xem tất cả bình luận</span>}
+                        <div className="wrapper-comment cm-wrap">
+                           <Comment data={data.comment} />
+                        </div>
+                    </div>
+                    <CommentsModal productId={match.params.id}/>
+                </div>
                 <LikeButton id={match.params.id}/>
                 <UnlikeButton id={match.params.id}/>
             </section>
         )
     } else {
         return (
-            <section>
-                <ul className="nav nav-tabs">
-                    <li className="nav-item">
-                        <a className="nav-link active" href="#" onClick={e => e.preventDefault()}>Thông tin</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#" onClick={e => e.preventDefault()}>Ảnh chi tiết</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#" onClick={e => e.preventDefault()}>Reports</a>
-                    </li>
-                </ul>
-                <div className="tab-content container">
-
-                </div>
-            </section>
+            <DetailContainerSkeleton />
         )
     }
 }
 
-export default connect(null, { handleLikeUnlike })(DetailContainer);
+export default connect(null, { handleLikeUnlike, handleShowCommentsModal })(DetailContainer);

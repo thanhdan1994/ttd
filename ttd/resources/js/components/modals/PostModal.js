@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Modal } from 'react-bootstrap';
 import { handleClosePostModal } from "../../redux/actions";
-import PostService from "../../services/PostService";
+import ProductService from "../../services/ProductService";
 
 function PostModal({ showPostModal, handleClosePostModal }) {
     const initialState = {
@@ -100,7 +100,7 @@ function PostModal({ showPostModal, handleClosePostModal }) {
             alert('Vui lòng nhập đầy đủ thông tin được đánh dấu (*)');
             return false;
         }
-        let response = await PostService.doCreatePost(data);
+        let response = await ProductService.doCreatePost(data);
         if (response.status === 200) {
             handleClosePostModal();
             setData(initialState);

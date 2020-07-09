@@ -98,7 +98,7 @@ class ProductController extends Controller
                 'model_id' => $product->id
             ])->first() ? true : false;
         }
-        $product = $this->transformProduct($product);
+        $product = $this->transformProduct($product, $user);
         $product['liked'] = $liked;
         $product['unliked'] = $unliked;
         return response(['product' => $product], 200);

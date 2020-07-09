@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import {handleLikeUnlike, handleShowModalLogin} from "../../redux/actions";
-import PostService from "../../services/PostService";
+import ProductService from "../../services/ProductService";
 
-function UnlikeButton({login, showModalLogin, unliked, unlike, liked, like, id, handleLikeUnlike}) {
+function UnlikeButton({login, handleShowModalLogin, unliked, unlike, liked, like, id, handleLikeUnlike}) {
     async function handleUnlikeProduct(event) {
         event.preventDefault();
         const likeNumber = liked ? --like : like;
         handleLikeUnlike({liked: false, unliked: true, like: likeNumber, unlike: unlike + 1});
-        const response = await PostService.doUnLikeProduct(id);
+        const response = await ProductService.doUnLikeProduct(id);
     }
     if (!login) {
         return (
-            <button className="btn-dislike btn-outline-danger" onClick={showModalLogin}>
+            <button className="btn-dislike btn-outline-danger" onClick={handleShowModalLogin}>
                 {unlike} <i className="far fa-thumbs-down"></i>
             </button>
         )

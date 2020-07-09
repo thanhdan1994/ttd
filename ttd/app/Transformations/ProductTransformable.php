@@ -2,6 +2,8 @@
 
 namespace App\Transformations;
 
+use App\Comment;
+use App\Like;
 use App\Product;
 
 trait ProductTransformable
@@ -10,9 +12,10 @@ trait ProductTransformable
      * Transform the product
      *
      * @param Product $product
+     * @param $user
      * @return Product
      */
-    protected function transformProduct(Product $product)
+    protected function transformProduct(Product $product, $user = null)
     {
         $pst = new Product;
         $pst->id = (int)$product->id;
@@ -31,6 +34,25 @@ trait ProductTransformable
         }
         $pst->images = $images;
         $pst->infomation = json_decode($product->properties);
+        $comment = Comment::where([
+            'product_id' => $product->id,
+            'parent' => 0,
+            'status' => 1
+        ])->withCount(['like', 'unlike'])->orderBy('created_at', 'desc')->first();
+        $like = false;
+        if ($user) {
+            $like = Like::where([
+                'user_id' => $user->id,
+                'type' => 1,
+                'model_type' => get_class($comment),
+                'model_id' => $comment->id
+            ])->first() ? true : false;
+        }
+        $comment->like = $like;
+        $comment->timeAgo = time_elapsed_string_vi($comment->created_at);
+        $comment->author;
+        $pst->comment = $comment;
+        $pst->comment_count = count($product->comments);
         $pst->like = count($product->like);
         $pst->unlike = count($product->unlike);
         $pst->phone = $product->phone;

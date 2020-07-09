@@ -71,7 +71,7 @@ class Product extends Model implements HasMedia
     public function comments()
     {
         return $this->hasMany(Comment::class)
-            ->where('parent', 0)
+            ->where(['parent' => 0, 'status' => 1])
             ->orderBy('id', 'desc');
     }
 

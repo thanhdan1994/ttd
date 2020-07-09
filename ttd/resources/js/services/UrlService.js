@@ -13,6 +13,14 @@ class UrlService {
     static likeProductUrl() { return apiDomain + 'api/product/like' }
     static dislikeProductUrl() { return apiDomain + 'api/product/dislike' }
     static getProductsUrl(page, size) { return apiDomain + 'api/product' + '?page=' + page + '&size=' + size }
+    static getProductCommentsUrl(id, page) {
+        if (page > 1) {
+            return apiDomain + 'api/product/'+ id +'/comments' + '?page=' + page;
+        }
+        return apiDomain + 'api/product/'+ id +'/comments';
+    }
+    static likeCommentUrl(id) { return apiDomain + 'api/comment/' + id + '/like' }
+    static removeLikeCommentUrl(id) { return apiDomain + 'api/comment/' + id + '/like' }
 }
 
 export default UrlService;

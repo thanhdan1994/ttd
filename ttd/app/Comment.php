@@ -17,13 +17,32 @@ class Comment extends Model
         'parent'
     ];
 
-    public function user()
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'status',
+        'parent',
+        'product_id',
+        'user_id'
+    ];
+
+    public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function child()
     {
         return $this->hasMany(self::class, 'parent', 'id')->orderBy('created_at', 'asc');
+    }
+
+    public function like()
+    {
+        return $this->morphMany(Like::class, 'model')->where('type', 1);
+    }
+
+    public function unlike()
+    {
+        return $this->morphMany(Like::class, 'model')->where('type', 2);
     }
 }
