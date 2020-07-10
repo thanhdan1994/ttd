@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import ProductService from "../services/ProductService";
 import LikeButton from "../components/Items/LikeButton";
 import UnlikeButton from "../components/Items/UnlikeButton";
 import { handleLikeUnlike, handleShowCommentsModal } from "../redux/actions";
@@ -10,6 +9,7 @@ import DetailContainerSkeleton from "../components/skeleton/DetailContainerSkele
 import Comment from "../components/Items/Comment";
 import CommentsModal from "../components/modals/CommentsModal";
 import BlockSendComment from "../components/Items/BlockSendComment";
+import UrlService from "../services/UrlService";
 
 function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal }) {
     const [data, setData] = useState({});
@@ -21,22 +21,24 @@ function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal }) {
     });
 
     useEffect( () => {
-        let ignore = false;
-        async function fetchProductDetail() {
-            const response = await ProductService.getProductDetail(match.params.slug, match.params.id);
-            if (response) {
-                handleLikeUnlike({
-                    liked: response.product.liked,
-                    unliked: response.product.unliked,
-                    like: response.product.like,
-                    unlike: response.product.unlike,
-                });
-                setData(response.product);
-                setLoading(false);
-            }
-        }
-        fetchProductDetail();
-        return () => { ignore = true };
+        let cancel;
+        axios({
+            method: 'GET',
+            url: UrlService.getProductDetailUrl(match.params.slug, match.params.id),
+            cancelToken: new axios.CancelToken(c => cancel = c)
+        }).then(response => {
+            handleLikeUnlike({
+                liked: response.data.product.liked,
+                unliked: response.data.product.unliked,
+                like: response.data.product.like,
+                unlike: response.data.product.unlike,
+            });
+            setData(response.data.product);
+            setLoading(false);
+        }).catch(e => {
+            if (axios.isCancel(e)) return;
+        });
+        return () => cancel();
     }, []);
 
     function handleSetTabActive(tab, event) {

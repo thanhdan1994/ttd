@@ -1,9 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-function ArticleThumbLeft({ data }) {
+const ArticleThumbLeft = React.forwardRef(({ data }, ref) => {
     return (
-        <article className="art-thumb-left border-2">
+        <article className="art-thumb-left border-2" ref={ref}>
             <div className="thumbnail">
                 <Link to={'/' + data.slug + '/' + data.id}>
                     <img src={data.thumb150} />
@@ -17,6 +17,6 @@ function ArticleThumbLeft({ data }) {
             </div>
         </article>
     )
-}
+});
 
 export default ArticleThumbLeft

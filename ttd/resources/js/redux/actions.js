@@ -12,7 +12,7 @@ import {
     LOGIN,
     CLOSE_COMMENTS_MODAL,
     SHOW_COMMENTS_MODAL
-} from './actionTypes'
+} from './actionTypes';
 
 export const handleShowModalLogin = () => ({
     type: SHOW_MODAL_LOGIN

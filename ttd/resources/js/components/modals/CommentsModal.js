@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { handleCloseCommentsModal } from "../../redux/actions";
 import CommentSkeleton from "../skeleton/CommentSkeleton";
 import Skeleton from "react-loading-skeleton";
-import ProductService from "../../services/ProductService";
 import Comment from "../Items/Comment";
+import UrlService from "../../services/UrlService";
 
 function CommentsModal({
     showCommentsModal,
@@ -18,31 +18,42 @@ function CommentsModal({
     const [perPage, setPerPage] = useState(5);
     const [page, setPage] = useState(1);
     useEffect(() => {
-        async function fetchComments() {
-            const response = await ProductService.getComments(productId, page);
-            if (response) {
-                setTotalPages(response.total_pages);
-                setPerPage(response.per_page);
-                if ((response.per_page * response.current_page + response.per_page) > response.total) {
-                    setPerPage(response.total - (response.per_page * response.current_page))
-                }
-                setComments(response.data);
-                setLoading(false);
+        let cancel;
+        axios({
+            method: 'GET',
+            url: UrlService.getProductCommentsUrl(productId, page),
+            cancelToken: new axios.CancelToken(c => cancel = c)
+        }).then(response => {
+            setTotalPages(response.data.total_pages);
+            setPerPage(response.data.per_page);
+            if ((response.data.per_page * response.data.current_page + response.data.per_page) > response.data.total) {
+                setPerPage(response.data.total - (response.data.per_page * response.data.current_page))
             }
-        }
-        fetchComments();
+            setComments(response.data.data);
+            setLoading(false);
+        }).catch(e => {
+            if (axios.isCancel(e)) return;
+        });
+        return () => cancel();
     }, []);
 
-    async function seeMoreComments() {
+    function seeMoreComments() {
+        let cancel;
         let pageCurrent = page + 1;
-        const response = await ProductService.getComments(productId, pageCurrent);
-        if (response) {
-            if ((response.per_page * response.current_page + response.per_page) > response.total) {
-                setPerPage(response.total - (response.per_page * response.current_page))
-            }
-            setComments([...comments, ...response.data]);
-        }
         setPage(pageCurrent);
+        axios({
+            method: 'GET',
+            url: UrlService.getProductCommentsUrl(productId, pageCurrent),
+            cancelToken: new axios.CancelToken(c => cancel = c)
+        }).then(response => {
+            if ((response.data.per_page * response.data.current_page + response.data.per_page) > response.data.total) {
+                setPerPage(response.data.total - (response.data.per_page * response.data.current_page))
+            }
+            setComments([...comments, ...response.data.data]);
+        }).catch(e => {
+            if (axios.isCancel(e)) return;
+        });
+        return () => cancel();
     }
     return (
         <Modal show={showCommentsModal} onHide={handleCloseCommentsModal} animation={false}>

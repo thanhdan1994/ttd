@@ -7,7 +7,6 @@ import AuthService from "../../services/AuthService";
 function LoginModal(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isChecked, setIsChecked] = useState(true);
     const [showError, setShowError] = useState(false);
 
     async function handleFormSubmit(event) {
@@ -18,7 +17,7 @@ function LoginModal(props) {
         };
         const response = await AuthService.doUserLogin(postData);
         if (response) {
-            AuthService.handleLoginSuccess(response, isChecked);
+            AuthService.handleLoginSuccess(response, true);
             alert('Đăng nhập thành công!');
             window.location.reload(false)
         } else {
