@@ -22,9 +22,9 @@ class Report extends Model implements HasMedia
         'properties',
     ];
 
-    public function user()
+    public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function registerMediaCollections() : void

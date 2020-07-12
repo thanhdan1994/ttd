@@ -101,6 +101,21 @@ class ProductService {
             return false;
         }
     }
+
+    async sendReport(productId, formData) {
+        try {
+            const response = await axios.post(UrlService.sendReportUrl(productId), formData, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer '+ CookieService.get('access_token'),
+                }
+            });
+            return  response.data;
+        } catch (error) {
+            console.error('Error', error.response);
+            return false;
+        }
+    }
 }
 
 export default new ProductService();

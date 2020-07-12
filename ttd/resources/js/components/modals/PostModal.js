@@ -22,7 +22,7 @@ function PostModal({ showPostModal, handleClosePostModal }) {
             {key: 'Giờ hoạt động', value: '10h-24h'}
             ],
         images: []
-    }
+    };
     const [data, setData] = useState(initialState);
 
     var filesList = new Array();
@@ -33,7 +33,7 @@ function PostModal({ showPostModal, handleClosePostModal }) {
         filesList.splice(index, 1);
         setData({...data, images: filesList});
         thisNode.remove();
-    };
+    }
 
     function handlePreviewImage(event) {
         let files = event.target.files;
@@ -60,7 +60,7 @@ function PostModal({ showPostModal, handleClosePostModal }) {
                     filesList.push(reader.result);
                     setData({...data, images: filesList});
                 }
-            }
+            };
             reader.readAsDataURL(file);
         }
     }
@@ -102,6 +102,7 @@ function PostModal({ showPostModal, handleClosePostModal }) {
         }
         let response = await ProductService.doCreatePost(data);
         if (response.status === 200) {
+            alert('Bài viết của bạn đã được gửi thành công! vui lòng đợi duyệt.');
             handleClosePostModal();
             setData(initialState);
         }
@@ -150,7 +151,7 @@ function PostModal({ showPostModal, handleClosePostModal }) {
                             <span><i className="fas fa-upload" /> Tải lên ảnh chi tiết</span>
                         </label>
                         <div className="file-preview" />
-                        <span className="note">* Bạn phải có ít nhất 1 ảnh (tối đa là 9 ảnh)</span>
+                        <span className="note"><span style={{color: 'red'}}>*</span> Bạn phải có ít nhất 1 ảnh (tối đa là 9 ảnh)</span>
                     </div>
                     <div className="form-group">
                         <label>CHỌN DỊCH VỤ:<span style={{color: 'red'}}>*</span></label>

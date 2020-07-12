@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Like;
 use App\Product;
 use App\ProductService;
+use App\Report;
 use App\Requests\CreateProductRequest;
 use App\Transformations\ProductTransformable;
 use Illuminate\Http\Request;
@@ -52,7 +53,7 @@ class ProductController extends Controller
                 $product->clearMediaCollection(env('COLLECTION_NAME_DETAIL_IMAGES'));
                 foreach ($request->get('images') as $key => $file) {
                     $media = $product->addMediaFromBase64($file)->usingFileName(Str::random(20).'.jpg')->toMediaCollection(env('COLLECTION_NAME_DETAIL_IMAGES'));
-                    if ($key == 1) {
+                    if ($key == 0) {
                         $product->featured_image = $media->id;
                         $product->save();
                     }
@@ -84,6 +85,7 @@ class ProductController extends Controller
         }
         $liked = false;
         $unliked = false;
+        $report = false;
         if (!empty($user)) {
             $liked = Like::where([
                 'user_id' => $user->id,
@@ -97,10 +99,15 @@ class ProductController extends Controller
                 'model_type' => get_class($product),
                 'model_id' => $product->id
             ])->first() ? true : false;
+            $report = Report::where([
+                'user_id' => $user->id,
+                'product_id' => $product->id
+            ])->first() ? true : false;
         }
         $product = $this->transformProduct($product, $user);
         $product['liked'] = $liked;
         $product['unliked'] = $unliked;
+        $product['report'] = $report;
         return response(['product' => $product], 200);
     }
 }

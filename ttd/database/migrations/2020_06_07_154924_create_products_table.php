@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->text('excerpt');
             $table->string('phone');
-            $table->decimal('amount', 9, 2)->default(0);
+            $table->decimal('amount', 11, 2)->default(0);
             $table->string('address');
             $table->string('lat')->nullable();
             $table->string('long')->nullable();

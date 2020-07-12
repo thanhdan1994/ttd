@@ -11,7 +11,7 @@ import {
     CLOSE_POST_MODAL,
     LOGIN,
     CLOSE_COMMENTS_MODAL,
-    SHOW_COMMENTS_MODAL
+    SHOW_COMMENTS_MODAL, SHOW_REPORT_MODAL, CLOSE_REPORT_MODAL, SHOW_WRITE_REPORT_MODAL, CLOSE_WRITE_REPORT_MODAL
 } from './actionTypes';
 
 export const handleShowModalLogin = () => ({
@@ -66,6 +66,23 @@ export const handleShowCommentsModal = () => ({
 
 export const handleCloseCommentsModal = () => ({
     type: CLOSE_COMMENTS_MODAL
+});
+
+export const handleShowReportModal = reportId => ({
+    type: SHOW_REPORT_MODAL,
+    reportId: reportId
+});
+
+export const handleCloseReportModal = () => ({
+    type: CLOSE_REPORT_MODAL
+});
+
+export const handleShowWriteReportModal = () => ({
+    type: SHOW_WRITE_REPORT_MODAL
+});
+
+export const handleCloseWriteReportModal = () => ({
+    type: CLOSE_WRITE_REPORT_MODAL
 });
 
 export const handleLikeUnlike = data => ({

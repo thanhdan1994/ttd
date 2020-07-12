@@ -17,7 +17,7 @@ function HomeContainer({
         if (loading) return;
         if (observer.current) observer.current.disconnect();
         observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && hasMore) {
+            if (entries[0].isIntersecting && hasMore && page < 4) {
                 let nextPage = ++page;
                 return loadMoreArticle(nextPage);
             }
@@ -26,24 +26,24 @@ function HomeContainer({
     }, [loading, hasMore]);
 
     useEffect(() => {
-        let cancel;
-        axios({
-            method: 'GET',
-            url: UrlService.getProductsUrl(page, 5),
-            cancelToken: new axios.CancelToken(c => cancel = c)
-        }).then(response => {
-            if (articles.length < 1) {
+        if (articles.length < 1) {
+            let cancel;
+            axios({
+                method: 'GET',
+                url: UrlService.getProductsUrl(page, 5),
+                cancelToken: new axios.CancelToken(c => cancel = c)
+            }).then(response => {
                 handleSetArticles(response.data.data);
                 handleSetLoading(false);
                 handleSetPage(page);
                 if (response.data.total_pages <= page) {
                     handleSetHasMore(false);
                 }
-            }
-        }).catch(e => {
-            if (axios.isCancel(e)) return;
-        });
-        return () => cancel();
+            }).catch(e => {
+                if (axios.isCancel(e)) return;
+            });
+            return () => cancel();
+        }
     }, []);
 
     function loadMoreArticle(nextPage) {
@@ -83,6 +83,7 @@ function HomeContainer({
                     return (<ArticleThumbLeft key={index} data={article} />);
                 }
             })}
+            {(page >= 4 && hasMore) && <button className="btn-more-down" style={{backgroundSize: '55px'}} onClick={() => loadMoreArticle(++page)} />}
         </section>
     )
 }

@@ -7,7 +7,11 @@ import {
     CLOSE_MODAL_REGISTER,
     CLOSE_MODAL_LATEST, CLOSE_SEARCH_MODAL, SHOW_POST_MODAL, CLOSE_POST_MODAL,
     CLOSE_COMMENTS_MODAL,
-    SHOW_COMMENTS_MODAL
+    SHOW_COMMENTS_MODAL,
+    SHOW_REPORT_MODAL,
+    CLOSE_REPORT_MODAL,
+    SHOW_WRITE_REPORT_MODAL,
+    CLOSE_WRITE_REPORT_MODAL
 } from "../actionTypes";
 
 const initialState = {
@@ -17,6 +21,9 @@ const initialState = {
     showSearchModal: false,
     showPostModal: false,
     showCommentsModal: false,
+    showReportModal: false,
+    showWriteReportModal: false,
+    reportId: 0
 };
 
 export default function (state = initialState, action) {
@@ -73,6 +80,25 @@ export default function (state = initialState, action) {
             }
         }
         case CLOSE_COMMENTS_MODAL: {
+            return initialState;
+        }
+        case SHOW_REPORT_MODAL: {
+            return {
+                ...initialState,
+                showReportModal: true,
+                reportId: action.reportId
+            }
+        }
+        case CLOSE_REPORT_MODAL: {
+            return initialState;
+        }
+        case SHOW_WRITE_REPORT_MODAL: {
+            return {
+                ...initialState,
+                showWriteReportModal: true,
+            }
+        }
+        case CLOSE_WRITE_REPORT_MODAL: {
             return initialState;
         }
         default:
