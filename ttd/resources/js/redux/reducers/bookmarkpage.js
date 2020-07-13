@@ -13,12 +13,12 @@ export default function (state = initialState, action) {
         case 'SET_PAGE_BOOKMARKPAGE':
             return {
                 ...state,
-                page: data,
+                page: action.data,
             };
-        case 'SET_HAS_MORE':
+        case 'SET_HAS_MORE_BOOKMARKPAGE':
             return {
                 ...state,
-                hasMore: data,
+                hasMore: action.data,
             };
         default:
             return state;

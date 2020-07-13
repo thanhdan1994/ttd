@@ -9,6 +9,6 @@ export const handleSetPage = data => ({
 });
 
 export const handleSetHasMore = data => ({
-    type: 'SET_HAS_MORE',
+    type: 'SET_HAS_MORE_BOOKMARKPAGE',
     data: data
 });

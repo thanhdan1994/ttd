@@ -27,6 +27,6 @@ class BookmarkController extends Controller
             return $bookmark;
         });
         $data['data'] = $bookmarks;
-        return response($bookmarks, 200);
+        return response($data, 200);
     }
 }

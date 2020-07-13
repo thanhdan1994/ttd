@@ -8,6 +8,7 @@ function LoginModal(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showError, setShowError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     async function handleFormSubmit(event) {
         event.preventDefault();
@@ -15,12 +16,14 @@ function LoginModal(props) {
             username,
             password
         };
+        setLoading(true);
         const response = await AuthService.doUserLogin(postData);
         if (response) {
             AuthService.handleLoginSuccess(response, true);
             alert('Đăng nhập thành công!');
-            window.location.reload(false)
+            window.location.reload(false);
         } else {
+            setLoading(false);
             setShowError(true);
         }
     }
@@ -45,8 +48,12 @@ function LoginModal(props) {
                         <div className="form-group">
                             <p className="text-center">Khi đăng nhập bạn đã đồng ý với <a href="#">điều khoản</a> của chúng tôi</p>
                         </div>
-                        <div className="col-md-12 text-center ">
-                            <button type="button" onClick={(e) => handleFormSubmit(e)} className="btn btn-block btn-yellow">Đăng nhập</button>
+                        <div className="col-md-12">
+                            {loading
+                                ? <div className="loader-center"><div className="loader"></div></div>
+                                : <button type="button" onClick={(e) => handleFormSubmit(e)}
+                                          className="btn btn-block btn-yellow">Đăng nhập</button>
+                            }
                         </div>
                         <div className="col-md-12 ">
                             <div className="login-or">

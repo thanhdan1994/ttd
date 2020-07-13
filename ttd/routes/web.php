@@ -36,4 +36,5 @@ Route::group(['middleware' => 'auth'], function () {
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home.index');
+Route::get('/bookmarks', 'HomeController@index')->name('home.index');
 Route::get('/{slug}/{id}', 'HomeController@index')->name('home.index');

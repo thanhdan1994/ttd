@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import ArticleThumbLeftSkeleton from "../components/skeleton/ArticleThumbLeftSkeleton";
 import ArticleThumbLeft from "../components/Items/ArticleThumbLeft";
 import UrlService from "../services/UrlService";
-import { handleSetBookmarks } from "../redux/actions/bookmarkpage";
+import { handleSetBookmarks, handleSetHasMore, handleSetPage } from "../redux/actions/bookmarkpage";
 import CookieService from "../services/CookieService";
 
-function BookmarkContainer({ login, page, hasMore, bookmarks, handleSetBookmarks }) {
+function BookmarkContainer({ login, page, hasMore, bookmarks, handleSetBookmarks, handleSetHasMore, handleSetPage }) {
     const [loading, setLoading] = useState(false);
 
     const observer = useRef();
@@ -16,7 +16,7 @@ function BookmarkContainer({ login, page, hasMore, bookmarks, handleSetBookmarks
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting && hasMore && page < 4) {
                 let nextPage = ++page;
-                // return loadMoreArticle(nextPage);
+                return loadMoreArticle(nextPage);
             }
         });
         if (node) observer.current.observe(node);
@@ -36,13 +36,36 @@ function BookmarkContainer({ login, page, hasMore, bookmarks, handleSetBookmarks
                 },
             }).then(response => {
                 setLoading(false);
-                handleSetBookmarks(response.data);
+                handleSetBookmarks(response.data.data);
             }).catch(e => {
                 if (axios.isCancel(e)) return;
             });
             return () => cancel();
         }
     }, []);
+
+    function loadMoreArticle(nextPage) {
+        let cancel;
+        axios({
+            method: 'GET',
+            url: UrlService.getProductsBookmarkUrl(nextPage, 5),
+            cancelToken: new axios.CancelToken(c => cancel = c),
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+ CookieService.get('access_token'),
+            },
+        }).then(response => {
+            handleSetBookmarks(response.data.data);
+            handleSetPage(nextPage);
+            if (response.data.total_pages <= nextPage) {
+                handleSetHasMore(false);
+            }
+        }).catch(e => {
+            if (axios.isCancel(e)) return;
+        });
+        return () => cancel();
+    }
+
     if (login) {
         return (
             <section>
@@ -55,9 +78,11 @@ function BookmarkContainer({ login, page, hasMore, bookmarks, handleSetBookmarks
                     }
                     return (<ArticleThumbLeft key={index} data={bookmark.product} />);
                 })}
+                {bookmarks.length < 1 && <span className="note pl-3">Bạn vẫn chưa có sản phẩm đánh dấu.</span>}
             </section>
         )
     }
+    window.location.href = "/";
 }
 
 const mapStateToProps = state => {
@@ -68,4 +93,4 @@ const mapStateToProps = state => {
         hasMore: state.bookmarkpage.hasMore
     }
 };
-export default connect(mapStateToProps, { handleSetBookmarks })(BookmarkContainer)
+export default connect(mapStateToProps, { handleSetBookmarks, handleSetHasMore, handleSetPage })(BookmarkContainer)

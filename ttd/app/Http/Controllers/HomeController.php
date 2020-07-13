@@ -9,4 +9,9 @@ class HomeController extends Controller
     {
         return view('home.index');
     }
+
+    public function bookmarks()
+    {
+        return view('home.index');
+    }
 }
