@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api;
 
+use App\Bookmark;
 use App\Http\Controllers\Controller;
 use App\Like;
 use App\Product;
@@ -35,8 +36,8 @@ class ProductController extends Controller
             $product->thumb150 = $product->getThumbnailUrl('thumb-150');
             $product->thumb350 = $product->getThumbnailUrl('thumb-350');
             return $product;
-        });
-        $data['data'] = $products;
+        });$data['data'] = $products;
+
         return response($data, 200);
     }
 
@@ -86,6 +87,7 @@ class ProductController extends Controller
         $liked = false;
         $unliked = false;
         $report = false;
+        $bookmark = false;
         if (!empty($user)) {
             $liked = Like::where([
                 'user_id' => $user->id,
@@ -103,11 +105,16 @@ class ProductController extends Controller
                 'user_id' => $user->id,
                 'product_id' => $product->id
             ])->first() ? true : false;
+            $bookmark = Bookmark::where([
+                'user_id' => $user->id,
+                'product_id' => $product->id
+            ])->first() ? true : false;
         }
         $product = $this->transformProduct($product, $user);
         $product['liked'] = $liked;
         $product['unliked'] = $unliked;
         $product['report'] = $report;
+        $product['bookmark'] = $bookmark;
         return response(['product' => $product], 200);
     }
 }

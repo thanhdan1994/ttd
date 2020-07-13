@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Modal } from 'react-bootstrap';
 import { handleCloseWriteReportModal } from '../../redux/actions';
-import ProductService from "../../services/ProductService";
+import {handleSetReported} from "../../redux/actions/detailpage";
+import UrlService from "../../services/UrlService";
+import CookieService from "../../services/CookieService";
 
-function WriteReportModal({ showWriteReportModal, handleCloseWriteReportModal, productId }) {
+function WriteReportModal({ showWriteReportModal, handleCloseWriteReportModal, productId, handleSetReported }) {
     const initialState = {
         excerpt: '',
         properties: [
@@ -15,6 +17,7 @@ function WriteReportModal({ showWriteReportModal, handleCloseWriteReportModal, p
         images: []
     };
     const [data, setData] = useState(initialState);
+    const [sending, setSending] = useState(false);
 
     var filesList = new Array();
     function removeImage(event) {
@@ -62,7 +65,8 @@ function WriteReportModal({ showWriteReportModal, handleCloseWriteReportModal, p
         setData({...data, properties: properties});
     }
 
-    async function handleSendReport() {
+    function handleSendReport() {
+        let cancel;
         let { excerpt, images } = data;
         if (
             excerpt === '' ||
@@ -71,12 +75,28 @@ function WriteReportModal({ showWriteReportModal, handleCloseWriteReportModal, p
             alert('Vui lòng nhập đầy đủ thông tin được đánh dấu (*)');
             return false;
         }
-        let response = await ProductService.sendReport(productId, data);
-        if (response.status === 200) {
-            alert('Report của bạn đã được gửi thành công! vui lòng đợi duyệt.');
-            handleCloseWriteReportModal();
-            setData(initialState);
-        }
+        setSending(true);
+        axios({
+            url: UrlService.sendReportUrl(productId),
+            method: 'POST',
+            data: data,
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+ CookieService.get('access_token'),
+            },
+            cancelToken: new axios.CancelToken(c => cancel = c)
+        }).then(response => {
+            if (response.data.status === 200) {
+                alert('Report của bạn đã được gửi thành công! vui lòng đợi duyệt.');
+                handleSetReported(true);
+                handleCloseWriteReportModal();
+                setData(initialState);
+                setSending(false);
+            }
+        }).catch(e => {
+            if (axios.isCancel(e)) return;
+        });
+        return () => cancel();
     }
 
     return (
@@ -120,8 +140,10 @@ function WriteReportModal({ showWriteReportModal, handleCloseWriteReportModal, p
                         </div>
                         <span className="note"><span style={{color: 'red'}}>*</span> Vui lòng chọn ảnh tải lên để đảm bảo report hợp lệ (chỉ có thể tải tối đa 9 ảnh)</span>
                     </div>
-                    <div className="form-group">
-                        <button type="button" className="btn btn-block btn-yellow" onClick={handleSendReport}>Gửi Report</button>
+                    <div className="form-group text-center">
+                        {sending
+                            ? <div className="loader"></div>
+                            : <button type="button" className="btn btn-block btn-yellow" onClick={handleSendReport}>Gửi đánh giá</button>}
                     </div>
                 </div>
             </div>
@@ -133,5 +155,6 @@ const mapStateToProps = state => {
     return { showWriteReportModal: state.modal.showWriteReportModal };
 };
 export default connect(mapStateToProps, {
-    handleCloseWriteReportModal
+    handleCloseWriteReportModal,
+    handleSetReported
 })(WriteReportModal)

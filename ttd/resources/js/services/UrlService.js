@@ -30,6 +30,8 @@ class UrlService {
     static sendCommentUrl(id) { return apiDomain + 'api/product/' + id + '/comment' }
     static sendReportUrl(id) { return apiDomain + 'api/product/' + id + '/report' }
     static getReportUrl(id) { return apiDomain + 'api/report/'+id }
+    static addOrRemoveBookmarkUrl(id) { return apiDomain + 'api/product/'+id+'/bookmark' }
+    static getProductsBookmarkUrl(page, size) { return apiDomain + 'api/bookmark' + '?page=' + page + '&size=' + size }
 }
 
 export default UrlService;

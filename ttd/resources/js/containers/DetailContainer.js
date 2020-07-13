@@ -15,8 +15,10 @@ import WriteReportModal from "../components/modals/WriteReportModal";
 import BlockListReport from "../components/Items/BlockListReport";
 import ReportModal from "../components/modals/ReportModal";
 import CookieService from "../services/CookieService";
+import { handleSetReported, handleBookmark } from "../redux/actions/detailpage";
+import BookmarkButton from "../components/Items/BookmarkButton";
 
-function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal, modal }) {
+function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal, modal, reported, handleSetReported, handleBookmark }) {
     const [data, setData] = useState({});
     const [tab, setTab] = useState('info');
     const [loading, setLoading] = useState(true);
@@ -44,6 +46,8 @@ function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal, mod
             });
             setData(response.data.product);
             setLoading(false);
+            handleSetReported(response.data.product.report);
+            handleBookmark(response.data.product.bookmark);
         }).catch(e => {
             if (axios.isCancel(e)) return;
         });
@@ -82,6 +86,7 @@ function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal, mod
                                     <span><i className="fas fa-money-bill" /> Giá: {data.amount} VND</span>
                                     <span><i className="fas fa-phone" /> Số điện thoại: <a href={"tel:"+ data.phone}>{data.phone}</a></span>
                                     <span><i className="fas fa-location" /> {data.address}</span>
+                                    <BookmarkButton productId={match.params.id}/>
                                 </div>
                             </div>
                             <div className="row">
@@ -139,13 +144,10 @@ function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal, mod
                             </div>
                         </div>
                         <div className={tab === 'reports' ? "tab-pane active" : "tab-pane"}>
-                            <label>
-                                {data.report ? <span className="note">Bạn đã gửi đánh giá cho sản phẩm này</span> : <WriteReportButton />}
-                            </label>
+                            <WriteReportButton reported={reported}/>
                             <BlockListReport productId={match.params.id} />
                         </div>
                     </div>
-                    <span className="border-2" />
                     <LikeButton id={match.params.id}/>
                     <UnlikeButton id={match.params.id}/>
                 </section>
@@ -161,6 +163,6 @@ function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal, mod
     }
 }
 const mapStateToProps = state => {
-    return { modal: state.modal }
+    return { modal: state.modal, reported: state.detailpage.reported }
 };
-export default connect(mapStateToProps, { handleLikeUnlike, handleShowCommentsModal })(DetailContainer);
+export default connect(mapStateToProps, { handleLikeUnlike, handleShowCommentsModal, handleSetReported, handleBookmark })(DetailContainer);

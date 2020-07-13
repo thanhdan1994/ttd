@@ -24,6 +24,7 @@ const DetailContainerSkeleton = () => {
                         <span><i className="fas fa-money-bill" /> Giá: <Skeleton height={21} width={56}/> VND</span>
                         <span><i className="fas fa-phone" /> Số điện thoại: <Skeleton height={21} width={80}/></span>
                         <span><i className="fas fa-location" /> <Skeleton height={21} width={150} /></span>
+                        <span><i className="far fa-bookmark" /> Đánh dấu</span>
                     </div>
                 </div>
                 <div className="row">

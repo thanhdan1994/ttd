@@ -10,12 +10,14 @@ import Post from "./components/Items/Post";
 import SearchModal from "./components/modals/SearchModal";
 import HomeContainer from "./containers/HomeContainer";
 import DetailContainer from "./containers/DetailContainer";
+import BookmarkContainer from "./containers/BookmarkContainer";
 
 function Main() {
     return (
         <Fragment>
             <Header/>
             <Route exact path="/" component={HomeContainer}/>
+            <Route exact path="/bookmarks" component={BookmarkContainer}/>
             <Route path="/:slug/:id" component={DetailContainer}/>
             <Footer/>
             <div className="bottom-bar">
