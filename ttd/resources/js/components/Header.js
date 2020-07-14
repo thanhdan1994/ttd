@@ -20,9 +20,9 @@ function Header({handleShowSearchModal}) {
             <section className="tool-top">
                 <ul className="list-tool d-flex justify-content-around">
                     <li>
-                        <a>
+                        <Link to="/nearby">
                             <i className="icon icon-nearby" /> Tìm quanh đây
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a>

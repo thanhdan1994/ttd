@@ -117,4 +117,33 @@ class ProductController extends Controller
         $product['bookmark'] = $bookmark;
         return response(['product' => $product], 200);
     }
+
+    public function nearby(Request $request)
+    {
+        $page = $request->get('page') ? $request->get('page') : 1;
+        $size = $request->get('size') ? $request->get('size') : 5;
+        $lat = $request->get('lat');
+        $long = $request->get('long');
+        $offset = ($page - 1) * $size;
+        $string = "SELECT id, name, phone, address, amount, slug,
+                      TRUNCATE(ST_Distance(
+                         ST_GeomFromText(CONCAT('POINT(', products.lat, ' ', products.long, ')'), 4326),
+                         ST_GeomFromText(CONCAT('POINT(', ?, ' ', ?, ')'), 4326),
+                         'kilometre'
+                      ), 2) as distance
+                FROM products
+                ORDER BY distance ASC
+                LIMIT $offset, $size";
+        $products = \Illuminate\Support\Facades\DB::select($string, [$lat, $long]);
+        foreach ($products as $key => $product) {
+            $newProduct = Product::withCount('comments')->find($product->id);
+            $product->thumb = $newProduct->getThumbnailUrl('thumb');
+            $product->thumb150 = $newProduct->getThumbnailUrl('thumb-150');
+            $product->thumb350 = $newProduct->getThumbnailUrl('thumb-350');
+            $product->category = $newProduct->category;
+            $product->comments_count = $newProduct->comments_count;
+            $products[$key] = $product;
+        }
+        return response($products, 200);
+    }
 }

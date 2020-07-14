@@ -4,8 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\SocialAccount;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
+use GuzzleHttp\Client;
 
 class LoginController extends Controller
 {
@@ -50,5 +57,49 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Redirect the user to the Google authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->stateless()->redirect();
+    }
+
+    /**
+     * Obtain the user information from Google.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $googleUser = Socialite::driver('google')->stateless()->user();
+        $user = null;
+        DB::transaction(function () use ($googleUser, &$user) {
+            $randomPassword = Str::random(10);
+            $socialAccount = SocialAccount::firstOrNew(
+                ['social_id' => $googleUser->getId(), 'social_provider' => 'google'],
+                ['social_name' => $googleUser->getName()]
+            );
+
+            if (!($user = $socialAccount->user)) {
+                $user = User::create([
+                    'email' => $googleUser->getEmail(),
+                    'name' => $googleUser->getName(),
+                    'password' => Hash::make('password'),
+                    'remember_token' => Str::random(10)
+                ]);
+                $socialAccount->fill(['user_id' => $user->id])->save();
+            }
+        });
+        $query = http_build_query([
+            'username' => $user->email,
+            'password' => 'password'
+        ]);
+
+        return redirect(env('API_URL').'/api/callback?'.$query);
     }
 }

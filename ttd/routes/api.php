@@ -18,9 +18,36 @@ use Illuminate\Support\Facades\DB;
 Route::post('login', [\Laravel\Passport\Http\Controllers\AccessTokenController::class, 'issueToken'])
     ->middleware(['api-login', 'throttle']);
 
+Route::get('login/google', 'Auth\LoginController@redirectToProvider')->middleware('web');
+Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback')->middleware('web');
+Route::get('callback', function (Request $request) {
+    $http = new GuzzleHttp\Client;
+
+    $response = $http->post('http://ttd.com/oauth/token', [
+        'form_params' => [
+            'grant_type' => 'password',
+            'client_id' => '2',
+            'client_secret' => 'vgq60H24YIIMjX7yFVhOOGtkW4RsynQqf4gqI3ZK',
+            'username' => $request->username,
+            'password' => $request->password,
+        ],
+    ]);
+    $data = json_decode((string) $response->getBody(), true);
+    return redirect('/')->withCookie(cookie(
+        'access_token',
+        $data['access_token'],
+        0,
+        '/',
+        null,
+        null,
+        false
+    ));
+});
+
 Route::namespace('Api')->group(function () {
     Route::post('product', 'ProductController@store')->middleware('auth:api');
     Route::get('product', 'ProductController@index');
+    Route::get('product/nearby', 'ProductController@nearby');
     Route::get('product/{product}/comments', 'ProductCommentController@index');
     Route::post('product/{product}/comment', 'ProductCommentController@store')->middleware('auth:api');
     Route::get('product/{product}/reports', 'ProductReportController@index');

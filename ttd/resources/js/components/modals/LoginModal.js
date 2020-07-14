@@ -27,6 +27,7 @@ function LoginModal(props) {
             setShowError(true);
         }
     }
+
     return (
         <Modal show={props.showLoginModal} onHide={props.handleCloseModalLogin} animation={false}>
             <div className="modal-content animate-bottom">
@@ -63,7 +64,7 @@ function LoginModal(props) {
                         </div>
                         <div className="col-md-12 mb-3">
                             <p className="text-center">
-                                <a className="google btn">
+                                <a className="google btn btn-outline-primary" href="/api/login/google">
                                     <i className="icon icon-google" /> Đăng nhập bằng google
                                 </a>
                             </p>

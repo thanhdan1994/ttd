@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "nicolaslopezj/searchable": "1.*",
+        "socialiteproviders/google": "^3.0",
         "spatie/laravel-medialibrary": "^8.0.0"
     },
     "require-dev": {

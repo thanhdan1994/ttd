@@ -43,8 +43,6 @@ const DetailContainerSkeleton = () => {
                     </div>
                 </div>
             </div>
-            <button className="btn-like btn-outline-primary">0 <i className="far fa-thumbs-up"></i></button>
-            <button className="btn-dislike btn-outline-danger">0 <i className="far fa-thumbs-down"></i></button>
         </section>
     )
 };

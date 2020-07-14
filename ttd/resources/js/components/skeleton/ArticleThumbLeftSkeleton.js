@@ -11,9 +11,9 @@ function ArticleThumbLeftSkeleton() {
             </div>
             <div className="info">
                 <Skeleton height={19} />
-                <span><i className="fas fa-money-bill" /> Giá: <Skeleton height={21} width={56}/> VND</span>
-                <span><i className="fas fa-location" /> Khu vực: <Skeleton height={21} width={80}/></span>
-                <span><i className="fas fa-phone" /><a> SĐT: <Skeleton height={21} width={80}/></a></span>
+                <span><Skeleton height={16} width={150}/></span>
+                <span><Skeleton height={16} width={150}/></span>
+                <span><Skeleton height={16} width={150}/></span>
             </div>
         </article>
     )

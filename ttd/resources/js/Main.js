@@ -11,13 +11,15 @@ import SearchModal from "./components/modals/SearchModal";
 import HomeContainer from "./containers/HomeContainer";
 import DetailContainer from "./containers/DetailContainer";
 import BookmarkContainer from "./containers/BookmarkContainer";
+import NearbyContainer from "./containers/NearbyContainer";
 
 function Main() {
     return (
         <Fragment>
             <Header/>
             <Route exact path="/" component={HomeContainer}/>
-            <Route exact path="/bookmarks" component={BookmarkContainer}/>
+            <Route path="/nearby" component={NearbyContainer}/>
+            <Route path="/bookmarks" component={BookmarkContainer}/>
             <Route path="/:slug/:id" component={DetailContainer}/>
             <Footer/>
             <div className="bottom-bar">
