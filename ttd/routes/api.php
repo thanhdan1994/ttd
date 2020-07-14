@@ -20,22 +20,10 @@ Route::post('login', [\Laravel\Passport\Http\Controllers\AccessTokenController::
 
 Route::get('login/google', 'Auth\LoginController@redirectToProvider')->middleware('web');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback')->middleware('web');
-Route::get('callback', function (Request $request) {
-    $http = new GuzzleHttp\Client;
-
-    $response = $http->post('http://ttd.com/oauth/token', [
-        'form_params' => [
-            'grant_type' => 'password',
-            'client_id' => '2',
-            'client_secret' => 'vgq60H24YIIMjX7yFVhOOGtkW4RsynQqf4gqI3ZK',
-            'username' => $request->username,
-            'password' => $request->password,
-        ],
-    ]);
-    $data = json_decode((string) $response->getBody(), true);
+Route::get('login/social/redirect', function (Request $request) {
     return redirect('/')->withCookie(cookie(
         'access_token',
-        $data['access_token'],
+        $request->access_token,
         0,
         '/',
         null,

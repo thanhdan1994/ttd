@@ -78,7 +78,8 @@ class LoginController extends Controller
     {
         $googleUser = Socialite::driver('google')->stateless()->user();
         $user = null;
-        DB::transaction(function () use ($googleUser, &$user) {
+        $randomPassword = null;
+        DB::transaction(function () use ($googleUser, &$user, &$randomPassword) {
             $randomPassword = Str::random(10);
             $socialAccount = SocialAccount::firstOrNew(
                 ['social_id' => $googleUser->getId(), 'social_provider' => 'google'],
@@ -89,17 +90,17 @@ class LoginController extends Controller
                 $user = User::create([
                     'email' => $googleUser->getEmail(),
                     'name' => $googleUser->getName(),
-                    'password' => Hash::make('password'),
+                    'password' => Hash::make($randomPassword),
                     'remember_token' => Str::random(10)
                 ]);
                 $socialAccount->fill(['user_id' => $user->id])->save();
             }
         });
+        $token = $user->createToken($user->name)->accessToken;
         $query = http_build_query([
-            'username' => $user->email,
-            'password' => 'password'
+            'access_token' => $token,
         ]);
 
-        return redirect(env('API_URL').'/api/callback?'.$query);
+        return redirect(env('API_URL').'/api/login/social/redirect?'.$query);
     }
 }
