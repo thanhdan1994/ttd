@@ -32,13 +32,25 @@ window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + CookieServic
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo';
+import Echo from 'laravel-echo'
 
-// window.Pusher = require('pusher-js');
+window.Pusher = require('pusher-js');
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: '84a7b4c63127f7636646',
+    cluster: 'ap1',
+    forceTLS: true
+});
+
+if (CookieService.get('access_token')) {
+    axios({
+        url: 'https://ttd.com/api/user',
+        method: 'get'
+    }).then(response => {
+        let likeCommentChannel = window.Echo.channel('likeComment-channel.'+response.data.id);
+        likeCommentChannel.listen('.likeComment-event', function(data) {
+            console.log(data);
+        });
+    });
+}

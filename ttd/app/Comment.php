@@ -4,6 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed user_id
+ * @property mixed id
+ * @property mixed author
+ */
 class Comment extends Model
 {
     /**
