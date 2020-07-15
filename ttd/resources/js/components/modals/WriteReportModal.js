@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Modal } from 'react-bootstrap';
-import { handleCloseWriteReportModal } from '../../redux/actions';
+import { handleCloseModal } from '../../redux/actions';
 import {handleSetReported} from "../../redux/actions/detailpage";
 import UrlService from "../../services/UrlService";
 import CookieService from "../../services/CookieService";
 
-function WriteReportModal({ showWriteReportModal, handleCloseWriteReportModal, productId, handleSetReported }) {
+function WriteReportModal({ showWriteReportModal, handleCloseModal, productId, handleSetReported }) {
     const initialState = {
         excerpt: '',
         properties: [
@@ -85,7 +85,7 @@ function WriteReportModal({ showWriteReportModal, handleCloseWriteReportModal, p
             if (response.data.status === 200) {
                 alert('Report của bạn đã được gửi thành công! vui lòng đợi duyệt.');
                 handleSetReported(true);
-                handleCloseWriteReportModal();
+                handleCloseModal();
                 setData(initialState);
                 setSending(false);
             }
@@ -96,11 +96,11 @@ function WriteReportModal({ showWriteReportModal, handleCloseWriteReportModal, p
     }
 
     return (
-        <Modal show={showWriteReportModal} onHide={handleCloseWriteReportModal} animation={false} id="writeReportModal">
+        <Modal show={showWriteReportModal} onHide={handleCloseModal} animation={false} id="writeReportModal">
             <div className="modal-content animate-bottom">
                 <div className="modal-header">
                     <h4 className="modal-title"><i className="fas fa-pen" /> Viết report</h4>
-                    <button type="button" className="close" onClick={handleCloseWriteReportModal}><i className="icon icon-close-popup" /></button>
+                    <button type="button" className="close" onClick={handleCloseModal}><i className="icon icon-close-popup" /></button>
                 </div>
                 <div className="modal-body">
                     <div className="form-group">
@@ -151,6 +151,6 @@ const mapStateToProps = state => {
     return { showWriteReportModal: state.modal.showWriteReportModal };
 };
 export default connect(mapStateToProps, {
-    handleCloseWriteReportModal,
+    handleCloseModal,
     handleSetReported
 })(WriteReportModal)

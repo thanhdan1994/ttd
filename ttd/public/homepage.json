@@ -1,0 +1,282 @@
+{
+    "total_pages": 3,
+    "current_page": 1,
+    "per_page": 5,
+    "data": [
+        {
+            "id": 38,
+            "user_id": 20,
+            "category_id": 1,
+            "name": "Kẹo gương Quãng Ngãi",
+            "slug": "keo-guong-quang-ngai",
+            "excerpt": "Kẹo gương Quãng Ngãi",
+            "phone": "0982390731",
+            "amount": "75000.00",
+            "address": "496 duong quãng hàm",
+            "lat": "12313",
+            "long": "13213",
+            "content": "tét content",
+            "featured_image": 136,
+            "properties": "[{\"key\": \"Chiều cao\", \"value\": \"1m55\"}, {\"key\": \"Cân nặng\", \"value\": \"45kg\"}, {\"key\": \"Giờ hoạt động\", \"value\": \"10h-24h\"}]",
+            "status": 0,
+            "created_at": "2020-07-11T08:57:42.000000Z",
+            "updated_at": "2020-07-11T08:57:43.000000Z",
+            "comments_count": 0,
+            "thumb": "https://ttd.com/storage/136/conversions/PA0uNfAn2NXMKaXIzlVS-thumb.jpg",
+            "thumb150": "https://ttd.com/storage/136/conversions/PA0uNfAn2NXMKaXIzlVS-thumb-150.jpg",
+            "thumb350": "https://ttd.com/storage/136/conversions/PA0uNfAn2NXMKaXIzlVS-thumb-350.jpg",
+            "category": {
+                "id": 1,
+                "name": "Đồng Nai",
+                "slug": "dong-nai",
+                "parent": 0,
+                "featured_image": 65
+            },
+            "thumbnail": {
+                "id": 136,
+                "model_type": "App\\Product",
+                "model_id": 38,
+                "uuid": "cd7946ae-82d9-49e6-b514-1981819c42ae",
+                "collection_name": "detail-images",
+                "name": "media-libraryFvEchA",
+                "file_name": "PA0uNfAn2NXMKaXIzlVS.jpg",
+                "mime_type": "image/jpeg",
+                "disk": "public",
+                "conversions_disk": "public",
+                "size": 70904,
+                "manipulations": [],
+                "custom_properties": {
+                    "generated_conversions": {
+                        "thumb": true,
+                        "thumb-150": true,
+                        "thumb-350": true
+                    }
+                },
+                "responsive_images": [],
+                "order_column": 116,
+                "created_at": "2020-07-11T08:57:42.000000Z",
+                "updated_at": "2020-07-11T08:57:43.000000Z"
+            }
+        },
+        {
+            "id": 37,
+            "user_id": 20,
+            "category_id": 1,
+            "name": "Cá Bống Sông Trà rim/kho tiêu",
+            "slug": "ca-bong-song-tra-rimkho-tieu",
+            "excerpt": "Cá Bống Sông Trà rim/kho tiêu",
+            "phone": "0982390731",
+            "amount": "50000.00",
+            "address": "496 duong quãng hàm",
+            "lat": "12313",
+            "long": "13213",
+            "content": "tét content",
+            "featured_image": 135,
+            "properties": "[{\"key\": \"Chiều cao\", \"value\": \"1m55\"}, {\"key\": \"Cân nặng\", \"value\": \"45kg\"}, {\"key\": \"Giờ hoạt động\", \"value\": \"10h-24h\"}]",
+            "status": 0,
+            "created_at": "2020-07-11T08:55:50.000000Z",
+            "updated_at": "2020-07-11T08:55:50.000000Z",
+            "comments_count": 0,
+            "thumb": "https://ttd.com/storage/135/conversions/gSm2oYetf1yTf4PInPMc-thumb.jpg",
+            "thumb150": "https://ttd.com/storage/135/conversions/gSm2oYetf1yTf4PInPMc-thumb-150.jpg",
+            "thumb350": "https://ttd.com/storage/135/conversions/gSm2oYetf1yTf4PInPMc-thumb-350.jpg",
+            "category": {
+                "id": 1,
+                "name": "Đồng Nai",
+                "slug": "dong-nai",
+                "parent": 0,
+                "featured_image": 65
+            },
+            "thumbnail": {
+                "id": 135,
+                "model_type": "App\\Product",
+                "model_id": 37,
+                "uuid": "0eba5433-8abe-4652-b55b-c2d21c712d91",
+                "collection_name": "detail-images",
+                "name": "media-libraryiTOQ32",
+                "file_name": "gSm2oYetf1yTf4PInPMc.jpg",
+                "mime_type": "image/jpeg",
+                "disk": "public",
+                "conversions_disk": "public",
+                "size": 52512,
+                "manipulations": [],
+                "custom_properties": {
+                    "generated_conversions": {
+                        "thumb": true,
+                        "thumb-150": true,
+                        "thumb-350": true
+                    }
+                },
+                "responsive_images": [],
+                "order_column": 115,
+                "created_at": "2020-07-11T08:55:50.000000Z",
+                "updated_at": "2020-07-11T08:55:50.000000Z"
+            }
+        },
+        {
+            "id": 36,
+            "user_id": 20,
+            "category_id": 1,
+            "name": "đến Quảng Ngãi bạn nhất định phải tự thưởng cho mình tô mỳ Quảng ngon tuyệt nhé",
+            "slug": "den-quang-ngai-ban-nhat-dinh-phai-tu-thuong-cho-minh-to-my-quang-ngon-tuyet-nhe",
+            "excerpt": "đến Quảng Ngãi bạn nhất định phải tự thưởng cho mình tô mỳ Quảng ngon tuyệt nhé",
+            "phone": "0982390731",
+            "amount": "30000.00",
+            "address": "496 duong quãng hàm",
+            "lat": "12313",
+            "long": "13213",
+            "content": "tét content",
+            "featured_image": 134,
+            "properties": "[{\"key\": \"Chiều cao\", \"value\": \"1m55\"}, {\"key\": \"Cân nặng\", \"value\": \"45kg\"}, {\"key\": \"Giờ hoạt động\", \"value\": \"10h-24h\"}]",
+            "status": 0,
+            "created_at": "2020-07-11T08:51:34.000000Z",
+            "updated_at": "2020-07-11T08:51:35.000000Z",
+            "comments_count": 1,
+            "thumb": "https://ttd.com/storage/134/conversions/9Ecp0H3mox92JDpthyUj-thumb.jpg",
+            "thumb150": "https://ttd.com/storage/134/conversions/9Ecp0H3mox92JDpthyUj-thumb-150.jpg",
+            "thumb350": "https://ttd.com/storage/134/conversions/9Ecp0H3mox92JDpthyUj-thumb-350.jpg",
+            "category": {
+                "id": 1,
+                "name": "Đồng Nai",
+                "slug": "dong-nai",
+                "parent": 0,
+                "featured_image": 65
+            },
+            "thumbnail": {
+                "id": 134,
+                "model_type": "App\\Product",
+                "model_id": 36,
+                "uuid": "d1c6e01c-e143-428b-a5a8-bc9a7c2b0d18",
+                "collection_name": "detail-images",
+                "name": "media-libraryuC3RkG",
+                "file_name": "9Ecp0H3mox92JDpthyUj.jpg",
+                "mime_type": "image/jpeg",
+                "disk": "public",
+                "conversions_disk": "public",
+                "size": 284820,
+                "manipulations": [],
+                "custom_properties": {
+                    "generated_conversions": {
+                        "thumb": true,
+                        "thumb-150": true,
+                        "thumb-350": true
+                    }
+                },
+                "responsive_images": [],
+                "order_column": 114,
+                "created_at": "2020-07-11T08:51:34.000000Z",
+                "updated_at": "2020-07-11T08:51:35.000000Z"
+            }
+        },
+        {
+            "id": 35,
+            "user_id": 20,
+            "category_id": 1,
+            "name": "Diệt sạch Tôm Hùm Đất với giá cực ưu đãi tại nhà hàng A Mào",
+            "slug": "diet-sach-tom-hum-dat-voi-gia-cuc-uu-dai-tai-nha-hang-a-mao",
+            "excerpt": "Diệt sạch Tôm Hùm Đất với giá cực ưu đãi tại nhà hàng A Mào",
+            "phone": "0982390731",
+            "amount": "999000.00",
+            "address": "496 duong quãng hàm",
+            "lat": "12313",
+            "long": "13213",
+            "content": "tét content",
+            "featured_image": 133,
+            "properties": "[{\"key\": \"Chiều cao\", \"value\": \"1m55\"}, {\"key\": \"Cân nặng\", \"value\": \"45kg\"}, {\"key\": \"Giờ hoạt động\", \"value\": \"10h-24h\"}]",
+            "status": 0,
+            "created_at": "2020-07-11T08:49:33.000000Z",
+            "updated_at": "2020-07-11T08:49:34.000000Z",
+            "comments_count": 0,
+            "thumb": "https://ttd.com/storage/133/conversions/imHhhUvhoCHRVenViJlL-thumb.jpg",
+            "thumb150": "https://ttd.com/storage/133/conversions/imHhhUvhoCHRVenViJlL-thumb-150.jpg",
+            "thumb350": "https://ttd.com/storage/133/conversions/imHhhUvhoCHRVenViJlL-thumb-350.jpg",
+            "category": {
+                "id": 1,
+                "name": "Đồng Nai",
+                "slug": "dong-nai",
+                "parent": 0,
+                "featured_image": 65
+            },
+            "thumbnail": {
+                "id": 133,
+                "model_type": "App\\Product",
+                "model_id": 35,
+                "uuid": "b02c12a8-a3f5-4791-8d44-0f43555da09e",
+                "collection_name": "detail-images",
+                "name": "media-libraryg5pJUI",
+                "file_name": "imHhhUvhoCHRVenViJlL.jpg",
+                "mime_type": "image/jpeg",
+                "disk": "public",
+                "conversions_disk": "public",
+                "size": 162461,
+                "manipulations": [],
+                "custom_properties": {
+                    "generated_conversions": {
+                        "thumb": true,
+                        "thumb-150": true,
+                        "thumb-350": true
+                    }
+                },
+                "responsive_images": [],
+                "order_column": 113,
+                "created_at": "2020-07-11T08:49:33.000000Z",
+                "updated_at": "2020-07-11T08:49:34.000000Z"
+            }
+        },
+        {
+            "id": 34,
+            "user_id": 20,
+            "category_id": 1,
+            "name": "Siêu Thịt Tôm Hùm",
+            "slug": "sieu-thit-tom-hum",
+            "excerpt": "Siêu Thịt Tôm Hùm",
+            "phone": "0982390731",
+            "amount": "999000.00",
+            "address": "496 duong quãng hàm",
+            "lat": "12313",
+            "long": "13213",
+            "content": "tét content",
+            "featured_image": 132,
+            "properties": "[{\"key\": \"Chiều cao\", \"value\": \"1m55\"}, {\"key\": \"Cân nặng\", \"value\": \"45kg\"}, {\"key\": \"Giờ hoạt động\", \"value\": \"10h-24h\"}]",
+            "status": 0,
+            "created_at": "2020-07-11T08:39:58.000000Z",
+            "updated_at": "2020-07-11T08:40:01.000000Z",
+            "comments_count": 0,
+            "thumb": "https://ttd.com/storage/132/conversions/cBRAfVcb85XzFQRymusk-thumb.jpg",
+            "thumb150": "https://ttd.com/storage/132/conversions/cBRAfVcb85XzFQRymusk-thumb-150.jpg",
+            "thumb350": "https://ttd.com/storage/132/conversions/cBRAfVcb85XzFQRymusk-thumb-350.jpg",
+            "category": {
+                "id": 1,
+                "name": "Đồng Nai",
+                "slug": "dong-nai",
+                "parent": 0,
+                "featured_image": 65
+            },
+            "thumbnail": {
+                "id": 132,
+                "model_type": "App\\Product",
+                "model_id": 34,
+                "uuid": "30f6628a-906a-4757-b972-a224cbd2a857",
+                "collection_name": "detail-images",
+                "name": "media-libraryBcMlzp",
+                "file_name": "cBRAfVcb85XzFQRymusk.jpg",
+                "mime_type": "image/jpeg",
+                "disk": "public",
+                "conversions_disk": "public",
+                "size": 146192,
+                "manipulations": [],
+                "custom_properties": {
+                    "generated_conversions": {
+                        "thumb": true,
+                        "thumb-150": true,
+                        "thumb-350": true
+                    }
+                },
+                "responsive_images": [],
+                "order_column": 112,
+                "created_at": "2020-07-11T08:39:59.000000Z",
+                "updated_at": "2020-07-11T08:40:01.000000Z"
+            }
+        }
+    ]
+}

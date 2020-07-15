@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Modal } from 'react-bootstrap';
-import { handleCloseModalRegister, handleShowModalLogin, handleLogin } from "../../redux/actions";
+import { handleCloseModal, handleShowModalLogin, handleLogin } from "../../redux/actions";
 import AuthService from "../../services/AuthService";
 import ErrorMessages from "../ErrorMessages";
 
@@ -26,11 +26,11 @@ function RegisterModal(props) {
         }
     }
     return (
-            <Modal show={props.showRegisterModal} onHide={props.handleCloseModalRegister} animation={false}>
+            <Modal show={props.showRegisterModal} onHide={props.handleCloseModal} animation={false}>
                 <div className="modal-content animate-bottom">
                     <div className="modal-header">
                         <h4 className="modal-title"> Đăng ký tài khoản</h4>
-                        <button type="button" className="close" onClick={props.handleCloseModalRegister}><i className="icon icon-close-popup" /></button>
+                        <button type="button" className="close" onClick={props.handleCloseModal}><i className="icon icon-close-popup" /></button>
                     </div>
                     <div className="modal-body">
                         {errors && <ErrorMessages errors={errors}/>}
@@ -68,4 +68,4 @@ function RegisterModal(props) {
 const mapStateToProps = state => {
     return { showRegisterModal: state.modal.showRegisterModal };
 };
-export default connect(mapStateToProps, {handleCloseModalRegister, handleShowModalLogin, handleLogin})(RegisterModal);
+export default connect(mapStateToProps, {handleCloseModal, handleShowModalLogin, handleLogin})(RegisterModal);

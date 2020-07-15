@@ -1,14 +1,12 @@
 <?php
 namespace App\Events;
 
-use App\Comment;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class LikeComment implements ShouldBroadcast
+class UserEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -23,11 +21,11 @@ class LikeComment implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return ['likeComment-channel.'.$this->author_id];
+        return ['user-channel.'.$this->author_id];
     }
 
     public function broadcastAs()
     {
-        return 'likeComment-event';
+        return 'user-event';
     }
 }

@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Modal } from 'react-bootstrap';
-import { handleCloseModalSearch } from '../../redux/actions';
+import { handleCloseModal } from '../../redux/actions';
 
-function SearchModal({ showSearchModal, handleCloseModalSearch}) {
+function SearchModal({ showSearchModal, handleCloseModal}) {
     return (
-        <Modal show={showSearchModal} onHide={handleCloseModalSearch} animation={false}>
+        <Modal show={showSearchModal} onHide={handleCloseModal} animation={false}>
             <div className="modal-content animate-top">
                 <div className="modal-header">
                     <h4 className="modal-title"> Tìm kiếm</h4>
-                    <button type="button" className="close" onClick={handleCloseModalSearch}><i className="icon icon-close-popup" /></button>
+                    <button type="button" className="close" onClick={handleCloseModal}><i className="icon icon-close-popup" /></button>
                 </div>
                 <div className="modal-body">
                     <form action="#">
@@ -54,4 +54,4 @@ function SearchModal({ showSearchModal, handleCloseModalSearch}) {
 const mapStateToProps = state => {
     return { showSearchModal: state.modal.showSearchModal };
 };
-export default connect(mapStateToProps, { handleCloseModalSearch })(SearchModal);
+export default connect(mapStateToProps, { handleCloseModal })(SearchModal);

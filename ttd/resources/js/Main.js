@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -12,8 +13,22 @@ import HomeContainer from "./containers/HomeContainer";
 import DetailContainer from "./containers/DetailContainer";
 import BookmarkContainer from "./containers/BookmarkContainer";
 import NearbyContainer from "./containers/NearbyContainer";
+import Menu from "./components/Items/Menu";
 
-function Main() {
+function Main({ login }) {
+    useEffect(() => {
+        if (login) {
+            axios({
+                url: 'https://ttd.com/api/user',
+                method: 'get'
+            }).then(response => {
+                let likeCommentChannel = window.Echo.channel('user-channel.'+response.data.id);
+                likeCommentChannel.listen('.user-event', function(data) {
+                    console.log(data);
+                });
+            });
+        }
+    }, []);
     return (
         <Fragment>
             <Header/>
@@ -25,6 +40,7 @@ function Main() {
             <div className="bottom-bar">
                 <Latest/>
                 <Post/>
+                <Menu />
             </div>
             <LoginModal/>
             <RegisterModal/>
@@ -33,5 +49,7 @@ function Main() {
         </Fragment>
     )
 }
-
-export default Main
+const mapStateToProps = state => {
+    return { login: state.user.login };
+};
+export default connect(mapStateToProps, null)(Main)

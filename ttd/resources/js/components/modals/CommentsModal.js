@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from 'react-bootstrap';
 import { connect } from "react-redux";
-import { handleCloseCommentsModal } from "../../redux/actions";
+import { handleCloseModal } from "../../redux/actions";
 import CommentSkeleton from "../skeleton/CommentSkeleton";
 import Skeleton from "react-loading-skeleton";
 import Comment from "../Items/Comment";
@@ -9,7 +9,7 @@ import UrlService from "../../services/UrlService";
 
 function CommentsModal({
     showCommentsModal,
-    handleCloseCommentsModal,
+    handleCloseModal,
     productId
 }) {
     const [loading, setLoading] = useState(true);
@@ -56,11 +56,11 @@ function CommentsModal({
         return () => cancel();
     }
     return (
-        <Modal show={showCommentsModal} onHide={handleCloseCommentsModal} animation={false}>
+        <Modal show={showCommentsModal} onHide={handleCloseModal} animation={false}>
             <div className="modal-content animate-bottom">
                 <div className="modal-header">
                     <h4 className="modal-title"> Bình luận</h4>
-                    <button type="button" className="close" onClick={handleCloseCommentsModal} aria-label="Close"><i className="icon icon-close-popup" /></button>
+                    <button type="button" className="close" onClick={handleCloseModal} aria-label="Close"><i className="icon icon-close-popup" /></button>
                 </div>
                 <div className="modal-body">
                     <div className="container">
@@ -86,4 +86,4 @@ const mapStateToProps = state => {
     return { showCommentsModal: state.modal.showCommentsModal };
 };
 
-export default connect(mapStateToProps, {handleCloseCommentsModal})(CommentsModal);
+export default connect(mapStateToProps, { handleCloseModal })(CommentsModal);

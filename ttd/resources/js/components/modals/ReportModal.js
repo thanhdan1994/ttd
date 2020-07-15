@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { handleCloseReportModal } from "../../redux/actions";
+import { handleCloseModal } from "../../redux/actions";
 import Modal from "react-bootstrap/Modal";
 import DetailReportSkeleton from "../skeleton/DetailReportSkeleton";
 import UrlService from "../../services/UrlService";
 import Lightbox from "react-image-lightbox";
 
-const ReportModal = ({ show, handleCloseReportModal, reportId }) => {
+const ReportModal = ({ show, handleCloseModal, reportId }) => {
     const initialState = {
         excerpt: '',
         properties: [],
@@ -34,11 +34,11 @@ const ReportModal = ({ show, handleCloseReportModal, reportId }) => {
         return () => cancel();
     }, []);
     return (
-        <Modal show={show} onHide={handleCloseReportModal} animation={false} id="reportModal">
+        <Modal show={show} onHide={handleCloseModal} animation={false} id="reportModal">
             <div className="modal-content animate-bottom">
                 <div className="modal-header">
                     <h4 className="modal-title"> Chi tiết report #{reportId}</h4>
-                    <button type="button" className="close" onClick={handleCloseReportModal}><i className="icon icon-close-popup" /></button>
+                    <button type="button" className="close" onClick={handleCloseModal}><i className="icon icon-close-popup" /></button>
                 </div>
                 <div className="modal-body">
                     {!loading ? <>
@@ -98,4 +98,4 @@ const ReportModal = ({ show, handleCloseReportModal, reportId }) => {
     )
 };
 
-export default connect(null, { handleCloseReportModal })(ReportModal)
+export default connect(null, { handleCloseModal })(ReportModal)

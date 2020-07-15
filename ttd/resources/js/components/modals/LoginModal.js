@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { connect } from "react-redux";
 import { Modal } from 'react-bootstrap';
-import { handleCloseModalLogin, handleShowModalRegister, handleLogin } from '../../redux/actions';
+import { handleCloseModal, handleShowModalRegister, handleLogin } from '../../redux/actions';
 import AuthService from "../../services/AuthService";
 
 function LoginModal(props) {
@@ -29,11 +29,11 @@ function LoginModal(props) {
     }
 
     return (
-        <Modal show={props.showLoginModal} onHide={props.handleCloseModalLogin} animation={false}>
+        <Modal show={props.showLoginModal} onHide={props.handleCloseModal} animation={false}>
             <div className="modal-content animate-bottom">
                 <div className="modal-header">
                     <h4 className="modal-title"> Đăng nhập</h4>
-                    <button type="button" className="close" onClick={props.handleCloseModalLogin}><i className="icon icon-close-popup" /></button>
+                    <button type="button" className="close" onClick={props.handleCloseModal}><i className="icon icon-close-popup" /></button>
                 </div>
                 <div className="modal-body">
                     {showError && <span className="error" style={{color: 'red'}}>Thông tin đăng nhập không chính xác!</span>}
@@ -83,7 +83,7 @@ const mapStateToProps = state => {
     return { showLoginModal: state.modal.showLoginModal, login : state.user.login };
 };
 export default connect(mapStateToProps, {
-    handleCloseModalLogin,
+    handleCloseModal,
     handleShowModalRegister,
     handleLogin
 })(LoginModal)

@@ -2,12 +2,11 @@
 
 namespace App\Providers;
 
-use App\Events\LikeComment;
-use App\Listeners\LikeCommentNotification;
+use App\Events\UserEvent;
+use App\Listeners\UserNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,8 +19,8 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        LikeComment::class => [
-            LikeCommentNotification::class
+        UserEvent::class => [
+            UserNotification::class
         ]
     ];
 

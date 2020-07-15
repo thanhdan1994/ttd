@@ -1,15 +1,15 @@
 import React from "react";
 import { Modal } from 'react-bootstrap';
 import { connect } from "react-redux";
-import { handleCloseLatestModal } from "../../redux/actions";
+import { handleCloseModal } from "../../redux/actions";
 
-function LatestContentModal({handleCloseLatestModal, showLatestModal}) {
+function LatestContentModal({handleCloseModal, showLatestModal}) {
     return (
-        <Modal show={showLatestModal} onHide={handleCloseLatestModal} animation={false}>
+        <Modal show={showLatestModal} onHide={handleCloseModal} animation={false}>
             <div className="modal-content animate-bottom">
                 <div className="modal-header">
                     <h4 className="modal-title"> Tin Mới Nhất</h4>
-                    <button type="button" className="close" onClick={handleCloseLatestModal}><i className="icon icon-close-popup" /></button>
+                    <button type="button" className="close" onClick={handleCloseModal}><i className="icon icon-close-popup" /></button>
                 </div>
                 <div className="modal-body mt-3">
                     <article className="art-3">
@@ -63,4 +63,4 @@ function LatestContentModal({handleCloseLatestModal, showLatestModal}) {
 const mapStateToProps = state => {
     return { showLatestModal: state.modal.showLatestModal };
 };
-export default connect(mapStateToProps, { handleCloseLatestModal })(LatestContentModal);
+export default connect(mapStateToProps, { handleCloseModal })(LatestContentModal);

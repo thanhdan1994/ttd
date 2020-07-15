@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Modal } from 'react-bootstrap';
-import { handleClosePostModal } from "../../redux/actions";
+import { handleCloseModal } from "../../redux/actions";
 import UrlService from "../../services/UrlService";
 
-function PostModal({ showPostModal, handleClosePostModal }) {
+function PostModal({ showPostModal, handleCloseModal }) {
     const initialState = {
         name: '',
         category_id: 1,
@@ -106,16 +106,16 @@ function PostModal({ showPostModal, handleClosePostModal }) {
             data: data
         }).then(response => {
             alert('Bài viết của bạn đã được gửi thành công! vui lòng đợi duyệt.');
-            handleClosePostModal();
+            handleCloseModal();
             setData(initialState);
         });
     }
     return (
-        <Modal show={showPostModal} onHide={handleClosePostModal} animation={false}>
+        <Modal show={showPostModal} onHide={handleCloseModal} animation={false}>
             <div className="modal-content animate-bottom">
                 <div className="modal-header">
                     <h4 className="modal-title"> Đăng bài</h4>
-                    <button type="button" className="close" onClick={handleClosePostModal}><i className="icon icon-close-popup" /></button>
+                    <button type="button" className="close" onClick={handleCloseModal}><i className="icon icon-close-popup" /></button>
                 </div>
                 <div className="modal-body">
                     <div className="form-group">
@@ -216,4 +216,4 @@ function PostModal({ showPostModal, handleClosePostModal }) {
 const mapStateToProps = state => {
     return {showPostModal: state.modal.showPostModal};
 };
-export default connect(mapStateToProps, { handleClosePostModal })(PostModal);
+export default connect(mapStateToProps, { handleCloseModal })(PostModal);

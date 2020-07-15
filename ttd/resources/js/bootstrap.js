@@ -42,15 +42,3 @@ window.Echo = new Echo({
     cluster: 'ap1',
     forceTLS: true
 });
-
-if (CookieService.get('access_token')) {
-    axios({
-        url: 'https://ttd.com/api/user',
-        method: 'get'
-    }).then(response => {
-        let likeCommentChannel = window.Echo.channel('likeComment-channel.'+response.data.id);
-        likeCommentChannel.listen('.likeComment-event', function(data) {
-            console.log(data);
-        });
-    });
-}

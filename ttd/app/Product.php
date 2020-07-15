@@ -9,6 +9,9 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
+/**
+ * @property mixed author
+ */
 class Product extends Model implements HasMedia
 {
     use InteractsWithMedia, SearchableTrait;
