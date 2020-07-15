@@ -6,15 +6,8 @@
     <title>Laravel Home</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.png')}}">
-    <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
-    <link
-        rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-        crossorigin="anonymous"
-    />
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap4.5.0.css')}}">
     <link rel="stylesheet" href="{{asset('css/fontawesome.css')}}">
     <link rel="stylesheet" href="{{asset('css/index.css')}}">
 </head>

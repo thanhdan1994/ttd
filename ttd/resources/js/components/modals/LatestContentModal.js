@@ -1,6 +1,5 @@
 import React from "react";
 import { Modal } from 'react-bootstrap';
-import Service from "../slider/ServiceSlider";
 import { connect } from "react-redux";
 import { handleCloseLatestModal } from "../../redux/actions";
 
@@ -33,7 +32,6 @@ function LatestContentModal({handleCloseLatestModal, showLatestModal}) {
                                 <span><a href="tel:0982390731">0982390731</a> <i className="fas fa-phone" /></span>
                             </div>
                         </div>
-                        <Service />
                         <div className="detail-comment">
                             <a className="more-comment">Xem thêm 2 bình luận</a>
                             <ul className="wrapper-comment cm-wrap">
