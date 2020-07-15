@@ -1,21 +1,24 @@
 import React, {  useRef } from "react";
 import SendCommentButton from "./SendCommentButton";
-import ProductService from "../../services/ProductService";
+import UrlService from "../../services/UrlService";
 
 const BlockSendComment = ({productId , parent}) => {
     const refContent = useRef('');
-    async function handleSendComment(e) {
+    function handleSendComment(e) {
         e.preventDefault();
         let content = refContent.current.value;
         if (content === '') {
             alert('Nội dung bình luận không được để trống');
             return false;
         }
-        const response = await ProductService.sendComment(productId, {content: content, parent: parent});
-        if (response) {
+        axios({
+            url: UrlService.sendCommentUrl(productId),
+            method: 'post',
+            data: {content: content, parent: parent}
+        }).then(response => {
             alert('Bình luận đã được gửi! Vui lòng đợi duyệt.');
             refContent.current.value = '';
-        }
+        });
     }
     return (
         <div className="form-group d-flex flex-row">

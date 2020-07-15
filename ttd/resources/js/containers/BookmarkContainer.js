@@ -30,10 +30,6 @@ function BookmarkContainer({ login, page, hasMore, bookmarks, handleSetBookmarks
                 method: 'GET',
                 url: UrlService.getProductsBookmarkUrl(page, 5),
                 cancelToken: new axios.CancelToken(c => cancel = c),
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer '+ CookieService.get('access_token'),
-                },
             }).then(response => {
                 setLoading(false);
                 handleSetBookmarks(response.data.data);
@@ -50,10 +46,6 @@ function BookmarkContainer({ login, page, hasMore, bookmarks, handleSetBookmarks
             method: 'GET',
             url: UrlService.getProductsBookmarkUrl(nextPage, 5),
             cancelToken: new axios.CancelToken(c => cancel = c),
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer '+ CookieService.get('access_token'),
-            },
         }).then(response => {
             handleSetBookmarks(response.data.data);
             handleSetPage(nextPage);

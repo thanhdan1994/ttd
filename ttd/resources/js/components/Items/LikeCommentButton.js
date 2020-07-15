@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { handleLikeComment, handleShowModalLogin, handleRemoveLikeComment } from "../../redux/actions";
-import CommentService from "../../services/CommentService";
+import UrlService from "../../services/UrlService";
 
 const LikeCommentButton = ({ comments, handleLikeComment, id, likeNumberDefault, login, handleShowModalLogin, like, handleRemoveLikeComment }) => {
     const [likeNumber, setLikeNumber] = useState(likeNumberDefault);
@@ -10,15 +10,21 @@ const LikeCommentButton = ({ comments, handleLikeComment, id, likeNumberDefault,
             handleLikeComment(id);
         }
     }, []);
-    async function handleLike() {
+    function handleLike() {
         setLikeNumber(likeNumber + 1);
         handleLikeComment(id);
-        const response = await CommentService.likeComment(id);
+        axios({
+            url: UrlService.likeCommentUrl(id),
+            method: 'post'
+        });
     }
-    async function handleRemoveLike() {
+    function handleRemoveLike() {
         setLikeNumber(likeNumber - 1);
         handleRemoveLikeComment(id);
-        const response = await CommentService.removeLikeComment(id);
+        axios({
+            url: UrlService.unlikeCommentUrl(id),
+            method: 'delete'
+        });
     }
 4
     if (login) {

@@ -11,11 +11,7 @@ const BookmarkButton = ({ bookmark, handleBookmark, login, handleShowModalLogin,
         setLoading(true);
         axios({
             url: UrlService.addOrRemoveBookmarkUrl(productId),
-            method: 'post',
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer '+ CookieService.get('access_token'),
-            }
+            method: 'post'
         }).then(response => {
             handleBookmark(true);
             setLoading(false);
@@ -25,15 +21,11 @@ const BookmarkButton = ({ bookmark, handleBookmark, login, handleShowModalLogin,
         setLoading(true);
         axios({
             url: UrlService.addOrRemoveBookmarkUrl(productId),
-            method: 'delete',
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer '+ CookieService.get('access_token'),
-            }
+            method: 'delete'
         }).then(response => {
             handleBookmark(false);
             setLoading(false);
-        }).catch(e => {});
+        });
     }
     if (login) {
         if (bookmark) {

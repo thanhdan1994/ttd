@@ -80,10 +80,6 @@ function WriteReportModal({ showWriteReportModal, handleCloseWriteReportModal, p
             url: UrlService.sendReportUrl(productId),
             method: 'POST',
             data: data,
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer '+ CookieService.get('access_token'),
-            },
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(response => {
             if (response.data.status === 200) {

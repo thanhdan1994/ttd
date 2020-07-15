@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import {handleLikeUnlike, handleShowModalLogin} from "../../redux/actions";
-import ProductService from "../../services/ProductService";
+import UrlService from "../../services/UrlService";
 
 function UnlikeButton({login, handleShowModalLogin, unliked, unlike, liked, like, id, handleLikeUnlike}) {
-    async function handleUnlikeProduct(event) {
+    function handleUnlikeProduct(event) {
         event.preventDefault();
         const likeNumber = liked ? --like : like;
         handleLikeUnlike({liked: false, unliked: true, like: likeNumber, unlike: unlike + 1});
-        const response = await ProductService.doUnLikeProduct(id);
+        axios({
+            url: UrlService.dislikeProductUrl(id),
+            method: 'post'
+        });
     }
     if (!login) {
         return (

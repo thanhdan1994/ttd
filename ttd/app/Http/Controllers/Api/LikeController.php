@@ -9,10 +9,9 @@ use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
-    public function like(Request $request)
+    public function like(Request $request, Product $product)
     {
         $user_id = $request->user()->id;
-        $product = Product::find($request->id);
         if (empty($product)) {
             return response(['message' => 'San pham khong ton tai', 'status' => 404], 400);
         }
@@ -30,10 +29,9 @@ class LikeController extends Controller
         return response(['data' => $like, 'status' => 200], 200);
     }
 
-    public function dislike(Request $request)
+    public function dislike(Request $request, Product $product)
     {
         $user_id = $request->user()->id;
-        $product = Product::find($request->id);
         if (empty($product)) {
             return response(['message' => 'San pham khong ton tai', 'status' => 404], 400);
         }

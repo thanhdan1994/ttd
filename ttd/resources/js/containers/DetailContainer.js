@@ -32,10 +32,6 @@ function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal, mod
         axios({
             method: 'GET',
             url: UrlService.getProductDetailUrl(match.params.slug, match.params.id),
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer '+ CookieService.get('access_token'),
-            },
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(response => {
             handleLikeUnlike({

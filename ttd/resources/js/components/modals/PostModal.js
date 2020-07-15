@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Modal } from 'react-bootstrap';
 import { handleClosePostModal } from "../../redux/actions";
-import ProductService from "../../services/ProductService";
+import UrlService from "../../services/UrlService";
 
 function PostModal({ showPostModal, handleClosePostModal }) {
     const initialState = {
@@ -85,7 +85,7 @@ function PostModal({ showPostModal, handleClosePostModal }) {
         setData({...data, properties: properties});
     }
 
-    async function handlePost() {
+    function handlePost() {
         let { name, description, phone, amount, address, latitude, longitude, images } = data;
         if (
             name === '' ||
@@ -100,12 +100,15 @@ function PostModal({ showPostModal, handleClosePostModal }) {
             alert('Vui lòng nhập đầy đủ thông tin được đánh dấu (*)');
             return false;
         }
-        let response = await ProductService.doCreatePost(data);
-        if (response.status === 200) {
+        axios({
+            url: UrlService.createProductUrl(),
+            method: 'post',
+            data: data
+        }).then(response => {
             alert('Bài viết của bạn đã được gửi thành công! vui lòng đợi duyệt.');
             handleClosePostModal();
             setData(initialState);
-        }
+        });
     }
     return (
         <Modal show={showPostModal} onHide={handleClosePostModal} animation={false}>

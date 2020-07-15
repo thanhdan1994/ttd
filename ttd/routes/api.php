@@ -40,12 +40,12 @@ Route::namespace('Api')->group(function () {
     Route::post('product/{product}/comment', 'ProductCommentController@store')->middleware('auth:api');
     Route::get('product/{product}/reports', 'ProductReportController@index');
     Route::post('product/{product}/report', 'ProductReportController@store')->middleware('auth:api');
-    Route::post('product/like', 'LikeController@like')->middleware('auth:api');
+    Route::post('product/{product}/like', 'LikeController@like')->middleware('auth:api');
     Route::post('comment/{comment}/like', 'LikeController@likeComment')->middleware('auth:api');
     Route::delete('comment/{comment}/like', 'LikeController@removeLikeComment')->middleware('auth:api');
     Route::post('product/{product}/bookmark', 'ProductBookmarkController@store')->middleware('auth:api');
     Route::delete('product/{product}/bookmark', 'ProductBookmarkController@destroy')->middleware('auth:api');
-    Route::post('product/dislike', 'LikeController@dislike')->middleware('auth:api');
+    Route::post('product/{product}/dislike', 'LikeController@dislike')->middleware('auth:api');
     Route::get('bookmark', 'BookmarkController@index')->middleware('auth:api');
     Route::get('product/{slug}/{id}', 'ProductController@view');
     Route::get('report/{report}', 'ReportController@view');
