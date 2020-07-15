@@ -19,12 +19,14 @@ class ProductBookmarkController extends Controller
     public function store(Request $request, Product $product)
     {
         $bookmark = new Bookmark;
-        $bookmark->user_id = $request->user()->id;
-        $bookmark->product_id = $product->id;
-        if ($bookmark->save()) {
-            return response($bookmark,200);
+        try {
+            $bookmark->user_id = $request->user()->id;
+            $bookmark->product_id = $product->id;
+            $bookmark->save();
+        } catch (\Exception $exception) {
+            abort(500, $exception->getMessage());
         }
-        return response(['message' => 'không thể bookmark'],400);
+        return response($bookmark,200);
     }
 
     /**
@@ -36,10 +38,15 @@ class ProductBookmarkController extends Controller
      */
     public function destroy(Request $request, Product $product)
     {
-        $bookmark = Bookmark::where([
-            'product_id' => $product->id,
-            'user_id' => $request->user()->id
-        ])->first();
-        return response($bookmark->delete());
+        try {
+            $bookmark = Bookmark::where([
+                'product_id' => $product->id,
+                'user_id' => $request->user()->id
+            ])->firstOrFail();
+            $bookmark->delete();
+        } catch (\Exception $exception) {
+            abort(500, $exception->getMessage());
+        }
+        return response(null, 200);
     }
 }

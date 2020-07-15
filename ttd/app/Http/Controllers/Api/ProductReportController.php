@@ -17,19 +17,24 @@ class ProductReportController extends Controller
         if ($request->size) {
             $size = $request->size;
         }
-        $reports = Report::where([
-            'product_id' => $product->id,
-            'status' => 1
-        ])->orderBy('created_at', 'desc')->paginate($size);
-        $data['total_pages'] = $reports->lastPage();
-        $data['current_page'] = $reports->currentPage();
-        $data['per_page'] = $reports->perPage();
-        $data['total'] = $reports->total();
-        $reports = $reports->map(function (Report $report) {
-            $report->author = $report->author;
-            return $report;
-        });
-        $data['data'] = $reports;
+        $data = [];
+        try {
+            $reports = Report::where([
+                'product_id' => $product->id,
+                'status' => 1
+            ])->orderBy('created_at', 'desc')->paginate($size);
+            $data['total_pages'] = $reports->lastPage();
+            $data['current_page'] = $reports->currentPage();
+            $data['per_page'] = $reports->perPage();
+            $data['total'] = $reports->total();
+            $reports = $reports->map(function (Report $report) {
+                $report->author = $report->author;
+                return $report;
+            });
+            $data['data'] = $reports;
+        } catch (\Exception $exception) {
+            abort(500, $exception->getMessage());
+        }
         return response($data, 200);
     }
     /**
@@ -65,9 +70,9 @@ class ProductReportController extends Controller
             }
         } catch (\Exception $exception) {
             DB::rollBack();
-            return response(['message' => $exception->getMessage()], 400);
+            abort(500, $exception->getMessage());
         }
         DB::commit();
-        return response(['status' => 200, 'report' => $report], 200);
+        return response(null, 200);
     }
 }

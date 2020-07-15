@@ -8,13 +8,17 @@ class ReportController extends Controller
 {
     public function view(Report $report)
     {
-        $images = [];
-        foreach ($report->images as $key => $image) {
-            $images[$key]['thumb'] = $image->getUrl('thumb');
-            $images[$key]['origin'] = $image->getUrl();
+        try {
+            $images = [];
+            foreach ($report->images as $key => $image) {
+                $images[$key]['thumb'] = $image->getUrl('thumb');
+                $images[$key]['origin'] = $image->getUrl();
+            }
+            $report->reportImages = $images;
+            $report->infomation = json_decode($report->properties);
+        } catch (\Exception $exception) {
+            abort(500, $exception->getMessage());
         }
-        $report->reportImages = $images;
-        $report->infomation = json_decode($report->properties);
-        return $report;
+        return response($report, 200);
     }
 }

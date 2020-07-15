@@ -12,9 +12,6 @@ class LikeController extends Controller
     public function like(Request $request, Product $product)
     {
         $user_id = $request->user()->id;
-        if (empty($product)) {
-            return response(['message' => 'San pham khong ton tai', 'status' => 404], 400);
-        }
         Like::where([
             'model_type' => get_class($product),
             'model_id' => $product->id,
@@ -32,9 +29,6 @@ class LikeController extends Controller
     public function dislike(Request $request, Product $product)
     {
         $user_id = $request->user()->id;
-        if (empty($product)) {
-            return response(['message' => 'San pham khong ton tai', 'status' => 404], 400);
-        }
         Like::where([
             'model_type' => get_class($product),
             'model_id' => $product->id,
@@ -52,9 +46,6 @@ class LikeController extends Controller
     public function likeComment(Comment $comment, Request $request)
     {
         $user_id = $request->user()->id;
-        if (empty($comment)) {
-            return response(['message' => 'Bình luận không tồn tại', 'status' => 404], 400);
-        }
         Like::where([
             'model_type' => get_class($comment),
             'model_id' => $comment->id,
@@ -72,9 +63,6 @@ class LikeController extends Controller
     public function removeLikeComment(Comment $comment, Request $request)
     {
         $user_id = $request->user()->id;
-        if (empty($comment)) {
-            return response(['message' => 'Bình luận không tồn tại', 'status' => 404], 400);
-        }
         $like = Like::where([
             'model_type' => get_class($comment),
             'model_id' => $comment->id,
