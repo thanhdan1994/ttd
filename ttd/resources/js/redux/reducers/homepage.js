@@ -8,9 +8,14 @@ export default function (state = initialState, action) {
     const data = action.data;
     switch (action.type) {
         case 'SET_ARTICLES_HOMEPAGE':
+            const articles = [...state.articles,...data];
+            const uniqueArticles = Array.from(new Set(articles.map(a => a.id)))
+                .map(id => {
+                    return articles.find(a => a.id === id)
+                });
             return {
                 ...state,
-                articles: [...state.articles,...data],
+                articles: uniqueArticles,
             };
         case 'SET_PAGE_HOMEPAGE':
             return {
