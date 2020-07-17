@@ -6,6 +6,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 class UrlService {
+    static getUserInfoUrl() { return apiDomain + 'api/user'}
     static getInitialDataHomePageUrl() { return apiDomain + 'api/homepage.json'}
     static loginUrl() { return apiDomain + 'api/login'}
     static createUserUrl() { return apiDomain + 'api/register'}

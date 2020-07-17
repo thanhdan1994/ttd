@@ -14,16 +14,17 @@ import DetailContainer from "./containers/DetailContainer";
 import BookmarkContainer from "./containers/BookmarkContainer";
 import NearbyContainer from "./containers/NearbyContainer";
 import Menu from "./components/Items/Menu";
+import UrlService from "./services/UrlService";
 
 function Main({ login }) {
     useEffect(() => {
         if (login) {
             axios({
-                url: 'https://ttd.com/api/user',
+                url: UrlService.getUserInfoUrl(),
                 method: 'get'
             }).then(response => {
-                let likeCommentChannel = window.Echo.channel('user-channel.'+response.data.id);
-                likeCommentChannel.listen('.user-event', function(data) {
+                let userChannel = window.Echo.channel('user-channel.'+response.data.id);
+                userChannel.listen('.user-event', function(data) {
                     console.log(data);
                 });
             });
