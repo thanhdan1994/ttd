@@ -1,7 +1,7 @@
 import {
     SHOW_MODAL_LOGIN,
     SHOW_MODAL_REGISTER,
-    SHOW_MODAL_LATEST,
+    SHOW_MODAL_NOTIFICATION,
     SHOW_SEARCH_MODAL,
     SHOW_POST_MODAL,
     SHOW_COMMENTS_MODAL,
@@ -13,7 +13,7 @@ import {
 
 const initialState = {
     showLoginModal: false,
-    showLatestModal: false,
+    showNotificationModal: false,
     showRegisterModal: false,
     showSearchModal: false,
     showPostModal: false,
@@ -38,10 +38,10 @@ export default function (state = initialState, action) {
                 showRegisterModal: true,
             }
         }
-        case SHOW_MODAL_LATEST: {
+        case SHOW_MODAL_NOTIFICATION: {
             return {
                 ...initialState,
-                showLatestModal: true,
+                showNotificationModal: true,
             }
         }
         case SHOW_SEARCH_MODAL: {

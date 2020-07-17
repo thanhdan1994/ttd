@@ -3,10 +3,8 @@ import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import LatestContentModal from "./components/modals/LatestContentModal";
 import LoginModal from "./components/modals/LoginModal";
 import RegisterModal from "./components/modals/RegisterModal";
-import Latest from "./components/Items/Latest";
 import Post from "./components/Items/Post";
 import SearchModal from "./components/modals/SearchModal";
 import HomeContainer from "./containers/HomeContainer";
@@ -15,6 +13,7 @@ import BookmarkContainer from "./containers/BookmarkContainer";
 import NearbyContainer from "./containers/NearbyContainer";
 import Menu from "./components/Items/Menu";
 import UrlService from "./services/UrlService";
+import Notification from "./components/Items/Notification";
 
 function Main({ login }) {
     useEffect(() => {
@@ -39,13 +38,12 @@ function Main({ login }) {
             <Route path="/:slug/:id" component={DetailContainer}/>
             <Footer/>
             <div className="bottom-bar">
-                <Latest/>
+                <Notification />
                 <Post/>
                 <Menu />
             </div>
             <LoginModal/>
             <RegisterModal/>
-            <LatestContentModal/>
             <SearchModal/>
         </Fragment>
     )

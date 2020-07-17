@@ -1,11 +1,12 @@
 import {
     SHOW_MODAL_LOGIN,
     SHOW_MODAL_REGISTER,
-    SHOW_MODAL_LATEST,
+    SHOW_MODAL_NOTIFICATION,
     SHOW_SEARCH_MODAL,
     SHOW_POST_MODAL,
     LOGIN,
-    SHOW_COMMENTS_MODAL, SHOW_REPORT_MODAL, SHOW_WRITE_REPORT_MODAL
+    SHOW_COMMENTS_MODAL, SHOW_REPORT_MODAL, SHOW_WRITE_REPORT_MODAL,
+    SET_NOTIFICATIONS
 } from './actionTypes';
 
 export const handleShowModalLogin = () => ({
@@ -16,8 +17,8 @@ export const handleShowModalRegister = () => ({
     type: SHOW_MODAL_REGISTER
 });
 
-export const handleShowLatestModal = () => ({
-    type: SHOW_MODAL_LATEST
+export const handleShowNotificationModal = () => ({
+    type: SHOW_MODAL_NOTIFICATION
 });
 
 export const handleShowSearchModal = () => ({
@@ -30,6 +31,11 @@ export const handleShowPostModal = () => ({
 
 export const handleLogin = () => ({
     type: LOGIN
+});
+
+export const handleSetNotifications = notifications => ({
+    type: SET_NOTIFICATIONS,
+    data: notifications
 });
 
 export const handleShowCommentsModal = () => ({

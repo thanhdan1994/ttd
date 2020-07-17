@@ -4,6 +4,7 @@
 @use 'article_thumb_left';
 @use 'box_comment';
 @use 'footer';
+@use 'notification';
 
 @keyframes animateBottom {
     0% {
@@ -548,5 +549,25 @@ div.ReactModalPortal {
     align-items: center;
     &:focus {
         outline: none;
+    }
+}
+
+.notification {
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+    margin-right: 20px;
+    .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background-color: $main-color;
+        color: white;
+    }
+    .bell-icon {
+        color: $yellow-color;
     }
 }
