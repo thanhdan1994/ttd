@@ -30,7 +30,7 @@ function HomeContainer({
             let cancel;
             axios({
                 method: 'GET',
-                url: 'https://ttd.com/api/homepage.json',
+                url: UrlService.getInitialDataHomePageUrl(),
                 cancelToken: new axios.CancelToken(c => cancel = c)
             }).then(response => {
                 handleSetArticles(response.data.data);
