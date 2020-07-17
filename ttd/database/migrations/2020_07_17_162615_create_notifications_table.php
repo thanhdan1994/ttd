@@ -15,7 +15,7 @@ class CreateNotificationsTable extends Migration
             $table->foreign('creator')->references('id')->on('users');
             $table->bigInteger('receiver')->unsigned();
             $table->foreign('receiver')->references('id')->on('users');
-            $table->bigInteger('message_type_id')->unsigned();
+            $table->integer('message_type_id')->unsigned();
             $table->foreign('message_type_id')->references('message_type')->on('message_type');
             $table->string('link')->nullable();
             $table->boolean('status')->default(true); // 0 chưa đọc, 1 đã đọc
