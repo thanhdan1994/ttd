@@ -6,7 +6,8 @@ import {
     SHOW_POST_MODAL,
     LOGIN,
     SHOW_COMMENTS_MODAL, SHOW_REPORT_MODAL, SHOW_WRITE_REPORT_MODAL,
-    SET_NOTIFICATIONS
+    SET_NOTIFICATIONS,
+    RECEIVE_NEW_NOTIFICATION
 } from './actionTypes';
 
 export const handleShowModalLogin = () => ({
@@ -36,6 +37,11 @@ export const handleLogin = () => ({
 export const handleSetNotifications = notifications => ({
     type: SET_NOTIFICATIONS,
     data: notifications
+});
+
+export const handleReceiveNotification = notification => ({
+    type: RECEIVE_NEW_NOTIFICATION,
+    data: notification
 });
 
 export const handleShowCommentsModal = () => ({

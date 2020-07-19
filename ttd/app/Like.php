@@ -4,6 +4,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+/**
+ * @property string model_type
+ * @property int model_id
+ * @property User user_id
+ * @property User | Product model
+ * @property int type
+ */
 class Like extends Model
 {
     protected $table = 'like';

@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect } from "react";
-import { connect } from "react-redux";
+import React, { Fragment } from "react";
 import { Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -12,23 +11,9 @@ import DetailContainer from "./containers/DetailContainer";
 import BookmarkContainer from "./containers/BookmarkContainer";
 import NearbyContainer from "./containers/NearbyContainer";
 import Menu from "./components/Items/Menu";
-import UrlService from "./services/UrlService";
 import Notification from "./components/Items/Notification";
 
-function Main({ login }) {
-    useEffect(() => {
-        if (login) {
-            axios({
-                url: UrlService.getUserInfoUrl(),
-                method: 'get'
-            }).then(response => {
-                let userChannel = window.Echo.channel('user-channel.'+response.data.id);
-                userChannel.listen('.user-event', function(data) {
-                    console.log(data);
-                });
-            });
-        }
-    }, []);
+function Main() {
     return (
         <Fragment>
             <Header/>
@@ -48,7 +33,4 @@ function Main({ login }) {
         </Fragment>
     )
 }
-const mapStateToProps = state => {
-    return { login: state.user.login };
-};
-export default connect(mapStateToProps, null)(Main)
+export default Main

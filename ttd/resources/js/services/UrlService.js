@@ -36,6 +36,7 @@ class UrlService {
     static getProductsBookmarkUrl(page, size) { return apiDomain + 'api/bookmark' + '?page=' + page + '&size=' + size }
     static getProductsNearbyUrl(lat, long, page = 1, size = 10) { return apiDomain + 'api/product/nearby' + '?lat='+lat+'&long='+long+'&page=' + page + '&size=' + size }
     static getNotificationsUrl(page = 1, size = 10) { return apiDomain + 'api/notifications'+'?page='+page+'&size='+size }
+    static setReadNotificationAtUrl() { return apiDomain + 'api/set-read-notification-at' }
 }
 
 export default UrlService;

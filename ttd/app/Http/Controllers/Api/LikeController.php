@@ -2,8 +2,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Comment;
-use App\Events\UserEvent;
-use App\Events\Test;
 use App\Http\Controllers\Controller;
 use App\Like;
 use App\Product;
@@ -25,7 +23,6 @@ class LikeController extends Controller
             'user_id' => $user_id,
             'type' => 1
         ]);
-        event(new UserEvent($like->author->name . ' Đã thích bài viết của bạn', $product->author->id));
         return response(['data' => $like, 'status' => 200], 200);
     }
 
@@ -60,7 +57,6 @@ class LikeController extends Controller
             'user_id' => $user_id,
             'type' => 1
         ]);
-        event(new UserEvent($like->author->name . ' Đã thích bình luận của bạn', $comment->author->id));
         return response(['data' => $like, 'status' => 200], 200);
     }
 

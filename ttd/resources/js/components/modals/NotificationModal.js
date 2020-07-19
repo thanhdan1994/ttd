@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import { Modal } from 'react-bootstrap';
 import { connect } from "react-redux";
-import { handleCloseModal, handleSetNotifications } from "../../redux/actions";
+import { handleCloseModal, handleSetNotifications, handleReceiveNotification } from "../../redux/actions";
 import UrlService from "../../services/UrlService";
 import NotificationItem from "../Items/NotificationItem";
 
@@ -9,6 +9,7 @@ function NotificationModal({
        handleCloseModal,
        showNotificationModal,
        handleSetNotifications,
+       handleReceiveNotification,
        notifications
 }) {
     const [page, setPage] = useState(1);
@@ -16,10 +17,14 @@ function NotificationModal({
     const [loading, setLoading] = useState(false);
     const observer = useRef();
     const lastNotificationElementRef = useCallback(node => {
-        if (loading) return;
+        if (loading) {
+            console.log('loading true 111');
+            return false;
+        }
         if (observer.current) observer.current.disconnect();
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting && page < 4 && hasMore) {
+                setLoading(true);
                 let loadNotificationPage = page + 1;
                 return loadMoreNotification(loadNotificationPage);
             }
@@ -32,11 +37,24 @@ function NotificationModal({
             url: UrlService.getNotificationsUrl(1, 10),
             method: 'get',
         }).then(response => {
-            handleSetNotifications(response.data);
-            if (response.data.length < 10) {
+            handleSetNotifications({
+                notifications: response.data.notifications,
+                numberNotSeen: response.data.numberNotSeen
+            });
+            if (response.data.notifications.length < 10) {
                 setHasMore(false);
             }
         }).catch(e => console.log(e));
+
+        axios({
+            url: UrlService.getUserInfoUrl(),
+            method: 'get'
+        }).then(response => {
+            let userChannel = window.Echo.channel('user-channel.'+response.data.id);
+            userChannel.listen('.user-event', function(data) {
+                handleReceiveNotification(data.notification);
+            });
+        });
     }, []);
 
     function loadMoreNotification(loadNotificationPage) {
@@ -45,13 +63,17 @@ function NotificationModal({
             method: 'get',
         }).then(response => {
             setLoading(false);
-            handleSetNotifications(response.data);
+            handleSetNotifications({
+                notifications: response.data.notifications,
+                numberNotSeen: response.data.numberNotSeen
+            });
             setPage(loadNotificationPage);
-            if (response.data.length < 10) {
+            if (response.data.notifications.length < 10) {
                 setHasMore(false);
             }
         }).catch(e => console.log(e));
     }
+    console.log('loading true 111');
     return (
         <Modal show={showNotificationModal} onHide={handleCloseModal} animation={false} id="notificationsModal">
             <div className="modal-content animate-bottom">
@@ -72,7 +94,7 @@ function NotificationModal({
 const mapStateToProps = state => {
     return {
         showNotificationModal: state.modal.showNotificationModal,
-        notifications: state.user.notifications
+        notifications: state.user.notifications.notifications
     };
 };
-export default connect(mapStateToProps, { handleCloseModal, handleSetNotifications })( NotificationModal );
+export default connect(mapStateToProps, { handleCloseModal, handleSetNotifications, handleReceiveNotification })( NotificationModal );

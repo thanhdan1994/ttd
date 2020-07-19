@@ -1,6 +1,7 @@
 <?php
 namespace App\Events;
 
+use App\Notification;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -10,12 +11,12 @@ class UserEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $notification;
     public $author_id;
 
-    public function __construct(string $message, int $author_id)
+    public function __construct($notification, int $author_id)
     {
-        $this->message = $message;
+        $this->notification = $notification;
         $this->author_id = $author_id;
     }
 

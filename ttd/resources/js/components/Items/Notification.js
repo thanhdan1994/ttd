@@ -1,15 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
-import { handleShowNotificationModal, handleShowModalLogin } from '../../redux/actions';
+import { handleShowNotificationModal, handleShowModalLogin, handleSetNotifications } from '../../redux/actions';
 import NotificationModal from "../modals/NotificationModal";
+import UrlService from "../../services/UrlService";
 
-function Notification({ handleShowNotificationModal, handleShowModalLogin, login }) {
+function Notification({ handleShowNotificationModal, handleShowModalLogin, login, numberNotSeen, handleSetNotifications }) {
+    function handleSeenNotification() {
+        handleShowNotificationModal();
+        if (numberNotSeen) {
+            axios({
+                url: UrlService.setReadNotificationAtUrl(),
+                method: 'post'
+            }).catch(e => console.log(e));
+            handleSetNotifications({notifications: [], numberNotSeen: 0});
+        }
+    }
     if (login) {
         return (
             <>
-                <a onClick={ handleShowNotificationModal } className="notification">
+                <a onClick={ handleSeenNotification } className="notification">
                     <span className="bell-icon"><i className="fas fa-2x fa-bell"></i></span>
-                    <span className="badge">3</span>
+                    {numberNotSeen > 0 && <span className="badge">{numberNotSeen}</span>}
                 </a>
                 <NotificationModal />
             </>
@@ -18,12 +29,11 @@ function Notification({ handleShowNotificationModal, handleShowModalLogin, login
     return (
         <a onClick={ handleShowModalLogin } className="notification">
             <span className="bell-icon"><i className="fas fa-2x fa-bell"></i></span>
-            <span className="badge">3</span>
         </a>
     )
 }
 
 const mapStateToProps = state => {
-    return { login: state.user.login };
+    return { login: state.user.login, numberNotSeen: state.user.notifications.numberNotSeen };
 };
-export default connect(mapStateToProps, { handleShowNotificationModal, handleShowModalLogin })(Notification);
+export default connect(mapStateToProps, { handleShowNotificationModal, handleShowModalLogin, handleSetNotifications })(Notification);

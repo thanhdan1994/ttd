@@ -9,7 +9,7 @@ class CreateMessageTypeTable extends Migration
     public function up()
     {
         Schema::create('message_type', function (Blueprint $table) {
-            $table->integer('message_type')->unique();
+            $table->increments('message_type')->unique();
             $table->string('message');
             $table->text('description')->nullable();
             $table->timestamps();

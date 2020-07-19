@@ -13,7 +13,6 @@ class UserNotification
      */
     public function handle(UserEvent $event)
     {
-        $event->message;
-        $event->author_id;
+        $event->notification;
     }
 }
