@@ -30,7 +30,7 @@ function HomeContainer({
             let cancel;
             axios({
                 method: 'GET',
-                url: UrlService.getInitialDataHomePageUrl(),
+                url: UrlService.getProductsUrl(1, 5),
                 cancelToken: new axios.CancelToken(c => cancel = c)
             }).then(response => {
                 handleSetArticles(response.data.data);

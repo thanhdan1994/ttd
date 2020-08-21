@@ -14,7 +14,6 @@ import WriteReportButton from "../components/Items/WriteReportButton";
 import WriteReportModal from "../components/modals/WriteReportModal";
 import BlockListReport from "../components/Items/BlockListReport";
 import ReportModal from "../components/modals/ReportModal";
-import CookieService from "../services/CookieService";
 import { handleSetReported, handleBookmark } from "../redux/actions/detailpage";
 import BookmarkButton from "../components/Items/BookmarkButton";
 
