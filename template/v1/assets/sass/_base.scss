@@ -56,6 +56,12 @@ $yellow-color :  #fdbe21;
     background-image: url(../img/icon/icon-trend.png);
 }
 
+.icon-myProducts {
+    width: 22px;
+    height: 22px;
+    background-image: url(../img/icon/icon-myproducts.svg);
+}
+
 .icon-nearby {
     width: 22px;
     height: 15px;
@@ -95,7 +101,13 @@ $yellow-color :  #fdbe21;
 .icon-mail {
     width: 22px;
     height: 22px;
-    background-image: url(../img/icon/icon-mail.svg);
+    background-image: url(../img/icon/icon-edit.svg);
+}
+
+.icon-edit {
+    width: 22px;
+    height: 22px;
+    background-image: url(../img/icon/icon-edit.svg);
 }
 
 .icon-back {

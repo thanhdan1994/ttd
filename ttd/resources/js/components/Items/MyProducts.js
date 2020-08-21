@@ -6,12 +6,12 @@ import {Link} from "react-router-dom";
 function MyProducts({ handleShowModalLogin, login }) {
     if (!login) {
         return (
-            <a className="btn-myProducts" onClick={handleShowModalLogin}> Sản phẩm của tôi</a>
+            <a className="btn-myProducts" onClick={handleShowModalLogin}><i className="icon icon-myProducts"></i> Sản phẩm của tôi</a>
         )
     } else {
         return (
             <>
-                <Link className="btn-myProducts" to='/my-products'> Sản phẩm của tôi</Link>
+                <Link className="btn-myProducts" to='/my-products'><i className="icon icon-myProducts"></i> Sản phẩm của tôi</Link>
             </>
         )
     }
