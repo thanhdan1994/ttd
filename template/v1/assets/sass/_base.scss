@@ -116,6 +116,18 @@ $yellow-color :  #fdbe21;
     background-image: url(../img/icon/icon-close-popup.svg);
 }
 
+.icon-pin {
+    width: 35px;
+    height: 35px;
+    background-image: url(../img/icon/icon-pin.svg);
+}
+
+.icon-exit {
+    width: 35px;
+    height: 35px;
+    background-image: url(../img/icon/icon-exit.svg);
+}
+
 img {
     max-width: 100%;
 }
@@ -255,6 +267,26 @@ section {
             margin-right: 3px;
         }
     }
+
+    .btn-myProducts {
+        font-weight: bold;
+        text-transform: uppercase;
+        height: 30px;
+        line-height: 30px;
+        padding-right: 10px;
+        padding-left: 10px;
+        margin-left: 20px;
+        border-radius: 15px;
+        background: #fdbe21;
+        color: #000000;
+        font-size: 12px;
+        display: inline-block;
+        i {
+            margin-bottom: 3px;
+            margin-right: 3px;
+        }
+    }
+
     .btn-menu {
         margin-left: auto;
         height: 30px;
@@ -361,11 +393,10 @@ section {
             list-style: none;
             padding-left: 7px;
             li {
-                padding: 17px 0;
+                padding: 5px 0;
                 span {
-                    display: inline-block;
                     overflow: hidden;
-                    text-indent: -9999px;
+                    font-size: medium;
                 }
             }
         }
@@ -534,6 +565,7 @@ div.ReactModalPortal {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: rgb(239, 239, 239);
 }
 .btn-dislike {
     position: fixed;
@@ -547,6 +579,7 @@ div.ReactModalPortal {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: rgb(239, 239, 239);
     &:focus {
         outline: none;
     }

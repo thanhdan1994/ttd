@@ -38,4 +38,5 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home.index');
 Route::get('/nearby', 'HomeController@index')->name('home.index');
 Route::get('/bookmarks', 'HomeController@index')->name('home.index');
+Route::get('/my-products', 'HomeController@index')->name('home.index');
 Route::get('/{slug}/{id}', 'HomeController@index')->name('home.index');

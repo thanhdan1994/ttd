@@ -15,6 +15,7 @@ class UrlService {
     static likeProductUrl(id) { return apiDomain + 'api/product/'+id+'/like' }
     static dislikeProductUrl(id) { return apiDomain + 'api/product/'+id+'/dislike' }
     static getProductsUrl(page, size) { return apiDomain + 'api/product' + '?page=' + page + '&size=' + size }
+    static getMyProductsUrl(page, size) { return apiDomain + 'api/my-products' + '?page=' + page + '&size=' + size }
     static getProductCommentsUrl(id, page) {
         if (page > 1) {
             return apiDomain + 'api/product/'+ id +'/comments' + '?page=' + page;

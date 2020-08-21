@@ -81,7 +81,7 @@ function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal, mod
                                 <div className="col-8 d-flex flex-column">
                                     <span><i className="fas fa-money-bill" /> Giá: {data.amount} VND</span>
                                     <span><i className="fas fa-phone" /> Số điện thoại: <a href={"tel:"+ data.phone}>{data.phone}</a></span>
-                                    <span><i className="fas fa-location" /> {data.address}</span>
+                                    <span><i className="fa fa-map-marker" /> {data.address}</span>
                                     <BookmarkButton productId={match.params.id}/>
                                 </div>
                             </div>

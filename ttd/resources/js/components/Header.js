@@ -25,9 +25,9 @@ function Header({handleShowSearchModal}) {
                         </Link>
                     </li>
                     <li>
-                        <a>
-                            <i className="icon icon-hot" /> Nổi bật
-                        </a>
+                        <Link to="/">
+                            <i className="icon icon-hot" /> Trang chủ
+                        </Link>
                     </li>
                     <li>
                         <Bookmark />

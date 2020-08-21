@@ -32,6 +32,7 @@ Route::get('login/social/redirect', function (Request $request) {
 Route::namespace('Api')->group(function () {
     Route::middleware('auth:api')->group(function () {
         Route::post('product', 'ProductController@store');
+        Route::get('my-products', 'ProductController@myProducts');
         Route::post('product/{product}/comment', 'ProductCommentController@store');
         Route::post('product/{product}/report', 'ProductReportController@store');
         Route::post('product/{product}/like', 'LikeController@like');

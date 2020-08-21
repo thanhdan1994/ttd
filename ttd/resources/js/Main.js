@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import LoginModal from "./components/modals/LoginModal";
 import RegisterModal from "./components/modals/RegisterModal";
 import Post from "./components/Items/Post";
+import MyProducts from "./components/Items/MyProducts";
 import SearchModal from "./components/modals/SearchModal";
 import HomeContainer from "./containers/HomeContainer";
 import DetailContainer from "./containers/DetailContainer";
@@ -12,6 +13,7 @@ import BookmarkContainer from "./containers/BookmarkContainer";
 import NearbyContainer from "./containers/NearbyContainer";
 import Menu from "./components/Items/Menu";
 import Notification from "./components/Items/Notification";
+import MyProductsContainer from "./containers/MyProductsContainer";
 
 function Main() {
     return (
@@ -20,11 +22,13 @@ function Main() {
             <Route exact path="/" component={HomeContainer}/>
             <Route path="/nearby" component={NearbyContainer}/>
             <Route path="/bookmarks" component={BookmarkContainer}/>
+            <Route path="/my-products" component={MyProductsContainer}/>
             <Route path="/:slug/:id" component={DetailContainer}/>
             <Footer/>
             <div className="bottom-bar">
                 <Notification />
                 <Post/>
+                <MyProducts />
                 <Menu />
             </div>
             <LoginModal/>

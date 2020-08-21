@@ -45,6 +45,35 @@ class ProductController extends Controller
         return response($data, 200);
     }
 
+    public function myProducts(Request $request)
+    {
+        $user = auth('api')->user();
+        $size = 10;
+        if ($request->size) {
+            $size = $request->size;
+        }
+        $data = [];
+        try {
+            $products = Product::where(['user_id' => $user->id])
+                ->withCount('comments')
+                ->with('category')
+                ->orderBy('created_at', 'desc')
+                ->paginate($size);
+            $data['total_pages'] = $products->lastPage();
+            $data['current_page'] = $products->currentPage();
+            $data['per_page'] = $products->count();
+            $products = $products->map(function (Product $product) {
+                $product->thumb = $product->getThumbnailUrl('thumb');
+                $product->thumb150 = $product->getThumbnailUrl('thumb-150');
+                $product->thumb350 = $product->getThumbnailUrl('thumb-350');
+                return $product;
+            });$data['data'] = $products;
+        } catch (\Exception $exception) {
+            abort(500, $exception->getMessage());
+        }
+        return response($data, 200);
+    }
+
     public function store(Request $request)
     {
         $messages = [

@@ -73,7 +73,6 @@ function NotificationModal({
             }
         }).catch(e => console.log(e));
     }
-    console.log('loading true 111');
     return (
         <Modal show={showNotificationModal} onHide={handleCloseModal} animation={false} id="notificationsModal">
             <div className="modal-content animate-bottom">
@@ -83,7 +82,7 @@ function NotificationModal({
                 </div>
                 <div className="modal-body mt-3">
                     <div className="notifications">
-                        {notifications.map(notification => <NotificationItem notification={notification} key={notification.id} ref={lastNotificationElementRef}/>)}
+                        {notifications.map((notification, index) => <NotificationItem notification={notification} key={index} ref={lastNotificationElementRef}/>)}
                     </div>
                     {(page >= 4 && hasMore) && <button onClick={() => loadMoreNotification(page + 1)} className="btn-more-down" style={{backgroundSize: '55px'}} />}
                 </div>
