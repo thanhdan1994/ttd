@@ -24,14 +24,14 @@ function PostModal({ showPostModal, handleCloseModal }) {
         images: []
     };
     const [data, setData] = useState(initialState);
+    const [creating, setCreating] = useState(false);
 
-    var filesList = new Array();
     function removeImage(event) {
         let nodes = Array.prototype.slice.call(document.querySelector('div.file-preview').children),
             thisNode = event.target.closest('div.file-catcher');
         let index = nodes.indexOf(thisNode);
-        filesList.splice(index, 1);
-        setData({...data, images: filesList});
+        data.images.splice(index, 1);
+        setData({...data, images: data.images});
         thisNode.remove();
     }
 
@@ -43,7 +43,7 @@ function PostModal({ showPostModal, handleCloseModal }) {
             let file = files[i];
             let previewsElement = document.querySelector('div.file-preview');
             reader.onloadend = () => {
-                if (filesList.length < 9) {
+                if (data.images.length < 9) {
                     let previewImageHtml = document.createElement('div');
                     previewImageHtml.className = "file-catcher";
                     let imgPreview = document.createElement('img');
@@ -57,8 +57,8 @@ function PostModal({ showPostModal, handleCloseModal }) {
                     previewImageHtml.append(imgPreview);
                     previewImageHtml.append(closePreviewIcon);
                     previewsElement.append(previewImageHtml);
-                    filesList.push(reader.result);
-                    setData({...data, images: filesList});
+                    data.images.push(reader.result);
+                    setData({...data, images: data.images});
                 }
             };
             reader.readAsDataURL(file);
@@ -86,6 +86,7 @@ function PostModal({ showPostModal, handleCloseModal }) {
     }
 
     function handlePost() {
+        setCreating(true);
         let { name, description, phone, amount, address, latitude, longitude, images } = data;
         if (
             name === '' ||
@@ -98,6 +99,7 @@ function PostModal({ showPostModal, handleCloseModal }) {
             images.length < 1
         ) {
             alert('Vui lòng nhập đầy đủ thông tin được đánh dấu (*)');
+            setCreating(false);
             return false;
         }
         axios({
@@ -106,8 +108,12 @@ function PostModal({ showPostModal, handleCloseModal }) {
             data: data
         }).then(response => {
             alert('Bài viết của bạn đã được gửi thành công! vui lòng đợi duyệt.');
+            setCreating(false);
             handleCloseModal();
             setData(initialState);
+        }).catch(function (error) {
+            setCreating(false);
+            alert(error.response.data.errors[0]);
         });
     }
     return (
@@ -157,31 +163,19 @@ function PostModal({ showPostModal, handleCloseModal }) {
                         <span className="note"><span style={{color: 'red'}}>*</span> Bạn phải có ít nhất 1 ảnh (tối đa là 9 ảnh)</span>
                     </div>
                     <div className="form-group">
-                        <label>CHỌN DỊCH VỤ:<span style={{color: 'red'}}>*</span></label>
+                        <label>Dịch vụ:<span style={{color: 'red'}}>*</span></label>
                         <div className="list-services">
                             <div className="custom-control custom-switch">
-                                <input type="checkbox" className="custom-control-input" id="post_services1" name="post_services[]" onChange={handleServices} value="1" />
-                                <label className="custom-control-label" htmlFor="post_services1">services1</label>
+                                <input type="checkbox" className="custom-control-input" name="post_services[]" onChange={handleServices} value="1" />
+                                <label className="custom-control-label">Giao hàng nhanh</label>
                             </div>
                             <div className="custom-control custom-switch">
-                                <input type="checkbox" className="custom-control-input" id="post_services2" name="post_services[]" onChange={handleServices} value="2"/>
-                                <label className="custom-control-label" htmlFor="post_services2">services2</label>
+                                <input type="checkbox" className="custom-control-input" name="post_services[]" onChange={handleServices} value="2"/>
+                                <label className="custom-control-label">Giao hàng 24/24</label>
                             </div>
                             <div className="custom-control custom-switch">
-                                <input type="checkbox" className="custom-control-input" id="post_services3" name="post_services[]" onChange={handleServices} value="3"/>
-                                <label className="custom-control-label" htmlFor="post_services3">services3</label>
-                            </div>
-                            <div className="custom-control custom-switch">
-                                <input type="checkbox" className="custom-control-input" id="post_services6" name="post_services[]" onChange={handleServices} value="6"/>
-                                <label className="custom-control-label" htmlFor="post_services6">services6</label>
-                            </div>
-                            <div className="custom-control custom-switch">
-                                <input type="checkbox" className="custom-control-input" id="post_services5" name="post_services[]" onChange={handleServices} value="5"/>
-                                <label className="custom-control-label" htmlFor="post_services5">services5</label>
-                            </div>
-                            <div className="custom-control custom-switch">
-                                <input type="checkbox" className="custom-control-input" id="post_services4" name="post_services[]" onChange={handleServices} value="4"/>
-                                <label className="custom-control-label" htmlFor="post_services4">services4</label>
+                                <input type="checkbox" className="custom-control-input" name="post_services[]" onChange={handleServices} value="3"/>
+                                <label className="custom-control-label">Nghỉ thứ 7</label>
                             </div>
                         </div>
                     </div>
@@ -206,7 +200,7 @@ function PostModal({ showPostModal, handleCloseModal }) {
                         </table>
                     </div>
                     <div className="form-group text-center mt-5">
-                        <button type="button" className="btnSendNews text-uppercase" onClick={handlePost}>Đăng bài</button>
+                        {!creating && <button type="button" className="btnSendNews text-uppercase" onClick={handlePost}>Đăng bài</button>}
                     </div>
                 </div>
             </div>

@@ -14,16 +14,19 @@ import NearbyContainer from "./containers/NearbyContainer";
 import Menu from "./components/Items/Menu";
 import Notification from "./components/Items/Notification";
 import MyProductsContainer from "./containers/MyProductsContainer";
+import FlashNotification from "./components/Items/FlashNotification";
+import CategoryProductsContainer from "./containers/CategoryProductsContainer";
 
 function Main() {
     return (
         <Fragment>
             <Header/>
             <Route exact path="/" component={HomeContainer}/>
+            <Route exact path="/:slug/:id" component={DetailContainer}/>
             <Route path="/nearby" component={NearbyContainer}/>
             <Route path="/bookmarks" component={BookmarkContainer}/>
             <Route path="/my-products" component={MyProductsContainer}/>
-            <Route path="/:slug/:id" component={DetailContainer}/>
+            <Route path='/categories/:id/products' component={CategoryProductsContainer}/>
             <Footer/>
             <div className="bottom-bar">
                 <Notification />
@@ -34,6 +37,7 @@ function Main() {
             <LoginModal/>
             <RegisterModal/>
             <SearchModal/>
+            <FlashNotification />
         </Fragment>
     )
 }

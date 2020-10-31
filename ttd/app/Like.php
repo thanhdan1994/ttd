@@ -15,6 +15,9 @@ class Like extends Model
 {
     protected $table = 'like';
 
+    const TYPE_LIKE = 1;
+    const TYPE_DISLIKE = 2;
+
     /**
      * The attributes that are mass assignable.
      * @var array

@@ -19,6 +19,7 @@ class Notification extends Model
      * @var array
      */
     protected $fillable = [
+        'link',
         'model_type',
         'model_id',
         'creator',

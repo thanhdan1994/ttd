@@ -1,73 +1,48 @@
 <?php
 namespace App\Http\Controllers\Api;
 
-use App\Comment;
-use App\Http\Controllers\Controller;
-use App\Like;
-use App\Product;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Repositories\Interfaces\LikeRepositoryInterface;
 
-class LikeController extends Controller
+class LikeController extends ApiController
 {
-    public function like(Request $request, Product $product)
+    private $likeRepo;
+
+    public function __construct(LikeRepositoryInterface $likeRepository)
     {
-        $user_id = $request->user()->id;
-        Like::where([
-            'model_type' => get_class($product),
-            'model_id' => $product->id,
-            'user_id' => $user_id
-        ])->delete();
-        $like = Like::create([
-            'model_type' => get_class($product),
-            'model_id' => $product->id,
-            'user_id' => $user_id,
-            'type' => 1
-        ]);
+        parent::__construct();
+        $this->likeRepo = $likeRepository;
+    }
+
+    public function likeProduct($productId)
+    {
+        // delete like/dislike
+        $this->likeRepo->clearLikeOrUnlikeProductByUser($this->user->id, $productId);
+        $like = $this->likeRepo->likeProductByUser($this->user->id, $productId);
         return response(['data' => $like, 'status' => 200], 200);
     }
 
-    public function dislike(Request $request, Product $product)
+    public function dislikeProduct($productId)
     {
-        $user_id = $request->user()->id;
-        Like::where([
-            'model_type' => get_class($product),
-            'model_id' => $product->id,
-            'user_id' => $user_id
-        ])->delete();
-        $unlike = Like::create([
-            'model_type' => get_class($product),
-            'model_id' => $product->id,
-            'user_id' => $user_id,
-            'type' => 2,
-        ]);
+
+        // delete like/dislike
+        $this->likeRepo->clearLikeOrUnlikeProductByUser($this->user->id, $productId);
+        $unlike = $this->likeRepo->dislikeProductByUser($this->user->id, $productId);
         return response(['data' => $unlike, 'status' => 200], 200);
     }
 
-    public function likeComment(Comment $comment, Request $request)
+    public function likeComment($commentId)
     {
-        $user_id = $request->user()->id;
-        Like::where([
-            'model_type' => get_class($comment),
-            'model_id' => $comment->id,
-            'user_id' => $user_id
-        ])->delete();
-        $like = Like::create([
-            'model_type' => get_class($comment),
-            'model_id' => $comment->id,
-            'user_id' => $user_id,
-            'type' => 1
-        ]);
+        // delete like comment
+        $this->likeRepo->clearLikeOrUnlikeCommentByUser($this->user->id, $commentId);
+        $like = $this->likeRepo->likeCommentByUser($this->user->id, $commentId);
         return response(['data' => $like, 'status' => 200], 200);
     }
 
-    public function removeLikeComment(Comment $comment, Request $request)
+    public function unlikeComment($commentId)
     {
-        $user_id = $request->user()->id;
-        $like = Like::where([
-            'model_type' => get_class($comment),
-            'model_id' => $comment->id,
-            'user_id' => $user_id
-        ])->delete();
-        return response(['data' => $like, 'status' => 200], 200);
+        // delete like comment
+        $this->likeRepo->clearLikeOrUnlikeCommentByUser($this->user->id, $commentId);
+        return response(['status' => 200], 200);
     }
 }

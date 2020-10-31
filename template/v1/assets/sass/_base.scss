@@ -43,6 +43,13 @@ body.ReactModal__Body--open {
     top: 0;
 }
 
+.flash-notification {
+    margin-bottom: 64px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
 $main-color :  #D10000;
 $yellow-color :  #fdbe21;
 
@@ -142,10 +149,16 @@ $yellow-color :  #fdbe21;
     background-image: url(../img/icon/icon-pin.svg);
 }
 
-.icon-exit {
+.icon-login {
     width: 35px;
     height: 35px;
-    background-image: url(../img/icon/icon-exit.svg);
+    background-image: url(../img/icon/icon-login.svg);
+}
+
+.icon-logout {
+    width: 35px;
+    height: 35px;
+    background-image: url(../img/icon/icon-logout.svg);
 }
 
 img {

@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {Modal} from "react-bootstrap";
-import { handleCloseModal } from "../../redux/actions";
-import {Link} from "react-router-dom";
+import { handleCloseModal, handleShowModalLogin } from "../../redux/actions";
+import AuthService from "../../services/AuthService";
+import UrlService from "../../services/UrlService";
 
-function MenuModal({ showMenuModal, handleCloseModal }) {
+function MenuModal({ showMenuModal, handleCloseModal, login, handleShowModalLogin }) {
+    const [categories, setCategories] = useState([]);
+    useEffect(() => {
+        let cancel;
+        axios({
+            method: 'GET',
+            url: UrlService.getCategoriesUrl(),
+            cancelToken: new axios.CancelToken(c => cancel = c)
+        }).then(response => {
+            setCategories(response.data);
+        }).catch(e => {
+            if (axios.isCancel(e)) return;
+        });
+        return () => cancel();
+    }, []);
     return (
         <Modal show={showMenuModal} onHide={handleCloseModal} animation={false}>
             <div className="modal-content animate-bottom">
@@ -14,30 +30,11 @@ function MenuModal({ showMenuModal, handleCloseModal }) {
                 </div>
                 <div className="modal-body">
                     <ul className="modal__menu">
-                        <li>
-                            <a href="#"><i className="icon icon-exit"></i><span> ĐĂNG XUẤT</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><i className="icon icon-pin"></i><span> QUẬN GÒ VẤP (124)</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><i className="icon icon-pin"></i><span> QUẬN PHÚ NHUẬN (1344)</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><i className="icon icon-pin"></i><span> QUẬN THỦ ĐỨC (1524)</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><i className="icon icon-pin"></i><span> QUẬN 12 (2224)</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><i className="icon icon-pin"></i><span> QUẬN TÂN BÌNH (3324)</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><i className="icon icon-pin"></i><span> QUẬN BÌNH TÂN (3524)</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><i className="icon icon-pin"></i><span> QUẬN 8 (4324)</span></a>
-                        </li>
+                        {login && <li><a href="#" onClick={() => AuthService.doUserLogout()}><i className="icon icon-logout"></i><span> ĐĂNG XUẤT</span></a></li>}
+                        {!login && <li><a href="#" onClick={handleShowModalLogin}><i className="icon icon-login"></i><span> ĐĂNG NHẬP</span></a></li>}
+                        {categories.map((item, index) => <li key={index}>
+                            <Link to={`/categories/${item.id}/products`} onClick={handleCloseModal}><i className="icon icon-pin"></i><span> {item.name} ({item.products_count})</span></Link>
+                        </li>)}
                     </ul>
                     <section>
                         <article className="art-thumb-left border-2">
@@ -73,8 +70,7 @@ function MenuModal({ showMenuModal, handleCloseModal }) {
         </Modal>
     )
 }
-
 const mapStateToProps = state => {
-    return {showMenuModal: state.modal.showMenuModal};
+    return {showMenuModal: state.modal.showMenuModal, login : state.user.login};
 };
-export default connect(mapStateToProps, { handleCloseModal })(MenuModal)
+export default connect(mapStateToProps, { handleCloseModal, handleShowModalLogin })(MenuModal)

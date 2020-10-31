@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from "react";
 import Article475Skeleton from "../components/skeleton/Article475Skeleton";
-import ArticleThumbLeftSkeleton from "../components/skeleton/ArticleThumbLeftSkeleton";
-import Article475 from "../components/Items/Article475";
-import ArticleThumbLeft from "../components/Items/ArticleThumbLeft";
 import UrlService from "../services/UrlService";
 import ArticleNearby475 from "../components/Items/ArticleNearby475";
 import ArticleNearbyThumbLeft from "../components/Items/ArticleNearbyThumbLeft";

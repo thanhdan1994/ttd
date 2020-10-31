@@ -4,9 +4,9 @@ import ArticleThumbLeftSkeleton from "../components/skeleton/ArticleThumbLeftSke
 import ArticleThumbLeft from "../components/Items/ArticleThumbLeft";
 import UrlService from "../services/UrlService";
 import { handleSetBookmarks, handleSetHasMore, handleSetPage } from "../redux/actions/bookmarkpage";
-import CookieService from "../services/CookieService";
 
 function BookmarkContainer({ login, page, hasMore, bookmarks, handleSetBookmarks, handleSetHasMore, handleSetPage }) {
+    const DEFAULT_SIZE = 10;
     const [loading, setLoading] = useState(false);
 
     const observer = useRef();
@@ -28,11 +28,11 @@ function BookmarkContainer({ login, page, hasMore, bookmarks, handleSetBookmarks
             let cancel;
             axios({
                 method: 'GET',
-                url: UrlService.getProductsBookmarkUrl(page, 5),
+                url: UrlService.getProductsBookmarkUrl(page, DEFAULT_SIZE),
                 cancelToken: new axios.CancelToken(c => cancel = c),
             }).then(response => {
                 setLoading(false);
-                handleSetBookmarks(response.data.data);
+                handleSetBookmarks(response.data);
             }).catch(e => {
                 if (axios.isCancel(e)) return;
             });
@@ -44,12 +44,12 @@ function BookmarkContainer({ login, page, hasMore, bookmarks, handleSetBookmarks
         let cancel;
         axios({
             method: 'GET',
-            url: UrlService.getProductsBookmarkUrl(nextPage, 5),
+            url: UrlService.getProductsBookmarkUrl(nextPage, DEFAULT_SIZE),
             cancelToken: new axios.CancelToken(c => cancel = c),
         }).then(response => {
-            handleSetBookmarks(response.data.data);
+            handleSetBookmarks(response.data);
             handleSetPage(nextPage);
-            if (response.data.total_pages <= nextPage) {
+            if (response.data.length < DEFAULT_SIZE) {
                 handleSetHasMore(false);
             }
         }).catch(e => {
@@ -61,7 +61,7 @@ function BookmarkContainer({ login, page, hasMore, bookmarks, handleSetBookmarks
     if (login) {
         return (
             <section>
-                {loading && Array(5).fill().map((item, index) => {
+                {loading && Array(DEFAULT_SIZE).fill().map((item, index) => {
                     return (<ArticleThumbLeftSkeleton key={index} />);
                 })}
                 {bookmarks.map((bookmark, index) => {

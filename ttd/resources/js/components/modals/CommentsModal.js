@@ -12,24 +12,22 @@ function CommentsModal({
     handleCloseModal,
     productId
 }) {
+    const DEFAULT_SIZE = 2;
     const [loading, setLoading] = useState(true);
     const [comments, setComments] = useState([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const [perPage, setPerPage] = useState(5);
     const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
     useEffect(() => {
         let cancel;
         axios({
             method: 'GET',
-            url: UrlService.getProductCommentsUrl(productId, page),
+            url: UrlService.getCommentsOfProductUrl(productId, page, DEFAULT_SIZE),
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(response => {
-            setTotalPages(response.data.total_pages);
-            setPerPage(response.data.per_page);
-            if ((response.data.per_page * response.data.current_page + response.data.per_page) > response.data.total) {
-                setPerPage(response.data.total - (response.data.per_page * response.data.current_page))
+            if (response.data.length < DEFAULT_SIZE) {
+                setHasMore(false);
             }
-            setComments(response.data.data);
+            setComments(response.data);
             setLoading(false);
         }).catch(e => {
             if (axios.isCancel(e)) return;
@@ -43,13 +41,13 @@ function CommentsModal({
         setPage(pageCurrent);
         axios({
             method: 'GET',
-            url: UrlService.getProductCommentsUrl(productId, pageCurrent),
+            url: UrlService.getCommentsOfProductUrl(productId, pageCurrent, DEFAULT_SIZE),
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(response => {
-            if ((response.data.per_page * response.data.current_page + response.data.per_page) > response.data.total) {
-                setPerPage(response.data.total - (response.data.per_page * response.data.current_page))
+            if (response.data.length < DEFAULT_SIZE) {
+                setHasMore(false);
             }
-            setComments([...comments, ...response.data.data]);
+            setComments([...comments, ...response.data]);
         }).catch(e => {
             if (axios.isCancel(e)) return;
         });
@@ -69,11 +67,11 @@ function CommentsModal({
                                 <textarea placeholder="Nhập và nhấn enter để gửi" spellCheck="false" defaultValue={""} />
                             </div>
                             <div className="wrapper-comment cm-wrap">
-                                {loading && Array(5).fill().map((item, index) => <CommentSkeleton key={index}/>)}
+                                {loading && Array(DEFAULT_SIZE).fill().map((item, index) => <CommentSkeleton key={index}/>)}
                                 {comments.map(comment => <Comment data={comment} key={comment.id}/>)}
                             </div>
                             {loading && <Skeleton width={120} height={16}/>}
-                            {(totalPages > 1 && perPage > 1) && <span className="more-comment" onClick={seeMoreComments}>Xem thêm {perPage} Bình luận</span>}
+                            {hasMore && <span className="more-comment" onClick={seeMoreComments}>Xem thêm {DEFAULT_SIZE} Bình luận</span>}
                         </div>
                     </div>
                 </div>

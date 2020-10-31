@@ -34,15 +34,15 @@ function DetailContainer({ match, handleLikeUnlike, handleShowCommentsModal, mod
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(response => {
             handleLikeUnlike({
-                liked: response.data.product.liked,
-                unliked: response.data.product.unliked,
-                like: response.data.product.like,
-                unlike: response.data.product.unlike,
+                liked: response.data.liked,
+                unliked: response.data.unliked,
+                like: response.data.like,
+                unlike: response.data.unlike,
             });
-            setData(response.data.product);
+            setData(response.data);
             setLoading(false);
-            handleSetReported(response.data.product.report);
-            handleBookmark(response.data.product.bookmark);
+            handleSetReported(response.data.report);
+            handleBookmark(response.data.bookmark);
         }).catch(e => {
             if (axios.isCancel(e)) return;
         });

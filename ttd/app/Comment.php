@@ -41,11 +41,11 @@ class Comment extends Model
 
     public function like()
     {
-        return $this->morphMany(Like::class, 'model')->where('type', 1);
+        return $this->morphMany(Like::class, 'model')->where('type', Like::TYPE_LIKE);
     }
 
     public function unlike()
     {
-        return $this->morphMany(Like::class, 'model')->where('type', 2);
+        return $this->morphMany(Like::class, 'model')->where('type', Like::TYPE_DISLIKE);
     }
 }

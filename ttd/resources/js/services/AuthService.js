@@ -1,4 +1,3 @@
-import axios from 'axios';
 import UrlService from "./UrlService";
 import CookieService from "./CookieService";
 
@@ -22,6 +21,11 @@ class AuthService {
         } catch (error) {
             return error.response.data;
         }
+    }
+
+    doUserLogout() {
+        CookieService.remove('access_token');
+        window.location.reload(false);
     }
 
     handleLoginSuccess(response, remember) {

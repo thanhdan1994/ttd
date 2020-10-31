@@ -2,59 +2,59 @@
 namespace App\Http\Controllers\Api;
 
 use App\Comment;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Like;
 use App\Product;
+use App\Repositories\Interfaces\CommentRepositoryInterface;
+use App\Repositories\Interfaces\LikeRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class ProductCommentController extends Controller
+class ProductCommentController extends ApiController
 {
-    public function index(Product $product, Request $request)
+    private $likeRepo;
+
+    private $commentRepo;
+
+    public function __construct(
+        LikeRepositoryInterface $likeRepository,
+        CommentRepositoryInterface $commentRepository
+    ) {
+        parent::__construct();
+        $this->likeRepo = $likeRepository;
+        $this->commentRepo = $commentRepository;
+    }
+
+    public function getCommentsOfProduct($productId, Request $request)
     {
-        $size = 5;
-        if ($request->size) {
-            $size = $request->size;
-        }
-        $comments = Comment::where([
-            'product_id' => $product->id,
-            'parent' => 0,
-            'status' => 1
-        ])->withCount(['like', 'unlike'])->orderBy('created_at', 'desc')->paginate($size);
-        $data['total_pages'] = $comments->lastPage();
-        $data['current_page'] = $comments->currentPage();
-        $data['per_page'] = $comments->perPage();
-        $data['total'] = $comments->total();
-        $comments = $comments->map(function (Comment $comment) {
-            $user = auth('api')->user();
+        $size = $request->size ? : 5;
+        $page = $request->page ? : 1;
+        $comments = $this->commentRepo->listCommentsWithCountLikeAndUnlike(
+            [
+                'product_id' => $productId,
+                'parent' => 0,
+                'status' => 1
+            ],
+            $page,
+            $size,
+            'created_at',
+            'desc'
+        );
+        $comments = $comments->map(function ($comment) {
             $like = false;
             if (!empty($user)) {
-                $like = Like::where([
-                    'user_id' => $user->id,
-                    'type' => 1,
-                    'model_type' => get_class($comment),
-                    'model_id' => $comment->id
-                ])->first() ? true : false;
+                $like = $this->likeRepo->isCommentLikedByUser($this->user->id, $comment->id);
             }
             $comment->like = $like;
             $comment->timeAgo = time_elapsed_string_vi($comment->created_at);
             $comment->author;
-            $comment->child->map(function (Comment $comment) {
+            $comment->child->map(function ($comment) {
                 $user = auth('api')->user();
                 $like = false;
-                $comment->like_count = $liked = Like::where([
-                    'type' => 1,
-                    'model_type' => get_class($comment),
-                    'model_id' => $comment->id
-                ])->count();
+                $comment->like_count = $this->likeRepo->numberCommentLiked($comment->id);
                 if (!empty($user)) {
-                    $like = Like::where([
-                        'user_id' => $user->id,
-                        'type' => 1,
-                        'model_type' => get_class($comment),
-                        'model_id' => $comment->id
-                    ])->first() ? true : false;
+                    $like = $this->likeRepo->isCommentLikedByUser($this->user->id, $comment->id);
                 }
                 $comment->like = $like;
                 $comment->timeAgo = time_elapsed_string_vi($comment->created_at);
@@ -63,8 +63,7 @@ class ProductCommentController extends Controller
             });
             return $comment;
         });
-        $data['data'] = $comments;
-        return response($data, 200);
+        return response($comments, 200);
     }
 
     /**

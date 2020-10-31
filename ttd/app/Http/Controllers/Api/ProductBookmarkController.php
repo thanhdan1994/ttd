@@ -2,51 +2,36 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Bookmark;
-use App\Http\Controllers\Controller;
-use App\Product;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Repositories\Interfaces\BookmarkRepositoryInterface;
 
-class ProductBookmarkController extends Controller
+class ProductBookmarkController extends ApiController
 {
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \App\Bookmark
-     */
-    public function store(Request $request, Product $product)
+    private $bookmarkRepo;
+
+    public function __construct(BookmarkRepositoryInterface  $bookmarkRepository)
     {
-        $bookmark = new Bookmark;
-        try {
-            $bookmark->user_id = $request->user()->id;
-            $bookmark->product_id = $product->id;
-            $bookmark->save();
-        } catch (\Exception $exception) {
-            abort(500, $exception->getMessage());
-        }
-        return response($bookmark,200);
+        parent::__construct();
+        $this->bookmarkRepo = $bookmarkRepository;
     }
 
-    /**
-     * Destroy a Bookmark created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \App\Bookmark
-     */
-    public function destroy(Request $request, Product $product)
+    public function bookmark($productId)
     {
         try {
-            $bookmark = Bookmark::where([
-                'product_id' => $product->id,
-                'user_id' => $request->user()->id
-            ])->firstOrFail();
-            $bookmark->delete();
+            $bookmark = $this->bookmarkRepo->bookmarkProductByUser($this->user->id, $productId);
+            return response($bookmark,200);
         } catch (\Exception $exception) {
             abort(500, $exception->getMessage());
         }
-        return response(null, 200);
+    }
+
+    public function unbookmark($productId)
+    {
+        try {
+            $this->bookmarkRepo->unbookmarkProductByUser($this->user->id, $productId);
+            return response(null, 200);
+        } catch (\Exception $exception) {
+            abort(500, $exception->getMessage());
+        }
     }
 }

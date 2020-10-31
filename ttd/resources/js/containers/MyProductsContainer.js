@@ -5,6 +5,7 @@ import ArticleThumbLeft from "../components/Items/ArticleThumbLeft";
 import UrlService from "../services/UrlService";
 
 function MyProductsContainer({ login }) {
+    const DEFAULT_SIZE = 10;
     const [loading, setLoading] = useState(false);
     const [articles, setArticles] = useState([]);
 
@@ -13,11 +14,11 @@ function MyProductsContainer({ login }) {
         let cancel;
         axios({
             method: 'GET',
-            url: UrlService.getMyProductsUrl(1, 100),
+            url: UrlService.getMyProductsUrl(1, DEFAULT_SIZE),
             cancelToken: new axios.CancelToken(c => cancel = c),
         }).then(response => {
             setLoading(false);
-            setArticles(response.data.data);
+            setArticles(response.data);
         }).catch(e => {
             if (axios.isCancel(e)) return;
         });
@@ -27,7 +28,7 @@ function MyProductsContainer({ login }) {
     if (login) {
         return (
             <section>
-                {loading && Array(5).fill().map((item, index) => {
+                {loading && Array(DEFAULT_SIZE).fill().map((item, index) => {
                     return (<ArticleThumbLeftSkeleton key={index} />);
                 })}
                 {articles.map((article, index) => {

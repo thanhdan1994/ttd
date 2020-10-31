@@ -12,12 +12,13 @@ function HomeContainer({
    handleSetLoading, handleSetPage, handleSetHasMore,
     hasMore
 }) {
+    const DEFAULT_SIZE = 5;
     const observer = useRef();
     const lastArticleElementRef = useCallback(node => {
         if (loading) return;
         if (observer.current) observer.current.disconnect();
         observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && hasMore && page < 4) {
+            if (entries[0].isIntersecting && hasMore && page < DEFAULT_SIZE) {
                 let nextPage = ++page;
                 return loadMoreArticle(nextPage);
             }
@@ -30,13 +31,13 @@ function HomeContainer({
             let cancel;
             axios({
                 method: 'GET',
-                url: UrlService.getProductsUrl(1, 5),
+                url: UrlService.getProductsUrl(1, DEFAULT_SIZE),
                 cancelToken: new axios.CancelToken(c => cancel = c)
             }).then(response => {
-                handleSetArticles(response.data.data);
+                handleSetArticles(response.data);
                 handleSetLoading(false);
                 handleSetPage(page);
-                if (response.data.total_pages <= page) {
+                if (response.data.length < DEFAULT_SIZE) {
                     handleSetHasMore(false);
                 }
             }).catch(e => {
@@ -50,13 +51,13 @@ function HomeContainer({
         let cancel;
         axios({
             method: 'GET',
-            url: UrlService.getProductsUrl(nextPage, 5),
+            url: UrlService.getProductsUrl(nextPage, DEFAULT_SIZE),
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(response => {
-            handleSetArticles(response.data.data);
+            handleSetArticles(response.data);
             handleSetLoading(false);
             handleSetPage(nextPage);
-            if (response.data.total_pages <= nextPage) {
+            if (response.data.length < DEFAULT_SIZE) {
                 handleSetHasMore(false);
             }
         }).catch(e => {
@@ -66,7 +67,7 @@ function HomeContainer({
     }
     return (
         <section>
-            {loading && Array(5).fill().map((item, index) => {
+            {loading && Array(DEFAULT_SIZE).fill().map((item, index) => {
                 if (index === 0) {
                     return (<Article475Skeleton key={index} />);
                 } else {

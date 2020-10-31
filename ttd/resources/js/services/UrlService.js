@@ -7,6 +7,8 @@ if (process.env.NODE_ENV === 'production') {
 
 class UrlService {
     static getUserInfoUrl() { return apiDomain + 'api/user'}
+    static getCategoriesUrl() { return apiDomain + 'api/categories'}
+    static getProductsByCategoryUrl(id) { return apiDomain + 'api/categories/'+ id + '/products'}
     static getInitialDataHomePageUrl() { return apiDomain + 'api/homepage.json'}
     static loginUrl() { return apiDomain + 'api/login'}
     static createUserUrl() { return apiDomain + 'api/register'}
@@ -16,12 +18,7 @@ class UrlService {
     static dislikeProductUrl(id) { return apiDomain + 'api/product/'+id+'/dislike' }
     static getProductsUrl(page, size) { return apiDomain + 'api/product' + '?page=' + page + '&size=' + size }
     static getMyProductsUrl(page, size) { return apiDomain + 'api/my-products' + '?page=' + page + '&size=' + size }
-    static getProductCommentsUrl(id, page) {
-        if (page > 1) {
-            return apiDomain + 'api/product/'+ id +'/comments' + '?page=' + page;
-        }
-        return apiDomain + 'api/product/'+ id +'/comments';
-    }
+    static getCommentsOfProductUrl(id, page, size) {return apiDomain + 'api/product/'+ id +'/comments' + '?page=' + page + '&size=' + size}
     static getProductReportsUrl(id, page) {
         if (page > 1) {
             return apiDomain + 'api/product/'+ id +'/reports' + '?page=' + page;
@@ -29,12 +26,13 @@ class UrlService {
         return apiDomain + 'api/product/'+ id +'/reports';
     }
     static likeCommentUrl(id) { return apiDomain + 'api/comment/' + id + '/like' }
-    static unlikeCommentUrl(id) { return apiDomain + 'api/comment/' + id + '/like' }
+    static unlikeCommentUrl(id) { return apiDomain + 'api/comment/' + id + '/unlike' }
     static sendCommentUrl(id) { return apiDomain + 'api/product/' + id + '/comment' }
     static sendReportUrl(id) { return apiDomain + 'api/product/' + id + '/report' }
     static getReportUrl(id) { return apiDomain + 'api/report/'+id }
-    static addOrRemoveBookmarkUrl(id) { return apiDomain + 'api/product/'+id+'/bookmark' }
-    static getProductsBookmarkUrl(page, size) { return apiDomain + 'api/bookmark' + '?page=' + page + '&size=' + size }
+    static bookmarkProductUrl(id) { return apiDomain + 'api/product/'+id+'/bookmark' }
+    static unbookmarkProductUrl(id) { return apiDomain + 'api/product/'+id+'/unbookmark' }
+    static getProductsBookmarkUrl(page, size) { return apiDomain + 'api/my-bookmark' + '?page=' + page + '&size=' + size }
     static getProductsNearbyUrl(lat, long, page = 1, size = 10) { return apiDomain + 'api/product/nearby' + '?lat='+lat+'&long='+long+'&page=' + page + '&size=' + size }
     static getNotificationsUrl(page = 1, size = 10) { return apiDomain + 'api/notifications'+'?page='+page+'&size='+size }
     static setReadNotificationAtUrl() { return apiDomain + 'api/set-read-notification-at' }

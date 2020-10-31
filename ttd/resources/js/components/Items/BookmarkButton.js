@@ -3,24 +3,23 @@ import { connect } from "react-redux";
 import { handleBookmark } from "../../redux/actions/detailpage";
 import { handleShowModalLogin } from "../../redux/actions";
 import UrlService from "../../services/UrlService";
-import CookieService from "../../services/CookieService";
 
 const BookmarkButton = ({ bookmark, handleBookmark, login, handleShowModalLogin, productId }) => {
     const [loading, setLoading] = useState(false);
-    function addBookmark() {
+    function bookmarkProduct() {
         setLoading(true);
         axios({
-            url: UrlService.addOrRemoveBookmarkUrl(productId),
+            url: UrlService.bookmarkProductUrl(productId),
             method: 'post'
         }).then(response => {
             handleBookmark(true);
             setLoading(false);
         }).catch(e => {});
     }
-    function removeBookmark() {
+    function unbookmarkProduct() {
         setLoading(true);
         axios({
-            url: UrlService.addOrRemoveBookmarkUrl(productId),
+            url: UrlService.unbookmarkProductUrl(productId),
             method: 'delete'
         }).then(response => {
             handleBookmark(false);
@@ -32,12 +31,12 @@ const BookmarkButton = ({ bookmark, handleBookmark, login, handleShowModalLogin,
             if (loading) {
                 return <span><i className="far fa-bookmark text-primary" /> Đã đánh dấu</span>
             }
-            return <span onClick={removeBookmark}><i className="far fa-bookmark text-primary" /> Đã đánh dấu</span>
+            return <span onClick={unbookmarkProduct}><i className="far fa-bookmark text-primary" /> Đã đánh dấu</span>
         } else {
             if (loading) {
                 return <span><i className="far fa-bookmark" /> Đánh dấu</span>
             }
-            return <span onClick={addBookmark}><i className="far fa-bookmark" /> Đánh dấu</span>
+            return <span onClick={bookmarkProduct}><i className="far fa-bookmark" /> Đánh dấu</span>
         }
     }
     return <span onClick={handleShowModalLogin}><i className="far fa-bookmark" /> Đánh dấu</span>

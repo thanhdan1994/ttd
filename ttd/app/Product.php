@@ -10,6 +10,20 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
+ * @property int id
+ * @property int user_id
+ * @property int category_id
+ * @property string name
+ * @property string slug
+ * @property string excerpt
+ * @property string phone
+ * @property double amount
+ * @property string address
+ * @property string lat
+ * @property string long
+ * @property string content
+ * @property int featured_image
+ * @property string properties
  * @property mixed author
  */
 class Product extends Model implements HasMedia
@@ -59,6 +73,17 @@ class Product extends Model implements HasMedia
     public function scopeLoggedUser($query)
     {
         return $query->where('user_id', Auth::id());
+    }
+
+    /**
+     * Scope a query to only include active users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePublish($query)
+    {
+        return $query->where('status', 1);
     }
 
     public function category()

@@ -46,6 +46,13 @@ class Category extends Model implements HasMedia
             });
     }
 
+    public function products()
+    {
+        return $this->hasMany(Product::class)
+            ->where(['status' => 1])
+            ->orderBy('id', 'desc');
+    }
+
     public function thumbnail()
     {
         return $this->hasOne(Media::class, 'id', 'featured_image');
