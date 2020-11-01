@@ -4,15 +4,15 @@ import { handleShowNotificationModal, handleShowModalLogin, handleSetNotificatio
 import NotificationModal from "../modals/NotificationModal";
 import UrlService from "../../services/UrlService";
 
-function Notification({ handleShowNotificationModal, handleShowModalLogin, login, numberNotSeen, handleSetNotifications }) {
+function Notification({ handleShowNotificationModal, handleShowModalLogin, login, numberCommentUnread, handleSetNotifications }) {
     function handleSeenNotification() {
         handleShowNotificationModal();
-        if (numberNotSeen) {
+        if (numberCommentUnread) {
             axios({
                 url: UrlService.setReadNotificationAtUrl(),
                 method: 'post'
             }).catch(e => console.log(e));
-            handleSetNotifications({notifications: [], numberNotSeen: 0});
+            handleSetNotifications({notifications: [], numberCommentUnread: 0});
         }
     }
     if (login) {
@@ -20,7 +20,7 @@ function Notification({ handleShowNotificationModal, handleShowModalLogin, login
             <>
                 <a onClick={ handleSeenNotification } className="notification">
                     <span className="bell-icon"><i className="fas fa-2x fa-bell"></i></span>
-                    {numberNotSeen > 0 && <span className="badge">{numberNotSeen}</span>}
+                    {numberCommentUnread > 0 && <span className="badge">{numberCommentUnread}</span>}
                 </a>
                 <NotificationModal />
             </>
@@ -34,6 +34,6 @@ function Notification({ handleShowNotificationModal, handleShowModalLogin, login
 }
 
 const mapStateToProps = state => {
-    return { login: state.user.login, numberNotSeen: state.user.notifications.numberNotSeen };
+    return { login: state.user.login, numberCommentUnread: state.user.notifications.numberCommentUnread };
 };
 export default connect(mapStateToProps, { handleShowNotificationModal, handleShowModalLogin, handleSetNotifications })(Notification);

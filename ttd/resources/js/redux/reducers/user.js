@@ -5,7 +5,7 @@ const initialState = {
     login: CookieService.get('access_token') ? true : false,
     notifications: {
         notifications: [],
-        numberNotSeen: 0
+        numberCommentUnread: 0
     },
 
 };
@@ -23,7 +23,7 @@ export default function (state = initialState, action) {
                 ...state,
                 notifications: {
                     notifications: [...state.notifications.notifications, ...action.data.notifications],
-                    numberNotSeen: action.data.numberNotSeen
+                    numberCommentUnread: action.data.numberCommentUnread
                 }
             }
         }
@@ -32,7 +32,7 @@ export default function (state = initialState, action) {
                 ...state,
                 notifications: {
                     notifications: [action.data, ...state.notifications.notifications],
-                    numberNotSeen: ++state.notifications.numberNotSeen
+                    numberCommentUnread: ++state.notifications.numberCommentUnread
                 }
             }
         }

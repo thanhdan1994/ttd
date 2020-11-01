@@ -40,7 +40,10 @@ class NotificationController extends ApiController
 
     public function setReadNotification()
     {
-        $readNotificationAt = $this->notificationRepo->readNotificationAtByUser($this->user->id);
-        return response($readNotificationAt, 200);
+        $isCreated = $this->notificationRepo->createReadNotificationAtByUser($this->user->id);
+        if ($isCreated) {
+            return response(['status' => 'success'], 200);
+        }
+        abort(500, 'có lỗi đã xảy ra');
     }
 }

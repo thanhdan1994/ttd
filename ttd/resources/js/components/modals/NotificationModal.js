@@ -17,10 +17,7 @@ function NotificationModal({
     const [loading, setLoading] = useState(false);
     const observer = useRef();
     const lastNotificationElementRef = useCallback(node => {
-        if (loading) {
-            console.log('loading true 111');
-            return false;
-        }
+        if (loading) return;
         if (observer.current) observer.current.disconnect();
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting && page < 4 && hasMore) {
@@ -30,7 +27,7 @@ function NotificationModal({
             }
         });
         if (node) observer.current.observe(node);
-    }, [page]);
+    }, [hasMore, loading]);
 
     useEffect(() => {
         axios({
@@ -39,7 +36,7 @@ function NotificationModal({
         }).then(response => {
             handleSetNotifications({
                 notifications: response.data.notifications,
-                numberNotSeen: response.data.numberNotSeen
+                numberCommentUnread: response.data.numberCommentUnread
             });
             if (response.data.notifications.length < 10) {
                 setHasMore(false);
@@ -65,7 +62,7 @@ function NotificationModal({
             setLoading(false);
             handleSetNotifications({
                 notifications: response.data.notifications,
-                numberNotSeen: response.data.numberNotSeen
+                numberCommentUnread: response.data.numberCommentUnread
             });
             setPage(loadNotificationPage);
             if (response.data.notifications.length < 10) {
@@ -82,7 +79,12 @@ function NotificationModal({
                 </div>
                 <div className="modal-body mt-3">
                     <div className="notifications">
-                        {notifications.map((notification, index) => <NotificationItem notification={notification} key={index} ref={lastNotificationElementRef}/>)}
+                        {notifications.map((notification, index) => {
+                            if (notifications.length === (index + 1)) {
+                                return (<NotificationItem notification={notification} key={index} ref={lastNotificationElementRef}/>);
+                            }
+                            return (<NotificationItem notification={notification} key={index}/>);
+                        })}
                     </div>
                     {(page >= 4 && hasMore) && <button onClick={() => loadMoreNotification(page + 1)} className="btn-more-down" style={{backgroundSize: '55px'}} />}
                 </div>

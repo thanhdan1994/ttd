@@ -17,7 +17,7 @@ interface NotificationRepositoryInterface extends BaseRepositoryInterface
 
     public function numberCommentUnreadByUser(int $userId, ReadNotificationAt $readNotificationAt = null) : int;
 
-    public function readNotificationAtByUser(int $userId) : ReadNotificationAt;
+    public function readNotificationAtByUser(int $userId);
 
-    public function createReadNotificationAtByUser(int $userId) : ReadNotificationAt;
+    public function createReadNotificationAtByUser(int $userId) : bool;
 }

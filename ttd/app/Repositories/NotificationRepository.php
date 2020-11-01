@@ -48,9 +48,9 @@ class NotificationRepository extends BaseRepository implements NotificationRepos
 
     /**
      * @param int $userId
-     * @return ReadNotificationAt
+     * @return ReadNotificationAt|null
      */
-    public function readNotificationAtByUser(int $userId): ReadNotificationAt
+    public function readNotificationAtByUser(int $userId)
     {
         return ReadNotificationAt::where('reader', $userId)
             ->orderBy('read_at', 'desc')->first();
@@ -58,9 +58,9 @@ class NotificationRepository extends BaseRepository implements NotificationRepos
 
     /**
      * @param int $userId
-     * @return ReadNotificationAt
+     * @return bool
      */
-    public function createReadNotificationAtByUser(int $userId): ReadNotificationAt
+    public function createReadNotificationAtByUser(int $userId): bool
     {
         $readAt = ReadNotificationAt::firstOrCreate([
             'reader' => $userId
