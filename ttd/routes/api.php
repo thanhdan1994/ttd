@@ -48,9 +48,8 @@ Route::namespace('Api')->group(function () {
         Route::get('user', function (Request $request) {
             return $request->user();
         });
-        Route::get('user/{user}/notifications', 'UserNotificationController@index');
-        Route::get('notifications', 'UserNotificationController@index');
-        Route::post('set-read-notification-at', 'UserNotificationController@setReadNotification');
+        Route::get('notifications', 'NotificationController@listNotificationsByUserLogged');
+        Route::post('set-read-notification-at', 'NotificationController@setReadNotification');
     });
     Route::get('categories/{id}/products', 'CategoryProductController@index');
     Route::get('categories', 'CategoryController@index');

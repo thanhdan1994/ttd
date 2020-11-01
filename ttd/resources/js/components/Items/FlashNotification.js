@@ -2,13 +2,13 @@ import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
 import Alert from "react-bootstrap/Alert";
 
-function FlashNotification({ numberNotSeen }) {
+function FlashNotification({ numberCommentUnread }) {
     const [show, setShow] = useState(false);
     useEffect(() => {
-        if (numberNotSeen) {
+        if (numberCommentUnread) {
             setShow(true);
         }
-    }, [numberNotSeen]);
+    }, [numberCommentUnread]);
     if (show) {
         return (
             <Alert className="flash-notification" variant="success" onClose={() => setShow(false)} dismissible>
@@ -19,6 +19,6 @@ function FlashNotification({ numberNotSeen }) {
     return null;
 }
 const mapStateToProps = state => {
-    return { numberNotSeen: state.user.notifications.numberNotSeen };
+    return { numberCommentUnread: state.user.notifications.numberCommentUnread };
 };
 export default connect(mapStateToProps, null)(FlashNotification);

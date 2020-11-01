@@ -3,6 +3,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property $read_at
+ * Class ReadNotificationAt
+ * @package App
+ */
 class ReadNotificationAt extends Model
 {
     protected $table = 'read_notification_at';

@@ -13,10 +13,12 @@ use App\Repositories\CommentRepository;
 use App\Repositories\Interfaces\BookmarkRepositoryInterface;
 use App\Repositories\Interfaces\CommentRepositoryInterface;
 use App\Repositories\Interfaces\LikeRepositoryInterface;
+use App\Repositories\Interfaces\NotificationRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\Interfaces\ProductServiceRepositoryInterface;
 use App\Repositories\Interfaces\ReportRepositoryInterface;
 use App\Repositories\LikeRepository;
+use App\Repositories\NotificationRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductServiceRepository;
 use App\Repositories\ReportRepository;
@@ -59,6 +61,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             CommentRepositoryInterface::class,
             CommentRepository::class
+        );
+
+        $this->app->bind(
+            NotificationRepositoryInterface::class,
+            NotificationRepository::class
         );
     }
 
