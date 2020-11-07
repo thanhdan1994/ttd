@@ -4,6 +4,8 @@ namespace App\Repositories;
 use App\Comment;
 use App\Repositories\Interfaces\CommentRepositoryInterface;
 use Illuminate\Support\Collection;
+use Mockery\Exception;
+use Symfony\Component\CssSelector\Exception\InternalErrorException;
 
 class CommentRepository extends BaseRepository implements CommentRepositoryInterface
 {
@@ -26,5 +28,18 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
     {
         $skip = $page * $size - $size;
         return $this->model->where($condition)->select($columns)->withCount(['like', 'unlike'])->orderBy($order, $sort)->skip($skip)->take($size)->get();
+    }
+
+    /**
+     * @param array $attribute
+     * @return mixed
+     */
+    public function createComment(array $attribute)
+    {
+        try {
+            $this->create($attribute);
+        } catch (Exception $exception) {
+            throw new InternalErrorException($exception->getMessage());
+        }
     }
 }

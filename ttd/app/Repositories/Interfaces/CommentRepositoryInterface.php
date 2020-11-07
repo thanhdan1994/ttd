@@ -13,4 +13,6 @@ interface CommentRepositoryInterface extends BaseRepositoryInterface
         string $sort = 'desc',
         array $columns = ['*']
     ) : Collection;
+
+    public function createComment(array $attribute);
 }

@@ -1,15 +1,10 @@
 <?php
 namespace App\Http\Controllers\Api;
 
-use App\Comment;
 use App\Http\Controllers\ApiController;
-use App\Like;
-use App\Product;
 use App\Repositories\Interfaces\CommentRepositoryInterface;
 use App\Repositories\Interfaces\LikeRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 class ProductCommentController extends ApiController
 {
@@ -66,37 +61,17 @@ class ProductCommentController extends ApiController
         return response($comments, 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @param  \App\Product $product
-     * @return \Illuminate\View\View
-     */
-    public function store(Request $request, Product $product)
+    public function createComment(Request $request, $productId)
     {
-        $messages = [
-            'content' => 'Địa chỉ email này đã tồn tại',
-        ];
-        $validator = Validator::make($request->all(), [
-            'content' => 'required',
-        ], $messages);
-        if ($validator->fails())
-        {
-            return response(['errors'=>$validator->errors()->all()], 422);
-        }
         $data = $request->all();
-        $data['user_id'] = $request->user()->id;
-        $data['product_id'] = $product->id;
+        $data['user_id'] = $this->user->id;
+        $data['product_id'] = $productId;
         $data['parent'] = $request->parent ? $request->parent : 0;
-        DB::beginTransaction();
         try {
-            $comment = Comment::create($data);
+            $this->commentRepo->createComment($data);
         } catch (\Exception $exception) {
-            DB::rollBack();
             return response(['message' => $exception->getMessage()], 400);
         }
-        DB::commit();
-        return response($comment, 200);
+        return response(['status' => 'success'], 200);
     }
 }

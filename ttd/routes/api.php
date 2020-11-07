@@ -34,7 +34,7 @@ Route::namespace('Api')->group(function () {
         Route::post('product', 'ProductController@createProduct');
         Route::get('my-products', 'ProductController@myProducts');
         Route::get('my-bookmark', 'ProductController@myBookmark');
-        Route::post('product/{product}/comment', 'ProductCommentController@store');
+        Route::post('product/{productId}/comment', 'ProductCommentController@createComment');
         Route::post('product/{product}/report', 'ProductReportController@store');
         // like/dislike product
         Route::post('product/{productId}/like', 'LikeController@likeProduct');
