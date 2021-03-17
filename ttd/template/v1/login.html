@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Slick Css -->
+    <link rel="stylesheet" href="assets/slick/slick.css">
+    <link rel="stylesheet" href="assets/slick/slick-theme.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/login.css">
+</head>
+
+<body>
+    <header class="header d-flex justify-content-between">
+        <h1>
+            <a class="logo" href="#">
+                <img src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/logo.svg" alt="">
+            </a>
+        </h1>
+        <button class="btn btn-search text-light" type="button" data-toggle="modal" data-target="#searchModal">
+            <i class="fas fa-search"></i>
+        </button>
+    </header>
+    <section class="tool-top">
+        <ul class="list-tool d-flex justify-content-around">
+            <li>
+                <a href="#" title="" data-toggle="modal" data-target="#contentModalPropensity">
+                    <i class="icon icon-trend"></i> Xu hướng
+                </a>
+            </li>
+            <li>
+                <a href="#" title="" data-toggle="modal" data-target="#contentModalMostView">
+                    <i class="icon icon-hot"></i> Nổi bật
+                </a>
+            </li>
+            <li>
+                <a href="#" title="" data-toggle="modal" data-target="#contentModalOffer">
+                    <i class="icon icon-suggest"></i> Đề xuất
+                </a>
+            </li>
+        </ul>
+    </section>
+    <section class="container">
+        <div class="row">
+            <div class="col-md-5 mx-auto">
+                <div id="first">
+                    <div class="myform form ">
+                        <div class="logo mb-3">
+                            <div class="col-md-12 text-center">
+                                <h1>Đăng nhập</h1>
+                            </div>
+                        </div>
+                        <form action="" method="post" name="login">
+                            <div class="form-group">
+                                <label for="account">Tài khoản</label>
+                                <input type="text" name="account" class="form-control" id="account">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Mật khẩu</label>
+                                <input type="password" name="password" id="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <p class="text-center">Khi đăng nhập bạn đã đồng ý với <a href="#">điều khoản</a> của chúng tôi</p>
+                            </div>
+                            <div class="col-md-12 text-center ">
+                                <button type="submit" class="btn btn-block btn-red">Login</button>
+                            </div>
+                            <div class="col-md-12 ">
+                                <div class="login-or">
+                                    <hr class="hr-or">
+                                    <span class="span-or">or</span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <p class="text-center">
+                                    <a href="javascript:void();" class="google btn">
+                                        <i class="icon icon-google"></i> Đăng nhập bằng google
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <p class="text-center">Bạn vẫn chưa có tài khoản? <a href="#" id="signup">Đăng ký</a></p>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center mt-3">
+                <h5 class="text-uppercase mb-0" style="font-weight: 700;">Tuổi trẻ cười online</h5>
+                <ul class="list-logo p-0" style="border-bottom: none;">
+                    <li><a href="https://tuoitre.vn/" title="Tin tức, tin nóng, đọc báo điện tử - Tuổi Trẻ Online"><img
+                                src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/icon/icon-tto.svg" alt=""></a></li>
+                    <li><a href="https://cuoituan.tuoitre.vn/"
+                            title="Báo Chí - Tạp Chí - Đọc Báo - Tuổi Trẻ Cuối Tuần - TTO"><img
+                                src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/icon/icon-ttct.svg" alt=""></a></li>
+                    <li><a href="https://tv.tuoitre.vn/"
+                            title="Video tin tức, video tin nóng - Tuổi Trẻ Video Online"><img
+                                src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/icon/icon-tttivi.svg" alt=""></a></li>
+                </ul>
+            </div>
+            <a class="logo-footer" href="/" title="Tuổi Trẻ Cười"><img
+                    src="https://cdncuoi.tuoitre.vn/ttc/sources/mimg/logo-footer.svg" alt=""></a>
+            <ul class="list-social">
+                <li><a href="https://www.facebook.com/tuoitrecuoi/" title="Tuổi Trẻ Cười"><i
+                            class="icon icon-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/tuoitrecuoi.official/" title="Tuổi Trẻ Cười"><i
+                            class="icon icon-instagram"></i></a></li>
+                <li><a href="https://www.youtube.com/channel/UCuZFuykrlN9GUhobrTvP0Bg/videos" title="Tuổi Trẻ Cười"><i
+                            class="icon icon-youtube"></i></a></li>
+            </ul>
+            <dl>
+                <dt>HỢP TÁC NỘI DUNG</dt>
+                <dd><a href="mailto:cuoi@tuoitre.com.vn"><i class="fas fa-envelope"></i> cuoi@tuoitre.com.vn</a></dd>
+            </dl>
+            <dl>
+                <dt>ĐƯỜNG DÂY NÓNG</dt>
+                <dd><a href="tel:0918033133"><i class="fas fa-phone"></i> <strong>0918.033.133 </strong></a>
+                </dd>
+                <dd><a href="tel:02838440538"><i class="fas fa-phone-square"></i> (84.28) <strong>
+                            38.440.538</strong></a></dd>
+            </dl>
+            <dl>
+                <dt>LIÊN HỆ QUẢNG CÁO</dt>
+                <dd><a href="tel:0963020919"><i class="fas fa-phone"></i> <strong>0963.0209.19</strong></a>
+                </dd>
+                <dd><a href="mailto:cuoi@tuoitre.com.vn"><i class="fas fa-envelope"></i>
+                        sales.cuoi@tuoitre.com.vn</a>
+                </dd>
+            </dl>
+            <a class="btn-price-ads" href="#" title="">Bảng giá quảng cáo</a>
+        </div>
+        <div class="bottom-footer">
+            <div class="container">
+                <address>
+                    Số 60A, Hoàng Văn Thụ, Phường 9, Quận Phú Nhuận, Thành phố Hồ Chí Minh, Việt Nam
+                </address>
+                <p>© Copyright 2019 TuoiTreCuoi Online, All rights reserved <br> ® Tuổi Trẻ Cuoi Online giữ bản quyền
+                    nội dung trên website này</p>
+
+            </div>
+
+        </div>
+    </footer>
+    <div class="bottom-bar">
+        <a class="btn-news" href="javascript:void(0)" data-toggle="modal" data-target="#contentModal2">Tin Mới Nhất<i
+                class="icon icon-back"></i></a>
+        <a class="btn-mail" data-toggle="modal" data-target="#sendNewsModal" href="#"><i class="icon icon-mail"></i> Gửi
+            tin</a>
+        <a class="btn-menu" data-toggle="modal" data-target="#menuModal" href="#" title="">Menu</a>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

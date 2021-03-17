@@ -12,7 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.react('resources/js/app.js', 'public/js')
-    .sass('../template/v1/assets/sass/index.scss', 'public/css');
+    .sass('template/v1/assets/sass/index.scss', 'public/css');
 
 mix.extract();
 

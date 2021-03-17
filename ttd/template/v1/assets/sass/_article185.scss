@@ -1,0 +1,18 @@
+article.w-185 {
+    h2 {
+        font-size: 14px;
+        font-weight: bold;
+        padding: 15px 0 0 0;
+        margin-bottom: 0;
+        border-bottom: none;
+    }
+    .thumbnail {
+        width: 185px;
+    }
+    .info {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+}
